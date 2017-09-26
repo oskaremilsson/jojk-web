@@ -1,0 +1,30 @@
+.Seeker .rangeslider {
+    background: #33100b;
+    width: 100%;
+    height: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
+.Seeker .rangeslider__fill {
+    background: #e4442d;
+    border-radius: 0;
+}
+
+.Seeker .rangeslider__handle {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    background: #e4442d;
+    border: 0;
+}
+.Seeker .rangeslider__handle:active,
+.Seeker .rangeslider__handle:focus {
+    outline: none;
+}
+
+.Seeker .rangeslider__handle::after {
+    display: none;
+}

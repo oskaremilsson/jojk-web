@@ -1,0 +1,117 @@
+.PlayerControl {
+    background: #241f20;
+    height: 80px;
+    box-shadow: inset 0px 11px 3px -8px rgba(48,42,43,1);
+}
+
+.PlayerControl .Playing-info {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 64px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.PlayerControl .Track-info {
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+    color: #f7d3c3;
+    padding-left: 8px;
+}
+
+.PlayerControl .Album-cover {
+    height: 60px;
+    width: 60px;
+}
+
+.PlayerControl .Album-cover img {
+    width: 100%;
+}
+
+.PlayerControl .Track-info .Name{
+    font-size: 20px;
+}
+
+.PlayerControl .Track-info .Artist{
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.PlayerControl .Buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 72px;
+    padding-top: 8px;
+    fill: #4b9a90;
+}
+
+.PlayerControl .Play-button {
+    width:60px;
+    height:60px;
+    opacity: 0.9;
+}
+
+.PlayerControl .Skip-button {
+    width:40px;
+    height:40px;
+    opacity: 0.7;
+}
+
+.PlayerControl .ShuffleRepeat {
+    opacity: 0.2;
+    padding: 0 20px;
+}
+
+.PlayerControl .ShuffleRepeat.Active{
+    opacity: 1;
+}
+
+.PlayerControl .mdi-icon:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.PlayerControl .Seeker {
+    display: block;
+}
+
+@media screen and (max-width: 699px) {
+    .PlayerControl {
+        height: 120px;
+    }
+
+    .PlayerControl .Playing-info {
+        align-items: center;
+        width: 100%;
+        top: 8px;
+        position: absolute;
+        height: 40px;
+    }
+
+    .PlayerControl .Track-info {
+        align-items: center;
+        padding: 4px;
+    }
+
+    .PlayerControl .Track-info .Name {
+        font-size: 14px;
+    }
+
+    .PlayerControl .Buttons {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+    
+    .PlayerControl .Playing-info .Album-cover {
+        display: none;
+    }
+}

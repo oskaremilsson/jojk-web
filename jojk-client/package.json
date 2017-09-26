@@ -1,0 +1,23 @@
+{
+  "name": "jojk-it",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.2",
+    "firebase": "^4.3.1",
+    "mdi-react": "^2.0.46",
+    "query-string": "^5.0.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-rangeslider": "^2.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "0.9.5",
+    "react-sidebar": "^2.3.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

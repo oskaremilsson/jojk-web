@@ -1,0 +1,55 @@
+.App {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.App .Sidebar{
+    height: calc(100% - 80px);
+}
+
+.App .Sidebar-drawer {
+    box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.App .Content {
+    flex: 1;
+    height: calc(100vh - 80px);
+    overflow: auto;
+    background: #201C1D;
+}
+
+.App .App-intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2000px;
+}
+
+.App .App-icon {
+    fill: white;
+}
+
+.App .App-logo {
+    height: 80px;
+}
+
+.App .Icon {
+    fill: #f7d3c3;
+}
+
+.App .App-header {
+    height: 150px;
+    padding: 20px;
+    color: #f7d3c3;
+}
+
+@media screen and (max-width: 699px) {
+    .App .Sidebar,
+    .App .Sidebar-drawer {
+        height: 100%;
+    }
+    .App .Content {
+        height: calc(100% - 120px);
+    }
+}

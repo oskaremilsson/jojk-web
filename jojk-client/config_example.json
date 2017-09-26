@@ -1,0 +1,15 @@
+{
+    "firebase": {
+        "apiKey": "firebase-api-key",
+        "authDomain": "yourAp-id.firebaseapp.com",
+        "databaseURL": "https://yourApp-id.firebaseio.com",
+        "storageBucket": "yourApp-id.appspot.com"
+    },
+    "spotify": {
+        "redirectURL": "http://example.com/auth",
+        "baseURL": "https://api.spotify.com/v1/"
+    },
+    "auth": {
+        "URL": "https://authserver.example.com"
+    }
+}

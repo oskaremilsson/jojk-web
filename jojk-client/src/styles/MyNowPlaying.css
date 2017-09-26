@@ -1,0 +1,13 @@
+.MyNowPlaying {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+
+@media screen and (max-width: 699px) {
+    .MyNowPlaying {
+        z-index: 0;
+    }
+}

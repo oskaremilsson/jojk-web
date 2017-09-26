@@ -1,0 +1,8 @@
+{
+    "host": "",
+    "port": 8080,
+    "spotify_client": "clientID",
+    "spotify_secret": "secretID",
+    "spotify_redirectURL": "httpd://example.com/auth",
+    "firebase_cred_file": "cred/credfile.json"
+}

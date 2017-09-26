@@ -1,0 +1,65 @@
+.Login .Background{
+  background: url('./../images/apple_background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(15px);
+}
+
+.Login .App-logo {
+  /*animation: App-logo-spin infinite 20s linear;*/
+  height: 40vh;
+}
+
+.Login .App-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Login a {
+  margin-top: 15vh;
+  text-decoration: none;
+}
+
+.Login .Button {
+  width: 350px;
+  height: 100px;
+  background: #241f20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f7d3c3;
+  border-radius: 20px;
+  font-size: 28px;
+}
+
+.Login .Button .Spotify-icon {
+  width: 60px;
+  height: 60px;
+  fill: #72d761;
+}
+
+.Login .Button span{
+  margin-left: 8px;
+}
+
+.Login .Button:hover {
+  opacity: 0.8;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
