@@ -70,6 +70,7 @@ class Server(BaseHTTPRequestHandler):
 
             return json.dumps(data)
         except Exception, e:
+            print e
             return 'Failed'
     def refresh_token(self, token):
         """
@@ -78,7 +79,7 @@ class Server(BaseHTTPRequestHandler):
         try:
             global CONFIG
 
-            decoded = jwt.decode(token[0], CLIENT_SECRET, algorithms=['HS256'])
+            decoded = jwt.decode(token[0], CONFIG['spotify_secret'], algorithms=['HS256'])
             token = decoded.get('refresh_token')
             url     = 'https://accounts.spotify.com/api/token'
             payload = { 'grant_type' : 'refresh_token',
@@ -91,8 +92,8 @@ class Server(BaseHTTPRequestHandler):
             data = json.loads(res.text)
 
             return json.dumps(data)
-        except Exception:
-            print Exception
+        except Exception, e:
+            print e
             return 'Failed'
 
     def do_GET(self):
