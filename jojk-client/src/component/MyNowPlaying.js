@@ -69,26 +69,33 @@ class MyNowPlaying extends Component {
     }
 
     renewAuthToken() {
+        clearInterval(this.state.pollSpotify);
         var token = localStorage.getItem('refresh_token');
         axios.get(config.auth.URL +'?refresh=' + token)
         .then(res => {
             localStorage.setItem('access_token', res.data.access_token);
             localStorage.setItem('access_expires', Date.now() + res.data.expires_in*1000);
+
+            this.activateSpotifyInterval(3000);
         })
         .catch(err => {
             console.log(err);
         });
     }
 
-    componentDidMount() {
+    activateSpotifyInterval(ticktime) {
         var _this = this;
-        this.getNowPlayingFromSpotify();
         clearInterval(this.state.pollSpotify);
         var pollSpotify = setInterval(function() {
             _this.getNowPlayingFromSpotify();
-        }, 5000);
+        }, ticktime);
 
         this.setState({pollSpotify: pollSpotify});
+    }
+
+    componentDidMount() {
+        this.getNowPlayingFromSpotify();
+        this.activateSpotifyInterval(3000);
     }
 
     componentWillUnmount() {

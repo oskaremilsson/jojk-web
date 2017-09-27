@@ -2,7 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100vh;
+}
+
+.Auth .Auth-loading .Status {
+    color: #4b9a90;
+    font-size: 2em;
 }
 
 .Auth .Auth-logo {

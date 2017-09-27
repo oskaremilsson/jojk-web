@@ -30,6 +30,8 @@ class CheckLoginStatus extends Component {
                   
                   rootRef.child('profile').set(res.data);
                   _this.props.authSuccess();
+              } else {
+                  _this.props.authError();
               }
             });
 

@@ -52,7 +52,7 @@ class Auth extends Component {
 
           })
           .catch(err => {
-            //console.log(err);
+            console.log(err);
             _this.setState({status:err.toString()});
           });
       }
@@ -62,7 +62,7 @@ class Auth extends Component {
         <div className="Auth">
             <div className="Auth-loading">
                 <img src={Images.logo} className="Auth-logo" alt="logo" />
-                <div>{this.state.status}</div>
+                <div className="Status">{this.state.status}</div>
             </div>
         </div>
     );
