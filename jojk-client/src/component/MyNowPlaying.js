@@ -13,7 +13,8 @@ class MyNowPlaying extends Component {
 
         this.state = {
             track: undefined,
-            pollSpotify: undefined
+            pollSpotify: undefined,
+            prev_track: undefined,
         };
 
         var token = localStorage.getItem('access_token');
@@ -34,17 +35,16 @@ class MyNowPlaying extends Component {
 
         this.spotify.get('me/player')
         .then(res => {
-            _this.setState({
-                track: res.data.item,
-                is_playing: res.data.is_playing,
-                progress_ms: res.data.progress_ms,
-                shuffle_state: res.data.shuffle_state,
-                repeat_state: res.data.repeat_state,
-                is_restricted: res.data.device.is_restricted
-            });
-            
+            if (res.status === 200 && res.data.item.type === 'track') {
+                _this.setState({
+                    track: res.data.item,
+                    is_playing: res.data.is_playing,
+                    progress_ms: res.data.progress_ms,
+                    shuffle_state: res.data.shuffle_state,
+                    repeat_state: res.data.repeat_state,
+                    is_restricted: res.data.device.is_restricted
+                });
 
-            if (res.status === 200) {
                 var user = firebase.auth().currentUser;
                 if (user) {
                     var username = user.uid;
@@ -53,6 +53,10 @@ class MyNowPlaying extends Component {
                     rootRef.child('nowplaying/is_playing').set(res.data.is_playing);
                     rootRef.child('nowplaying/progress_ms').set(res.data.progress_ms);
                     rootRef.child('nowplaying/track').set(res.data.item);
+                }
+
+                if (_this.props.location) {
+                    _this.jojkTrack(res.data.item);
                 }
             }
 
@@ -66,6 +70,25 @@ class MyNowPlaying extends Component {
         }).catch(err => {
             //console.log(err);
         });
+    }
+
+    jojkTrack(track) {
+        var user = firebase.auth().currentUser;
+        if (user) {
+            var username = user.uid;
+            const prevRef = firebase.database().ref('users/' + username + '/prev_track');
+
+            prevRef.once('value').then(prev_track => {
+                if (prev_track.val() !== track.id) {
+                    //new song played, jojk it and store as new previous
+                    const jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city);
+                    jojksRef.push(track);
+                    prevRef.set(track.id);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
     }
 
     renewAuthToken() {
