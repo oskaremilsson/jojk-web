@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import config from './../../config.json';
 import axios from 'axios';
+import ReactTooltip from 'react-tooltip';
 
 import './../styles/PlayerControl.css';
 
@@ -16,10 +17,6 @@ import ShuffleVariant from 'mdi-react/ShuffleVariantIcon';
 class PlayerControl extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            seeker: this.props.progress_ms
-        };
 
         var token = localStorage.getItem('access_token');
         this.spotify = axios.create({
@@ -80,9 +77,13 @@ class PlayerControl extends Component {
             
             var playButton = null;
             if (this.props.is_playing) {
-                playButton = (<PauseCirleOutline onClick={this.playPauseSpotify} className="Play-button"/>);
+                playButton = (<PauseCirleOutline 
+                                onClick={this.playPauseSpotify}
+                                className={'Play-button' + (this.props.is_restricted ? ' Restricted' : '')}/>);
             } else {
-                playButton = (<PlayCirleOutline onClick={this.playPauseSpotify} className="Play-button"/>);
+                playButton = (<PlayCirleOutline 
+                                onClick={this.playPauseSpotify}
+                                className={'Play-button' + (this.props.is_restricted ? ' Restricted' : '')}/>);
             }
 
             return (
@@ -96,26 +97,35 @@ class PlayerControl extends Component {
                             <p className="Artist">{this.makeArtistDom(track)}</p>
                         </div>
                     </div>
-                    <div className="Buttons">
-                        <ShuffleVariant 
-                            className={'ShuffleRepeat' + (this.props.shuffle_state ? ' Active' : '')}
+                    <div className="Controller">
+                        <div className="Buttons" 
+                                data-tip={(this.props.is_restricted ? 'Controller unavailable' : '' )}
+                                data-type='error'>
+                        <ShuffleVariant
+                            className={'ShuffleRepeat' + 
+                                        (this.props.shuffle_state ? ' Active' : '' ) + 
+                                        (this.props.is_restricted ? ' Restricted' : '')}
                             onClick={this.toggleShuffleSpotify}
                             />
                         <SkipPreviousCircleOutline 
                             onClick={this.previousTrackSpotify} 
-                            className="Skip-button"
+                            className={'Skip-button' + (this.props.is_restricted ? ' Restricted' : '')}
                             />
                         {playButton}
                         <SkipNextCircleOutline 
                             onClick={this.nextTrackSpotify} 
-                            className="Skip-button"
+                            className={'Skip-button' + (this.props.is_restricted ? ' Restricted' : '')}
                             />
-                        <RepeatButton repeat_state={this.props.repeat_state} />
+                        <RepeatButton repeat_state={this.props.repeat_state} is_restricted={this.props.is_restricted} />
+                        </div>
                     </div>
                     <Seeker 
                         progress_ms={this.props.progress_ms} 
                         duration_ms={track.duration_ms}
+                        is_restricted={this.props.is_restricted}
                         />
+                    <ReactTooltip 
+                        delayShow={100}/>
                 </div>
             );
         } else {

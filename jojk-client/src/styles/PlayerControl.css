@@ -43,6 +43,13 @@
     opacity: 0.8;
 }
 
+.PlayerControl .Controller {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
 .PlayerControl .Buttons {
     display: flex;
     align-items: center;
@@ -52,6 +59,20 @@
     padding-top: 8px;
     fill: #4b9a90;
 }
+
+.PlayerControl .Buttons .Active{
+    opacity: 1;
+}
+
+.PlayerControl .Buttons .Restricted {
+    pointer-events: none;
+    opacity: 0.1;
+    fill: #e4442d;
+}
+
+/*.PlayerControl .ShuffleRepeat.Active{
+    opacity: 1;
+}*/
 
 .PlayerControl .Play-button {
     width:60px;
@@ -68,10 +89,6 @@
 .PlayerControl .ShuffleRepeat {
     opacity: 0.2;
     padding: 0 20px;
-}
-
-.PlayerControl .ShuffleRepeat.Active{
-    opacity: 1;
 }
 
 .PlayerControl .mdi-icon:hover {

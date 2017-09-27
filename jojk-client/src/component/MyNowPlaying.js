@@ -39,7 +39,8 @@ class MyNowPlaying extends Component {
                 is_playing: res.data.is_playing,
                 progress_ms: res.data.progress_ms,
                 shuffle_state: res.data.shuffle_state,
-                repeat_state: res.data.repeat_state
+                repeat_state: res.data.repeat_state,
+                is_restricted: res.data.device.is_restricted
             });
             
 
@@ -105,6 +106,7 @@ class MyNowPlaying extends Component {
                         progress_ms={this.state.progress_ms}
                         shuffle_state={this.state.shuffle_state}
                         repeat_state={this.state.repeat_state}
+                        is_restricted={this.state.is_restricted}
                         />
                 </div>
             );

@@ -48,7 +48,7 @@ class Seeker extends Component {
     render() {
         const {seeker} = this.state;
         return (
-            <div className="Seeker">
+            <div className={'Seeker' + (this.props.is_restricted ? ' Restricted' : '')}>
                 <Slider
                         min={0}
                         max={this.props.duration_ms}

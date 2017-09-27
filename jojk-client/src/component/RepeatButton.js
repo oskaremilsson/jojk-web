@@ -36,12 +36,14 @@ class RepeatButton extends Component {
         var repeatButton;
         if (this.props.repeat_state === 'track') {
             repeatButton = (<RepeatOnce
-                className={'ShuffleRepeat Active'}
+                className={'ShuffleRepeat Active' + (this.props.is_restricted ? ' Restricted' : '')}
                 onClick={this.turnOffRepeat}
                 />);
         } else {
             repeatButton = (<Repeat
-                className={'ShuffleRepeat' + (this.props.repeat_state === 'context' ? ' Active' : '')}
+                className={'ShuffleRepeat' + 
+                            (this.props.repeat_state === 'context' ? ' Active' : '') +
+                            (this.props.is_restricted ? ' Restricted' : '')}
                 onClick={this.toggleRepeat}
                 />);
         }
