@@ -1,0 +1,29 @@
+.BillboardListItem {
+    max-width: 600px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    background: #4b9a90;
+    margin: 8px;
+}
+
+.BillboardListItem .Album-cover {
+    padding: 8px;
+    width: 80px;
+    height: 80px;
+}
+
+.BillboardListItem .Album-cover img {
+    width: 100%;
+}
+
+.BillboardListItem .Track-info {
+    color: #f7d3c3;
+}
+
+
+@media screen and (max-width: 699px) {
+    .BillboardListItem {
+        width: calc(100vw - 16px);
+    }
+}
