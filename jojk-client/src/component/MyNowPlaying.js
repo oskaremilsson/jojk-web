@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as firebase from "firebase";
 import config from './../../config.json';
 import axios from 'axios';
+import dateformat from 'dateformat';
 
 import './../styles/MyNowPlaying.css';
 
@@ -82,7 +83,7 @@ class MyNowPlaying extends Component {
                 if (prev_track.val() !== track.id) {
                     //new song played, jojk it and store as new previous
                     const jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city);
-                    jojksRef.push(track);
+                    jojksRef.child(username + dateformat(Date.now(), 'yymdHH') + track.id).set({track: track, user: username, when: Date.now()});
                     prevRef.set(track.id);
                 }
             }).catch(err => {
@@ -99,7 +100,7 @@ class MyNowPlaying extends Component {
             localStorage.setItem('access_token', res.data.access_token);
             localStorage.setItem('access_expires', Date.now() + res.data.expires_in*1000);
 
-            this.activateSpotifyInterval(3000);
+            this.activateSpotifyInterval(config.spotify.refresh_rate);
         })
         .catch(err => {
             console.log(err);
@@ -118,7 +119,7 @@ class MyNowPlaying extends Component {
 
     componentDidMount() {
         this.getNowPlayingFromSpotify();
-        this.activateSpotifyInterval(3000);
+        this.activateSpotifyInterval(config.spotify.refresh_rate);
     }
 
     componentWillUnmount() {
