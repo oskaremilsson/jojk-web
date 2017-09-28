@@ -44,7 +44,7 @@
     color: #f7d3c3;
 }
 
-@media screen and (max-width: 699px) {
+@media screen and (max-width: 800px) {
     .App .Sidebar,
     .App .Sidebar-drawer {
         height: 100%;

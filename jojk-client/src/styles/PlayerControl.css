@@ -100,7 +100,7 @@
     display: block;
 }
 
-@media screen and (max-width: 699px) {
+@media screen and (max-width: 800px) {
     .PlayerControl {
         height: 120px;
     }
