@@ -1,9 +1,10 @@
 {
     "host": "",
     "port": 8080,
+    "allow-origin": "https://example.com",
     "spotify_client": "clientID",
     "spotify_secret": "secretID",
-    "spotify_redirectURL": "httpd://example.com/auth",
+    "spotify_redirectURL": "https://example.com/auth",
     "firebase_cred_file": "cred/credfile.json",
     "use_ssl": true,
     "pem_file": "server.pem"

@@ -19,9 +19,10 @@ class Server(BaseHTTPRequestHandler):
         Docstring
     """
     def _set_headers(self, content):
+        global CONFIG
         self.send_response(200)
         self.send_header('Content-type', content)
-        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Origin', CONFIG['allow_origin'])
         self.end_headers()
 
     @staticmethod
