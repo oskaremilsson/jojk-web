@@ -26,7 +26,7 @@ class BillboardListItem extends Component {
         return(
             <li className="BillboardListItem">
                 <div className="Album-cover">
-                    <img src={track.album.images[1].url} />
+                    <img src={track.album.images[1].url} alt="album-cover" />
                 </div>
                 <div className="Track-info">
                     <div>{track.name}</div>
