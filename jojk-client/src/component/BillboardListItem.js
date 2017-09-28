@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 //import * as firebase from "firebase";
 //import config from './../../config.json';
 
-
 import './../styles/BillboardListItem.css';
+import Headphones from 'mdi-react/HeadphonesIcon';
 
 class BillboardListItem extends Component {
     makeArtistDom(track) {
@@ -31,6 +31,9 @@ class BillboardListItem extends Component {
                 <div className="Track-info">
                     <div>{track.name}</div>
                     <div className="Artist">{this.makeArtistDom(track)}</div>
+                </div>
+                <div className="User">
+                    <Headphones className="Icon"/>{user}
                 </div>
             </li>
         );
