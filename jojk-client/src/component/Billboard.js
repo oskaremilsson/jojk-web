@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import * as firebase from "firebase";
 import config from './../../config.json';
+import './../styles/Billboard.css';
 
-
-//import './../styles/Billboard.css';
+import BillboardListItem from './BillboardListItem';
 
 class Billboard extends Component {
     constructor(props) {
@@ -33,11 +33,11 @@ class Billboard extends Component {
         if (this.props.location && !this.state.listening) {
              this.setState({listening: true});
  
-             var jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city);
+             var jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city).orderByChild('when');
              this.setState({jojksRef: jojksRef});
  
              jojksRef.on('child_added', function(data) {
-                 _this.setState({jojks: _this.state.jojks.concat([{key: data.key,track:data.val()}])});
+                 _this.setState({jojks: [{key: data.key,jojk:data.val()}].concat(_this.state.jojks)});  
              });
          }
     }
@@ -51,12 +51,14 @@ class Billboard extends Component {
 
     render() {
         return(
-            <div className="Profile">
-                {
-                    this.state.jojks.map((item) => (
-                        <div key={item.key}>{item.track.name}</div>
-                    ))
-                }
+            <div className="Billboard">
+                <ul>
+                    {
+                        this.state.jojks.map((item) => (
+                            <BillboardListItem key={item.key} jojk={item.jojk} />
+                        ))
+                    }
+                </ul>
             </div>
         );
     }
