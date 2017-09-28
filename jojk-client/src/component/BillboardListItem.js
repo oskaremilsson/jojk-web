@@ -13,7 +13,7 @@ class BillboardListItem extends Component {
         for (var i = 0; i < track.artists.length; i++) {
             artist = track.artists[i];
             if (i >= track.artists.length - 1) {
-                comma = null;
+                comma = '';
             }
             artists.push(artist.name + comma);
         }
