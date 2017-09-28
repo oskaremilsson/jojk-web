@@ -39,7 +39,7 @@ class PlayerControl extends Component {
             if (i >= track.artists.length - 1) {
                 comma = null;
             }
-            artists.push((<span key={artist.id}>{artist.name}{comma}</span>));
+            artists.push(artist.name + comma);
         }
         return artists;
     }
