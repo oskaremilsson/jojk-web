@@ -108,12 +108,8 @@ class Server(BaseHTTPRequestHandler):
             self._set_headers('application/json')
             self.wfile.write(self.refresh_token(params['refresh']))
         else:
-            path = os.path.abspath(__file__)
-            file_name = os.path.basename(__file__)
-            path = path.replace(file_name, "")
-            f = open(path + "index.html")
-            self._set_headers('text/html')
-            self.wfile.write(f.read())
+            self._set_headers('text/plain')
+            self.wfile.write('Not a valid request')
         
 def run(server_class=HTTPServer, handler_class=Server):
     global CONFIG
@@ -131,7 +127,8 @@ def run(server_class=HTTPServer, handler_class=Server):
     server_address = (CONFIG['host'], CONFIG['port'])
     httpd = server_class(server_address, handler_class)
 
-    httpd.socket = ssl.wrap_socket (httpd.socket, certfile='%sserver.pem'  % (path), server_side=True)
+    if (CONFIG['use_ssl']):
+        httpd.socket = ssl.wrap_socket (httpd.socket, certfile='%s%s'  % (path, CONFIG['pem_file']), server_side=True)
     print 'Starting httpd...'
 
     httpd.serve_forever()
