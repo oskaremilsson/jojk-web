@@ -14,7 +14,7 @@ class Menu extends Component {
                         <li>Profile</li>
                     </Link>
                     <Link to="/">
-                        <li>Cities</li>
+                        <li>My City</li>
                     </Link>
                 </ul>
                 <div className="Quick-buttons">
