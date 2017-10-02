@@ -98,8 +98,9 @@ class App extends Component {
                     children={(
                         <div>
                             <Route exact={true} path="/" render={(props) =>
-                                <Billboard location={this.state.location}/>
+                                <Billboard userLocation={this.state.location}/>
                             } />
+                            <Route path="/:country/:city" component={Billboard} />
                         </div>
                         )}
                     open={this.state.sidebarOpen}

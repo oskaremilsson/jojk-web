@@ -11,3 +11,8 @@ body {
 li {
   list-style: none;
 }
+h1 {
+  text-align: center;
+  color: #f4d0c0;
+  padding: 16px;
+}

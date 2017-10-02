@@ -85,6 +85,9 @@ class MyNowPlaying extends Component {
                     const jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city);
                     jojksRef.child(username + dateformat(Date.now(), 'yymdHH') + track.id).set({track: track, user: username, when: Date.now()});
                     prevRef.set(track.id);
+
+                    const citiesRef = firebase.database().ref('cities/' + this.props.location.country);
+                    citiesRef.child(this.props.location.city + '/key').set(this.props.location.city);
                 }
             }).catch(err => {
                 console.log(err);

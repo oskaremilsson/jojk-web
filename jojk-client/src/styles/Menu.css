@@ -13,10 +13,25 @@
     background: rgba(255,255,255, 0.1);
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.45);
     transition: background-color 0.3s ease;
+    position: relative;
 }
 
-.Menu li:hover {
+.Menu li:hover,
+.Menu .Sub-menu li:hover {
     background: #4b9a90;
+    cursor: pointer;
+}
+
+.Menu .ExpandableIcon {
+    position: absolute;
+    right: 4px;
+    top: 8px;
+    fill: #f7d3c3;
+    transition: transform 200ms linear;
+}
+
+.Menu .ExpandableIcon.Expanded {
+    transform: rotate(180deg);
 }
 
 .Menu a {
@@ -30,6 +45,32 @@
     left: 0;
     padding: 4px;
     fill: #f7d3c3;
+}
+
+
+.Menu .Sub-menu {
+    height: 0;
+    overflow: hidden;
+}
+
+.Menu .City-menu {
+    height: 40px;
+    overflow: hidden;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.45);
+}
+
+.Menu .City-menu.Expanded,
+.Menu .Sub-menu.Expanded {
+    height: 100%;
+}
+
+.Menu .City-menu li {
+    background: rgba(255,255,255, 0.2);
+}
+
+.Menu .City-menu .City {
+    margin-left: 8px;
+    background: #3c8076;
 }
 
 @media screen and (max-width: 800px) {

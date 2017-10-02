@@ -54,7 +54,7 @@ class AppRouter extends Component {
       return (
           <div>
             <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
-            <App />
+            <Route path="/" component={App}  />
           </div>
       );
     }

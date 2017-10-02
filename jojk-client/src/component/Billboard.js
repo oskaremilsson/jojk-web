@@ -30,10 +30,10 @@ class Billboard extends Component {
 
     listenForJojks() {
         var _this = this;
-        if (this.props.location && !this.state.listening) {
+        if (this.props.userLocation && !this.state.listening) {
              this.setState({listening: true});
  
-             var jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city).orderByChild('when');
+             var jojksRef = firebase.database().ref('jojks/' + this.props.userLocation.country + '/' + this.props.userLocation.city).orderByChild('when');
              this.setState({jojksRef: jojksRef});
  
              jojksRef.on('child_added', function(data) {
@@ -52,6 +52,7 @@ class Billboard extends Component {
     render() {
         return(
             <div className="Billboard">
+                <h1>{this.props.userLocation ? this.props.userLocation.city : 'Loading location'}</h1>
                 <ul>
                     {
                         this.state.jojks.map((item) => (

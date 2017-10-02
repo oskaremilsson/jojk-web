@@ -1,4 +1,12 @@
 .Billboard {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+}
+
+.Billboard ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
