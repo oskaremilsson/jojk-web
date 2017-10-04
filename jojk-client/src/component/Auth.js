@@ -28,7 +28,7 @@ class Auth extends Component {
     getAuthToken() {
         var _this = this;
         this.setState({status:'Connecting to Spotify'});
-        axios.get('https://192.168.1.116:8081?code=' + this.getCode())
+        axios.get(config.auth.URL + '?code=' + this.getCode())
         .then(res => {
             localStorage.setItem('access_token', res.data.access_token);
             localStorage.setItem('refresh_token', res.data.refresh_token);
