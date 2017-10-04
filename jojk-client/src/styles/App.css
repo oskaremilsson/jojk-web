@@ -19,6 +19,10 @@
     background: #201C1D;
 }
 
+.App .Content .Menu-icon {
+    display:none;
+}
+
 .App .App-intro {
     display: flex;
     align-items: center;
@@ -51,5 +55,19 @@
     }
     .App .Content {
         height: calc(100% - 120px);
+    }
+    .App .Content .Menu-icon {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        height: 40px;
+        width: 40px;
+        padding: 5px;
+        z-index: 1;
+        fill: #f7d3c3;
+        background: #201C1D;
+        opacity: 0.8;
+        border-radius: 50px;
     }
 }

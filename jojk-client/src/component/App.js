@@ -8,6 +8,8 @@ import MyNowPlaying from './MyNowPlaying';
 import Menu from './Menu';
 import Billboard from './Billboard';
 
+import MenuIcon from 'mdi-react/MenuIcon';
+
 import './../styles/App.css';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
@@ -40,6 +42,7 @@ class App extends Component {
         this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
         this.closeSidebar = this.closeSidebar.bind(this);
+        this.toggleSidebar = this.toggleSidebar.bind(this);
     }
     componentWillMount() {
         mql.addListener(this.mediaQueryChanged);
@@ -61,6 +64,14 @@ class App extends Component {
 
     closeSidebar() {
         this.setState({sidebarOpen: false});
+    }
+
+    toggleSidebar() {
+        if (this.state.sidebarOpen) {
+            this.setState({sidebarOpen: false});
+        } else {
+            this.setState({sidebarOpen: true});
+        }
     }
     
     getLocation() {
@@ -97,6 +108,7 @@ class App extends Component {
                 <Sidebar sidebar={<Menu closeSidebar={this.closeSidebar} />}
                     children={(
                         <div>
+                            <MenuIcon onClick={this.toggleSidebar} className="Menu-icon" />
                             <Route exact={true} path="/" render={(props) =>
                                 <Billboard userLocation={this.state.location}/>
                             } />
