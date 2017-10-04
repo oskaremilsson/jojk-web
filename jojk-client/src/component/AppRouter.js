@@ -53,6 +53,9 @@ class AppRouter extends Component {
     if (this.state.loggedIn) {
       return (
           <div>
+            <CheckLoginStatus
+                authSuccess={this.authSuccess}
+                authError={this.authError} />
             <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
             <Route path="/" component={App}  />
           </div>
