@@ -67,7 +67,7 @@ class App extends Component {
         var _this = this;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function(pos) {
-                _this.mapsApi.get('json?latlng='+pos.coords.latitude+','+pos.coords.longitude+'&location_type=APPROXIMATE&result_type=locality&key='+config.firebase.apiKey)
+                _this.mapsApi.get('json?latlng='+pos.coords.latitude+','+pos.coords.longitude+'&location_type=APPROXIMATE&result_type=locality&language=en&key='+config.firebase.apiKey)
                 .then(res => {
                     var location = res.data.results[0].address_components;
                     location = {
