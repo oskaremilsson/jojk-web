@@ -1,7 +1,7 @@
 .Menu {
     width: 200px;
     background: #241f20;
-    height: 100%;
+    min-height: 100%;
     color: #f7d3c3;
 }
 
@@ -40,9 +40,6 @@
 }
 
 .Menu .Quick-buttons {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     padding: 4px;
     fill: #f7d3c3;
 }
@@ -86,5 +83,19 @@
     .Menu .Quick-buttons .Icon{
         width: 40px;
         height: 40px;
+    }
+
+    .Menu .ExpandableIcon {
+        top: 18px;
+    }
+    
+    .Menu .ExpandableIcon.Expanded {
+        transform: rotate(180deg);
+    }
+
+    .Menu .City-menu {
+        height: 60px;
+        overflow: hidden;
+        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.45);
     }
 }

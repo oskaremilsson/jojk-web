@@ -14,8 +14,8 @@ class Menu extends Component {
 
         this.state = {
             expanded_cities: false,
-            expanded_country: 'Sweden',
-            cities: undefined,
+            expanded_country: undefined,
+            countries: []
         };
 
         if (firebase.apps.length === 0) {
@@ -33,30 +33,38 @@ class Menu extends Component {
     getCities() {
         var _this = this;
         var cities = firebase.database().ref('cities').orderByChild('key');
-        //this.setState({jojksRef: jojksRef});
 
-        cities.once('value', function(data) {
-            console.log(data.val());
-            _this.setState({cities: data.val()});
-            //_this.setState({jojks: [{key: data.key,jojk:data.val()}].concat(_this.state.jojks)});  
+        cities.on('child_added', function(data) {
+            _this.setState({countries: [{key: data.key,cities:data.val()}].concat(_this.state.countries)});  
         });
+        cities.on('child_changed', function(data) {
+            var arr = _this.state.countries.slice(0);
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].key === data.key) {
+                    arr[i].cities = data.val();
+                }
+            }
+
+            _this.setState({countries: arr});  
+        });
+
     }
 
     makeCitySubMenuDom() {
         var _this = this;
-        var test = (
-            Object.keys(this.state.cities).map(country => (
-                <ul className={'City-menu' + (_this.state.expanded_country === country ? ' Expanded' : '')} key={country}>
-                    <li onClick={this.toggleExpanded}>{country}</li>
-                    {Object.keys(_this.state.cities[country]).map(city => (
-                        <Link key={_this.state.cities[country][city].key} to={'/' + country + '/' + _this.state.cities[country][city].key}>
-                            <li className='City'>{_this.state.cities[country][city].key}</li>
+        var dom = (
+            this.state.countries.map(country => (
+                <ul className={'City-menu' + (_this.state.expanded_country === country.key ? ' Expanded' : '')} key={country.key}>
+                    <li onClick={this.toggleExpanded}>{country.key}</li>
+                    {Object.keys(country.cities).map(city => (
+                        <Link key={city} to={'/' + country.key + '/' + city}>
+                            <li className="City">{city}</li>
                         </Link>
                     ))}
                 </ul>
             ))
         );
-        return test;
+        return dom;
     }
 
     toggleExpanded(event) {
@@ -77,10 +85,13 @@ class Menu extends Component {
     }
 
     render() {
-
+        //onClick={this.props.closeSidebar}
         return(
             <div className="Menu">
-                <ul onClick={this.props.closeSidebar}>
+                <div className="Quick-buttons">
+                    <Link to="/logout"><LogoutIcon className="Icon"/></Link>
+                </div>
+                <ul>
                     <Link to="/profile">
                         <li>Profile</li>
                     </Link>
@@ -90,13 +101,10 @@ class Menu extends Component {
                     <li onClick={this.expandCities}>Other Cities <DownArrow className={'ExpandableIcon' + (this.state.expanded_cities ? ' Expanded' : '')}/></li>
 
                     <ul className={'Sub-menu' + (this.state.expanded_cities ? ' Expanded' : '')}>
-                    {this.state.cities ? 
+                    {this.state.countries ? 
                         this.makeCitySubMenuDom() : ''}
                      </ul>
                 </ul>
-                <div className="Quick-buttons">
-                    <Link to="/logout"><div><LogoutIcon className="Icon"/></div></Link>
-                </div>
             </div>
         );
     }
