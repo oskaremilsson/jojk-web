@@ -56,12 +56,12 @@ class Billboard extends Component {
         if (location.city && !this.state.listening) {
              this.setState({listening: true});
  
-             var jojksRef = firebase.database().ref('jojks/' + location.country + '/' + location.city).orderByChild('when');
+             var jojksRef = firebase.database().ref('jojks/' + location.country + '/' + location.city).orderByChild('when').limitToLast(100);
              this.setState({jojksRef: jojksRef});
              this.setState({city: location.city});
- 
-             jojksRef.on('child_added', function(data) {
-                 _this.setState({jojks: [{key: data.key,jojk:data.val()}].concat(_this.state.jojks)});  
+
+            jojksRef.on('child_added', function(data) {
+                _this.setState({jojks: [...[{key: data.key,jojk:data.val()}], ..._this.state.jojks]});
              });
          }
     }
