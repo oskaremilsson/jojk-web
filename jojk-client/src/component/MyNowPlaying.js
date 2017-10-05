@@ -57,7 +57,7 @@ class MyNowPlaying extends Component {
                 }
 
                 if (_this.props.location) {
-                    _this.jojkTrack(res.data.item);
+                    _this.jojkTrack(res.data.item, res.data.progress_ms);
                 }
             }
 
@@ -73,14 +73,14 @@ class MyNowPlaying extends Component {
         });
     }
 
-    jojkTrack(track) {
+    jojkTrack(track, progress_ms) {
         var user = firebase.auth().currentUser;
         if (user) {
             var username = user.uid;
             const prevRef = firebase.database().ref('users/' + username + '/prev_track');
 
             prevRef.once('value').then(prev_track => {
-                if (prev_track.val() !== track.id) {
+                if (prev_track.val() !== track.id && progress_ms > 5000) {
                     //new song played, jojk it and store as new previous
                     const jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city);
                     jojksRef.child(username + dateformat(Date.now(), 'yymdHH') + track.id).set({track: track, user: username, when: Date.now()});
