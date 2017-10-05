@@ -56,7 +56,7 @@ class Billboard extends Component {
         if (location.city && !this.state.listening) {
              this.setState({listening: true});
  
-             var jojksRef = firebase.database().ref('jojks/' + location.country + '/' + location.city).orderByChild('when').limitToLast(100);
+             var jojksRef = firebase.database().ref('jojks/' + location.country + '/' + location.city).orderByChild('when').limitToLast(50);
              this.setState({jojksRef: jojksRef});
              this.setState({city: location.city});
 
