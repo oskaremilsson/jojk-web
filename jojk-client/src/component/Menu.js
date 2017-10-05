@@ -54,8 +54,14 @@ class Menu extends Component {
         var _this = this;
         var dom = (
             this.state.countries.map(country => (
-                <ul className={'City-menu' + (_this.state.expanded_country === country.key ? ' Expanded' : '')} key={country.key}>
-                    <li onClick={this.toggleExpanded}>{country.key}</li>
+                <ul className={'City-menu' + 
+                    (_this.state.expanded_country === country.key ? ' Expanded' : '')} 
+                    key={country.key}>
+                    <li onClick={this.toggleExpanded}>
+                        {country.key}
+                        <DownArrow className={'ExpandableIcon' + 
+                            (this.state.expanded_country ? ' Expanded' : '')}/>
+                    </li>
                     {Object.keys(country.cities).map(city => (
                         <Link key={city} to={'/' + country.key + '/' + city}>
                             <li className="City">{city}</li>
@@ -96,9 +102,13 @@ class Menu extends Component {
                         <li>Profile</li>
                     </Link>
                     <Link to="/">
-                        <li>My City</li>
+                        <li>My Region</li>
                     </Link>
-                    <li onClick={this.expandCities}>Other Cities <DownArrow className={'ExpandableIcon' + (this.state.expanded_cities ? ' Expanded' : '')}/></li>
+                    <li onClick={this.expandCities}>
+                        Regions
+                        <DownArrow className={'ExpandableIcon' + 
+                            (this.state.expanded_cities ? ' Expanded' : '')}/>
+                    </li>
 
                     <ul className={'Sub-menu' + (this.state.expanded_cities ? ' Expanded' : '')}>
                     {this.state.countries ? 

@@ -66,19 +66,17 @@
 }
 
 .Menu .City-menu .City {
-    margin-left: 8px;
     background: #3c8076;
 }
 
 @media screen and (max-width: 800px) {
     .Menu {
-        background: #4a998f;
         box-shadow: inset 0px -25px 15px -24px rgba(0,0,0,0.69);
     }
 
     .Menu li {
         height: 60px;
-        font-size: 25px;
+        font-size: 20px;
     }
     .Menu .Quick-buttons .Icon{
         width: 40px;
