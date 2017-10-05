@@ -10,8 +10,8 @@ import RepeatButton from './RepeatButton'
 
 import PlayCirleOutline from 'mdi-react/PlayCircleOutlineIcon';
 import PauseCirleOutline from 'mdi-react/PauseCircleOutlineIcon';
-import SkipNextCircleOutline from 'mdi-react/SkipNextCircleOutlineIcon';
-import SkipPreviousCircleOutline from 'mdi-react/SkipPreviousCircleOutlineIcon';
+import SkipNext from 'mdi-react/SkipNextIcon';
+import SkipPrevious from 'mdi-react/SkipPreviousIcon';
 import ShuffleVariant from 'mdi-react/ShuffleVariantIcon';
 
 class PlayerControl extends Component {
@@ -107,12 +107,12 @@ class PlayerControl extends Component {
                                         (this.props.is_restricted ? ' Restricted' : '')}
                             onClick={this.toggleShuffleSpotify}
                             />
-                        <SkipPreviousCircleOutline 
+                        <SkipPrevious 
                             onClick={this.previousTrackSpotify} 
                             className={'Skip-button' + (this.props.is_restricted ? ' Restricted' : '')}
                             />
                         {playButton}
-                        <SkipNextCircleOutline 
+                        <SkipNext
                             onClick={this.nextTrackSpotify} 
                             className={'Skip-button' + (this.props.is_restricted ? ' Restricted' : '')}
                             />

@@ -35,7 +35,7 @@
 }
 
 .PlayerControl .Track-info .Name{
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .PlayerControl .Track-info .Artist{
@@ -70,10 +70,6 @@
     fill: #e4442d;
 }
 
-/*.PlayerControl .ShuffleRepeat.Active{
-    opacity: 1;
-}*/
-
 .PlayerControl .Play-button {
     width:60px;
     height:60px;
@@ -84,6 +80,7 @@
     width:40px;
     height:40px;
     opacity: 0.7;
+    margin: 0 8px;
 }
 
 .PlayerControl .ShuffleRepeat {
@@ -130,5 +127,12 @@
     
     .PlayerControl .Playing-info .Album-cover {
         display: none;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .PlayerControl .Track-info {
+        max-width: 200px;
+        overflow: hidden;
     }
 }
