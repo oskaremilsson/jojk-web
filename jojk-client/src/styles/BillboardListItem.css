@@ -1,15 +1,42 @@
 .BillboardListItem {
     max-width: 600px;
     width: 500px;
-    display: flex;
-    align-items: center;
     background: #4b9a90;
     margin: 8px;
-    position: relative;
+}
+
+.BillboardListItem:active,
+.BillboardListItem:hover {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.BillboardListItem .Expand-icon {
+    position: absolute;
+    left: calc(50% - 12px);
+    bottom: 0;
+    transition: transform 200ms linear;
+    fill: #f7d3c3;
+    box-shadow: outline 0px 6px 5px 0px rgba(0,0,0,0.48);
+}
+
+.BillboardListItem .Expand-icon.Active {
+    transform: rotate(180deg);
 }
 
 .BillboardListItem:nth-child(2n) {
     background: #348075;
+}
+
+.BillboardListItem .Basic-info{
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.BillboardListItem .Basic-info:hover .Expand-icon {
+    fill: #241f20;
 }
 
 .BillboardListItem .Album-cover {
@@ -29,20 +56,73 @@
     font-size: 12px;
 }
 
-.BillboardListItem .User {
-    position: absolute;
-    right: 2px;
-    bottom: 2px;
-    font-size: 11px;
-    color: #241f20;
-    display: flex;
-    
+.BillboardListItem .More-info {
+    height:0;
+    overflow: hidden;
+    padding: 0;
+    opacity: 0;
+    transition: all 100ms linear;
+    box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.48);
+    user-select: none;
 }
 
-.BillboardListItem .User .Icon {
+.BillboardListItem .More-info.Active {
+    opacity: 1;
+    height: 100%;
+    padding: 8px;
+}
+
+.BillboardListItem .Button-list {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 16px;
+}
+
+.BillboardListItem .Info-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.BillboardListItem .Info-button:hover:not(.Not-available) .mdi-icon {
     fill: #241f20;
-    width: 11px;
-    height: 11px;
+} 
+
+.BillboardListItem .Info-button .mdi-icon {
+    fill: #f7d3c3;
+}
+
+.BillboardListItem .Info-button.Not-available {
+    opacity: 0.2;
+    cursor: initial;
+    pointer-events: none;
+}
+
+.BillboardListItem .Info-button.Not-available .mdi-icon{
+    fill: #e4442d;
+}
+
+.BillboardListItem .Jojk-meta {
+    display: flex;
+    justify-content: space-around;
+    font-size: 12px;
+    margin-top: 4px;
+    color: #241f20;
+}
+
+.BillboardListItem .Jojk-meta .User{
+    display: flex;
+    align-items: center;
+    flex-flow: row-reverse;
+}
+
+.BillboardListItem .Jojk-meta .User .Icon {
+    fill: #241f20;
+    width: 12px;
+    height: 12px;
 }
 
 @media screen and (max-width: 800px) {
