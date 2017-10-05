@@ -4,7 +4,7 @@ import * as firebase from "firebase";
 import config from './../../config.json';
 
 import LogoutIcon from 'mdi-react/LogoutIcon';
-import DownArrow from 'mdi-react/ArrowDownDropCircleOutlineIcon';
+import DownArrow from 'mdi-react/MenuDownIcon';
 
 import './../styles/Menu.css';
 
