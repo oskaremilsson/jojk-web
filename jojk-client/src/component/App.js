@@ -96,7 +96,7 @@ class App extends Component {
 
             if (city) {
                 let location = {
-                    city: city.long_name,
+                    city: city,
                     country: country.long_name,
                     country_code: country.short_name
                 }
