@@ -80,8 +80,9 @@ class MyNowPlaying extends Component {
             const prevRef = firebase.database().ref('users/' + username + '/prev_track');
 
             prevRef.once('value').then(prev_track => {
-                if (prev_track.val() !== track.id && progress_ms > 5000) {
-                    //new song played, jojk it and store as new previous
+                if (prev_track.val() !== track.id && progress_ms > track.duration_ms/3) {
+                    // new song played with progess greater than 1/3 of the song
+                    // jojk it and store as new previous
                     const jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city);
                     jojksRef.child(username + dateformat(Date.now(), 'yymdHH') + track.id).set({track: track, user: username, when: Date.now()});
                     prevRef.set(track.id);
