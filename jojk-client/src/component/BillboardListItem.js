@@ -31,11 +31,12 @@ class BillboardListItem extends Component {
     }
 
     toggleExpanded() {
-        if(this.state.expanded) {
+        /*if(this.state.expanded) {
             this.setState({expanded:false});
         } else {
             this.setState({expanded:true});
-        }
+        }*/
+        this.setState({expanded:!this.state.expanded});
     }
 
     togglePlay() {
