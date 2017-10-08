@@ -5,12 +5,6 @@
     margin: 8px;
 }
 
-.BillboardListItem:active,
-.BillboardListItem:hover {
-    outline: none;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-
 .BillboardListItem .Expand-icon {
     position: absolute;
     left: calc(50% - 12px);
