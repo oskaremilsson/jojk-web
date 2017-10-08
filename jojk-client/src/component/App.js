@@ -73,22 +73,45 @@ class App extends Component {
             this.setState({sidebarOpen: true});
         }
     }
+
+    getRegion(lat,long) {
+        let _this = this;
+        this.mapsApi.get('json?latlng='+lat+','+long+'&language=en&key='+config.firebase.apiKey)
+        .then(res => {
+            let components;
+            let country, city;
+
+            for (let i = 0; i < res.data.results.length; i++) {
+                components = res.data.results[i].address_components;
+                components.forEach(component => {
+                    if (component.types.includes('locality')) {
+                        city = component.long_name;
+                    } else if (component.types.includes('administrative_area_level_2')) {
+                        city = component.long_name.replace(' Municipality','');
+                    } else if (component.types.includes('country')) {
+                        country = component;
+                    }
+                });
+            }
+
+            if (city) {
+                let location = {
+                    city: city.long_name,
+                    country: country.long_name,
+                    country_code: country.short_name
+                }
+                _this.setState({location:location});
+            }
+            
+        });
+    }
     
     getLocation() {
         var _this = this;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function(pos) {
-                _this.mapsApi.get('json?latlng='+pos.coords.latitude+','+pos.coords.longitude+'&location_type=APPROXIMATE&result_type=locality&language=en&key='+config.firebase.apiKey)
-                .then(res => {
-                    var location = res.data.results[0].address_components;
-                    location = {
-                        city: location[0].long_name,
-                        country: location[3].long_name,
-                        country_code: location[3].short_name
-                    }
-                    //localStorage.setItem('location', JSON.stringify(location));
-                    _this.setState({location:location});
-                });
+                //_this.mapsApi.get('json?latlng='+pos.coords.latitude+','+pos.coords.longitude+'&location_type=APPROXIMATE&result_type=locality&language=en&key='+config.firebase.apiKey)
+                _this.getRegion(pos.coords.latitude, pos.coords.longitude);
             }, function(error) {
                 console.log(error);
                 if (error.code === 1) {

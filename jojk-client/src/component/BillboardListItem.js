@@ -41,11 +41,9 @@ class BillboardListItem extends Component {
     togglePlay() {
         if (this.state.playing) {
             this.audio.pause();
-            //this.setState({playing:false});
         } else {
             let _this = this;
             this.audio.play();
-            //this.setState({playing:true});
             this.audio.addEventListener('ended', function() { 
                 _this.setState({playing:false});
              }, false);
