@@ -31,29 +31,26 @@ class BillboardListItem extends Component {
     }
 
     toggleExpanded() {
-        /*if(this.state.expanded) {
-            this.setState({expanded:false});
-        } else {
-            this.setState({expanded:true});
-        }*/
         this.setState({expanded:!this.state.expanded});
+        if (!this.state.expanded && this.audio) {
+            this.audio.pause();
+        }
+        this.setState({playing:false});
     }
 
     togglePlay() {
         if (this.state.playing) {
             this.audio.pause();
-            this.setState({playing:false});
+            //this.setState({playing:false});
         } else {
             let _this = this;
-            if (this.audio.src === '') {
-                this.audio.src = this.props.jojk.track.preview_url;
-            }
             this.audio.play();
-            this.setState({playing:true});
+            //this.setState({playing:true});
             this.audio.addEventListener('ended', function() { 
                 _this.setState({playing:false});
              }, false);
         }
+        this.setState({playing:!this.state.playing});
     }
 
     makeArtistDom(track) {
@@ -67,6 +64,13 @@ class BillboardListItem extends Component {
             artists.push(artist.name + comma);
         }
         return artists;
+    }
+
+    componentDidUpdate() {
+        if (this.state.expanded && this.audio.src === '') {
+            this.audio.src = this.props.jojk.track.preview_url;
+            this.audio.load();
+        }
     }
 
     render() {
@@ -84,6 +88,7 @@ class BillboardListItem extends Component {
                     </div>
                     <DownArrow className={'Expand-icon' + (this.state.expanded ? ' Active' : '')} />
                 </div>
+                { this.state.expanded ? 
                 <div className={'More-info' + (this.state.expanded ? ' Active' : '')}>
                     <div className="Button-list">
                         <div className={'Info-button' + (!track.preview_url ? ' Not-available' : '')}
@@ -120,6 +125,7 @@ class BillboardListItem extends Component {
                         <div className="User">{user} <Headphones className="Icon"/></div>
                     </div>
                 </div>
+                : null}
             </li>
         );
     }
