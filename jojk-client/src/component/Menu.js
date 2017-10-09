@@ -13,7 +13,7 @@ class Menu extends Component {
         super(props);
 
         this.state = {
-            expanded_cities: false,
+            expanded_regions: false,
             expanded_country: undefined,
             countries: []
         };
@@ -60,7 +60,7 @@ class Menu extends Component {
                     <li onClick={this.toggleExpanded}>
                         {country.key}
                         <DownArrow className={'ExpandableIcon' + 
-                            (this.state.expanded_country ? ' Expanded' : '')}/>
+                            (this.state.expanded_country === country.key ? ' Expanded' : '')}/>
                     </li>
                     {Object.keys(country.cities).map(city => (
                         <Link key={city} to={'/' + country.key + '/' + city}>
@@ -83,15 +83,10 @@ class Menu extends Component {
     }
 
     expandCities() {
-        if(this.state.expanded_cities) {
-            this.setState({expanded_cities: false});
-        } else {
-            this.setState({expanded_cities: true});
-        }
+        this.setState({expanded_regions: !this.state.expanded_regions});
     }
 
     render() {
-        //onClick={this.props.closeSidebar}
         return(
             <div className="Menu">
                 <div className="Quick-buttons">
@@ -107,10 +102,10 @@ class Menu extends Component {
                     <li onClick={this.expandCities}>
                         Regions
                         <DownArrow className={'ExpandableIcon' + 
-                            (this.state.expanded_cities ? ' Expanded' : '')}/>
+                            (this.state.expanded_regions ? ' Expanded' : '')}/>
                     </li>
 
-                    <ul className={'Sub-menu' + (this.state.expanded_cities ? ' Expanded' : '')}>
+                    <ul className={'Sub-menu' + (this.state.expanded_regions ? ' Expanded' : '')}>
                     {this.state.countries ? 
                         this.makeCitySubMenuDom() : ''}
                      </ul>

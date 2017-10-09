@@ -5,6 +5,10 @@
     margin: 8px;
 }
 
+.BillboardListItem:first-child {
+    margin-top: 0;
+}
+
 .BillboardListItem .Expand-icon {
     position: absolute;
     left: calc(50% - 12px);
