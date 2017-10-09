@@ -7,6 +7,7 @@ import config from './../../config.json';
 import MyNowPlaying from './MyNowPlaying';
 import Menu from './Menu';
 import Billboard from './Billboard';
+import Popup from './Popup';
 
 import MenuIcon from 'mdi-react/MenuIcon';
 
@@ -22,7 +23,12 @@ class App extends Component {
             mql: mql,
             docked: props.docked,
             open: props.open,
-            location: undefined
+            location: undefined,
+            showPopup: false,
+            popupTitle: undefined,
+            popupText: undefined,
+            popupType: undefined,
+            popupButtonText: undefined
         }
 
         this.sidebarStyle = {
@@ -43,6 +49,8 @@ class App extends Component {
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
         this.closeSidebar = this.closeSidebar.bind(this);
         this.toggleSidebar = this.toggleSidebar.bind(this);
+        this.togglePopup = this.togglePopup.bind(this);
+        this.getLocation = this.getLocation.bind(this);
     }
     componentWillMount() {
         mql.addListener(this.mediaQueryChanged);
@@ -78,21 +86,29 @@ class App extends Component {
         let _this = this;
         this.mapsApi.get('json?latlng='+lat+','+long+'&language=en&key='+config.firebase.apiKey)
         .then(res => {
-            let components;
             let country, city;
 
-            for (let i = 0; i < res.data.results.length; i++) {
-                components = res.data.results[i].address_components;
-                components.forEach(component => {
+            res.data.results.some(result => {
+                result.address_components.some(component => {
                     if (component.types.includes('locality')) {
                         city = component.long_name;
-                    } else if (component.types.includes('administrative_area_level_2')) {
-                        city = component.long_name.replace(' Municipality','');
+                    } else if (!city && component.types.includes('administrative_area_level_2')) {
+                        city = component.long_name.replace(/ Municipality.*/, '');
                     } else if (component.types.includes('country')) {
                         country = component;
                     }
+                    if (city && country) {
+                        //no more iterations needed
+                        return true;
+                    }
+                    return false;
                 });
-            }
+                if (city && country) {
+                    //no more iterations needed
+                    return true;
+                }
+                return false;
+            })
 
             if (city) {
                 let location = {
@@ -101,8 +117,7 @@ class App extends Component {
                     country_code: country.short_name
                 }
                 _this.setState({location:location});
-            }
-            
+            }            
         });
     }
     
@@ -110,13 +125,21 @@ class App extends Component {
         var _this = this;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function(pos) {
-                //_this.mapsApi.get('json?latlng='+pos.coords.latitude+','+pos.coords.longitude+'&location_type=APPROXIMATE&result_type=locality&language=en&key='+config.firebase.apiKey)
                 _this.getRegion(pos.coords.latitude, pos.coords.longitude);
             }, function(error) {
                 console.log(error);
                 if (error.code === 1) {
                     //User denied Geolocation
                     //TODO: show some popup with info
+                    _this.setState({
+                        popupTitle: 'Location permission',
+                        popupText: 'To share your tracks, please allow Location',
+                        popupType: 'Info',
+                        popupButtonText: 'Ok, got it'
+                    })
+                } else if (error.code === 2) {
+                    /* geolocation IS NOT available */
+                    console.log('no location available');
                 }
             });
         } else {
@@ -125,15 +148,31 @@ class App extends Component {
         }
     }
 
+    togglePopup() {
+        this.setState({
+            showPopup: !this.state.showPopup
+        });
+    }
+
     render() {
         return (
             <div className="App">
+                {this.state.showPopup ? 
+                    <Popup
+                        title={this.state.popupTitle}
+                        text={this.state.popupText}
+                        type={this.state.popupType}
+                        buttonText={this.state.popupButtonText}
+                        closePopup={this.togglePopup}
+                    />
+                    : null
+                }
                 <Sidebar sidebar={<Menu closeSidebar={this.closeSidebar} />}
                     children={(
                         <div>
                             <MenuIcon onClick={this.toggleSidebar} className="Menu-icon" />
                             <Route exact={true} path="/" render={(props) =>
-                                <Billboard userLocation={this.state.location}/>
+                                <Billboard userLocation={this.state.location} refreshLocation={this.getLocation}/>
                             } />
                             <Route path="/:country/:city" component={Billboard} />
                         </div>

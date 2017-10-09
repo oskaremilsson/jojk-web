@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
 import * as firebase from "firebase";
 import config from './../../config.json';
 import './../styles/Billboard.css';
 
 import BillboardListItem from './BillboardListItem';
+import LocationIcon from 'mdi-react/MapMarkerIcon';
 
 class Billboard extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class Billboard extends Component {
             listening: false,
             jojks: [],
             jojksRef: undefined,
-            city: 'Loading location'
+            city: 'Unknown'
         }
 
         if (firebase.apps.length === 0) {
@@ -35,16 +35,17 @@ class Billboard extends Component {
     }
 
     componentDidUpdate() {
-        var location = this.getLocation();
-
+        let location = this.getLocation();
         if (this.state.city !== location.city) {
             if(this.state.jojksRef) {
                 this.state.jojksRef.off();
-                this.setState({listening: false});
-                this.setState({jojks: []});
+                this.setState({
+                    listening: false,
+                    jojks: []
+                    });
             }
+            this.listenForJojks(location);
         }
-        this.listenForJojks(location);
     }
     componentWillMount() {
         var location = this.getLocation();
@@ -54,16 +55,19 @@ class Billboard extends Component {
     listenForJojks(location) {
         var _this = this;
         if (location.city && !this.state.listening) {
-             this.setState({listening: true});
- 
              var jojksRef = firebase.database().ref('jojks/' + location.country + '/' + location.city).orderByChild('when').limitToLast(50);
-             this.setState({jojksRef: jojksRef});
-             this.setState({city: location.city});
+
+             this.setState(
+                 {
+                    listening: true,
+                    jojksRef: jojksRef,
+                    city: location.city
+                });
 
             jojksRef.on('child_added', function(data) {
                 _this.setState({jojks: [...[{key: data.key,jojk:data.val()}], ..._this.state.jojks]});
              });
-         }
+        }
     }
 
     componentWillUnmount() {
@@ -76,7 +80,15 @@ class Billboard extends Component {
     render() {
         return(
             <div className="Billboard">
-                <h1>{this.state.city}</h1>
+                <h1>{
+                        this.props.userLocation ? 
+                            this.props.userLocation.city === this.state.city ? 
+                                <span onClick={this.props.refreshLocation}><LocationIcon className="Icon"/></span>
+                            : null
+                        : null
+                    }
+                    {this.state.city} 
+                </h1>
                 <ul>
                     {
                         this.state.jojks.map((item) => (
