@@ -64,7 +64,7 @@ class Menu extends Component {
                     </li>
                     {Object.keys(country.cities).map(city => (
                         <Link key={city} to={'/' + country.key + '/' + city}>
-                            <li className="City">{city}</li>
+                            <li onClick={this.props.closeSidebar} className="City">{city}</li>
                         </Link>
                     ))}
                 </ul>
@@ -93,10 +93,10 @@ class Menu extends Component {
                     <Link to="/logout"><LogoutIcon className="Icon"/></Link>
                 </div>
                 <ul>
-                    <Link to="/profile">
+                    <Link to="/profile" onClick={this.props.closeSidebar}>
                         <li>Profile</li>
                     </Link>
-                    <Link to="/">
+                    <Link to="/" onClick={this.props.closeSidebar}>
                         <li>My Region</li>
                     </Link>
                     <li onClick={this.expandCities}>
