@@ -14,7 +14,7 @@ import Album from 'mdi-react/DiskIcon';
 import Artist from 'mdi-react/AccountMultipleIcon';
 import Track from 'mdi-react/MusicNoteIcon';
 import PlaylistPlay from 'mdi-react/PlaylistPlayIcon';
-import PlaylistAdd from 'mdi-react/PlaylistPlayIcon';
+import PlaylistAdd from 'mdi-react/PlaylistPlusIcon';
 import Headphones from 'mdi-react/HeadphonesIcon';
 import DownArrow from 'mdi-react/MenuDownIcon';
 

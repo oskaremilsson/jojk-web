@@ -61,7 +61,6 @@ class AppRouter extends Component {
       );
     }
     else {
-      console.log('show login');
       return (
           <div>
             <Switch>
