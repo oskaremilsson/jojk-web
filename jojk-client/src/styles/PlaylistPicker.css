@@ -1,0 +1,74 @@
+.PlaylistPicker {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.5);
+    z-index:100;
+    overflow: auto;
+}
+
+.PlaylistPicker .PlaylistPicker-inner {
+    background: #4b9a90;
+    color: #f7d3c3;
+    width: 50%;
+    margin: 25px auto;
+}
+
+.PlaylistPicker .PlaylistPicker-inner h1 {
+    padding: 0;
+    padding: 16px;
+    position: relative;
+}
+
+.PlaylistPicker .PlaylistPicker-inner h1 .Icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 8px;
+}
+
+.PlaylistPicker .PlaylistPicker-inner ul {
+    align-items: left;
+}
+
+.PlaylistPicker .PlaylistPicker-inner ul li {
+    width: calc(100% - 32px);
+    padding: 16px;
+    cursor: pointer;
+}
+
+.PlaylistPicker .PlaylistPicker-inner ul li:nth-child(2n) {
+    background: #348075;
+}
+
+.PlaylistPicker .PlaylistPicker-inner ul li:hover {
+    padding: 16px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.PlaylistPicker .PlaylistPicker-inner .Button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.PlaylistPicker .PlaylistPicker-inner .Closebutton {
+    background: #241f20;
+    font-size: 19px;
+    padding: 8px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+
+    .PlaylistPicker .PlaylistPicker-inner {
+        width: calc(100% - 50px);
+        margin: 25px;
+    }
+
+}

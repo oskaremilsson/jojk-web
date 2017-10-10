@@ -57,7 +57,7 @@ class MyNowPlaying extends Component {
                 }
 
                 if (_this.props.location) {
-                    _this.jojkTrack(res.data.item, res.data.progress_ms);
+                    _this.jojkTrack(res.data.item, res.data.context, res.data.progress_ms);
                 }
             }
 
@@ -73,7 +73,7 @@ class MyNowPlaying extends Component {
         });
     }
 
-    jojkTrack(track, progress_ms) {
+    jojkTrack(track, context, progress_ms) {
         var user = firebase.auth().currentUser;
         if (user) {
             var username = user.uid;
@@ -84,7 +84,12 @@ class MyNowPlaying extends Component {
                     // new song played with progess greater than 1/3 of the song
                     // jojk it and store as new previous
                     const jojksRef = firebase.database().ref('jojks/' + this.props.location.country + '/' + this.props.location.city);
-                    jojksRef.child(username + dateformat(Date.now(), 'yymdHH') + track.id).set({track: track, user: username, when: Date.now()});
+                    let jojkInfo = {
+                        track: track,
+                        context: context,
+                        user: username, 
+                        when: Date.now()};
+                    jojksRef.child(username + dateformat(Date.now(), 'yymdHH') + track.id).set(jojkInfo);
                     prevRef.set(track.id);
 
                     const citiesRef = firebase.database().ref('cities/' + this.props.location.country);

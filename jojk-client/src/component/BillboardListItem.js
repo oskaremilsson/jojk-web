@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 //import * as firebase from "firebase";
-//import config from './../../config.json';
+import config from './../../config.json';
+import axios from 'axios';
 import dateformat from 'dateformat';
+import PlaylistPicker from './PlaylistPicker';
 
 import './../styles/BillboardListItem.css';
-
 
 import Play from 'mdi-react/PlayIcon';
 import Pause from 'mdi-react/PauseIcon';
@@ -23,11 +24,21 @@ class BillboardListItem extends Component {
         
         this.state = {
             expanded: false,
-            playing: false
+            playing: false,
+            showPlaylistPicker: false
         }
+
+        var token = localStorage.getItem('access_token');
+        this.spotify = axios.create({
+            baseURL: config.spotify.baseURL,
+            timeout: 2000,
+            headers: {'Authorization': 'Bearer ' + token}
+        });
 
         this.toggleExpanded = this.toggleExpanded.bind(this);
         this.togglePlay = this.togglePlay.bind(this);
+        this.togglePlaylistPicker = this.togglePlaylistPicker.bind(this);
+        this.addToPlaylist = this.addToPlaylist.bind(this);
     }
 
     toggleExpanded() {
@@ -49,6 +60,21 @@ class BillboardListItem extends Component {
              }, false);
         }
         this.setState({playing:!this.state.playing});
+    }
+
+    togglePlaylistPicker() {
+        this.setState({showPlaylistPicker: !this.state.showPlaylistPicker});
+    }
+
+    addToPlaylist(playlistUri) {
+        let playlist = playlistUri.split(':');
+        let userID = playlist[2];
+        let playlistID = playlist[4];
+        this.spotify.post(`users/${userID}/playlists/${playlistID}/tracks`,  {
+            "uris": [this.props.jojk.track.uri]
+        }).then(res => {
+            /* TODO: show some notification-stuff */
+        });
     }
 
     makeArtistDom(track) {
@@ -74,6 +100,7 @@ class BillboardListItem extends Component {
     render() {
         var track = this.props.jojk.track;
         var user = this.props.jojk.user;
+        //var context = this.props.jojk.context;
         return(
             <li className="BillboardListItem">
                 <div className="Basic-info" onClick={this.toggleExpanded}>
@@ -95,7 +122,7 @@ class BillboardListItem extends Component {
                             <div>Preview</div>
                             <audio ref={(audio) => { this.audio = audio; }}></audio>
                         </div>
-                        <div className="Info-button Not-available">
+                        <div className="Info-button" onClick={this.togglePlaylistPicker}>
                             <PlaylistAdd />
                             <div>Add to playlist</div>
                         </div>
@@ -122,6 +149,7 @@ class BillboardListItem extends Component {
                         <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
                         <div className="User">{user} <Headphones className="Icon"/></div>
                     </div>
+                {this.state.showPlaylistPicker ? <PlaylistPicker callback={this.addToPlaylist} close={this.togglePlaylistPicker}/> : null}
                 </div>
                 : null}
             </li>

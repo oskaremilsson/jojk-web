@@ -7,7 +7,7 @@ import Spotify from 'mdi-react/SpotifyIcon';
 
 class Login extends Component {
     render() {
-        const spotify = 'https://accounts.spotify.com/authorize?response_type=code&client_id='+config.spotify.client_id+'&scope=user-read-recently-played%20user-read-currently-playing%20user-read-playback-state%20user-modify-playback-state&redirect_uri=' + config.spotify.redirectURL;
+        const spotify = 'https://accounts.spotify.com/authorize?response_type=code&client_id='+config.spotify.client_id+'&scope=user-read-recently-played%20user-read-currently-playing%20user-read-playback-state%20user-modify-playback-state%20playlist-read-collaborative%20playlist-read-private%20playlist-modify-private%20playlist-modify-public&redirect_uri=' + config.spotify.redirectURL;
         return (
             <div className="Login">
                 <div className="Background"></div>
