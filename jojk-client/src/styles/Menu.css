@@ -3,6 +3,7 @@
     background: #241f20;
     min-height: 100%;
     color: #f7d3c3;
+    font-size: 14px;
 }
 
 .Menu li {
@@ -77,7 +78,6 @@
 
     .Menu li {
         height: 60px;
-        font-size: 20px;
     }
     .Menu .Quick-buttons .Icon{
         width: 40px;
