@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import './../styles/AppRouter.css';
 
@@ -25,7 +25,9 @@ class AppRouter extends Component {
 
   authSuccess() {
     this.setState({loggedIn:true});
-    this.props.history.replace('/');
+    if (this.props.history.location.pathname === '/auth') {
+      this.props.history.replace('/');
+    }
   }
 
   authError() {
@@ -53,23 +55,23 @@ class AppRouter extends Component {
     if (this.state.loggedIn) {
       return (
           <div>
-            <CheckLoginStatus
-                authSuccess={this.authSuccess}
-                authError={this.authError} />
             <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
             <Route path="/" component={App}  />
           </div>
       );
     }
     else {
+      console.log('show login');
       return (
           <div>
-            <Route exact={ true } path="/" component={ Login }/>
-            <Route exact={ true } path="/auth:code?" render={ 
-              (props) => ( <Auth 
-                              authSuccess={this.authSuccess}
-                              authError={this.authError}
-                            />)}/>
+            <Switch>
+              <Route exact={ true } path="/auth:code?" render={ 
+                (props) => ( <Auth 
+                                authSuccess={this.authSuccess}
+                                authError={this.authError}
+                              />)}/>
+              <Route path="/" component={ Login }/>
+            </Switch>
           </div>
       );
     }
