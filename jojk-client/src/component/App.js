@@ -177,7 +177,9 @@ class App extends Component {
                             <Route exact={true} path="/" render={(props) =>
                                 <Billboard token={this.state.token} userLocation={this.state.location} refreshLocation={this.getLocation}/>
                             } />
-                            <Route path="/:country/:city" component={Billboard} />
+                            <Route path="/:country/:city" render={(props) =>
+                                <Billboard token={this.state.token} match={props.match}/>
+                            } />
                         </div>
                         )}
                     open={this.state.sidebarOpen}
