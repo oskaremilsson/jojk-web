@@ -92,7 +92,7 @@ class Billboard extends Component {
                 <ul>
                     {
                         this.state.jojks.map((item) => (
-                            <BillboardListItem key={item.key} jojk={item.jojk} />
+                            <BillboardListItem key={item.key} jojk={item.jojk} token={this.props.token} />
                         ))
                     }
                 </ul>

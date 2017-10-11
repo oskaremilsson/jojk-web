@@ -18,11 +18,13 @@ class PlayerControl extends Component {
     constructor(props) {
         super(props);
 
-        var token = localStorage.getItem('access_token');
         this.spotify = axios.create({
-            baseURL: config.spotify.baseURL,
-            timeout: 2000,
-            headers: {'Authorization': 'Bearer ' + token}
+            baseURL: config.spotify.baseURL
+        });
+        let _this = this;
+        this.spotify.interceptors.request.use(function (config) {
+            config.headers['Authorization'] = 'Bearer ' + _this.props.token;
+            return config;
         });
 
         this.playPauseSpotify = this.playPauseSpotify.bind(this);
@@ -116,7 +118,7 @@ class PlayerControl extends Component {
                             onClick={this.nextTrackSpotify} 
                             className={'Skip-button' + (this.props.is_restricted ? ' Restricted' : '')}
                             />
-                        <RepeatButton repeat_state={this.props.repeat_state} is_restricted={this.props.is_restricted} />
+                        <RepeatButton token={this.props.token} repeat_state={this.props.repeat_state} is_restricted={this.props.is_restricted} />
                         </div>
                     </div>
                     <Seeker 

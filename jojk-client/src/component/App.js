@@ -28,7 +28,8 @@ class App extends Component {
             popupTitle: undefined,
             popupText: undefined,
             popupType: undefined,
-            popupButtonText: undefined
+            popupButtonText: undefined,
+            token: this.props.token
         }
 
         this.sidebarStyle = {
@@ -41,16 +42,15 @@ class App extends Component {
         };
 
         this.mapsApi = axios.create({
-            baseURL: config.maps.baseURL,
-            timeout: 1000
+            baseURL: config.maps.baseURL
         });
-
         this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
         this.closeSidebar = this.closeSidebar.bind(this);
         this.toggleSidebar = this.toggleSidebar.bind(this);
         this.togglePopup = this.togglePopup.bind(this);
         this.getLocation = this.getLocation.bind(this);
+        this.setToken = this.setToken.bind(this);
     }
     componentWillMount() {
         mql.addListener(this.mediaQueryChanged);
@@ -60,6 +60,10 @@ class App extends Component {
 
     componentWillUnmount() {
         this.setState({sidebarDocked: this.state.mql.matches});
+    }
+
+    setToken(token) {
+        this.setState({token: token});
     }
 
     mediaQueryChanged() {
@@ -130,7 +134,6 @@ class App extends Component {
                 console.log(error);
                 if (error.code === 1) {
                     //User denied Geolocation
-                    //TODO: show some popup with info
                     _this.setState({
                         popupTitle: 'Location permission',
                         popupText: 'To share your tracks, please allow Location',
@@ -172,7 +175,7 @@ class App extends Component {
                         <div>
                             <MenuIcon onClick={this.toggleSidebar} className="Menu-icon" />
                             <Route exact={true} path="/" render={(props) =>
-                                <Billboard userLocation={this.state.location} refreshLocation={this.getLocation}/>
+                                <Billboard token={this.state.token} userLocation={this.state.location} refreshLocation={this.getLocation}/>
                             } />
                             <Route path="/:country/:city" component={Billboard} />
                         </div>
@@ -185,7 +188,7 @@ class App extends Component {
                     contentClassName="Content"
                     styles={this.sidebarStyle} />
                 
-                <MyNowPlaying location={this.state.location}/>
+                <MyNowPlaying token={this.state.token} setToken={this.setToken} location={this.state.location}/>
             </div>
         );
     }

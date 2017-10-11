@@ -21,7 +21,7 @@ class CheckLoginStatus extends Component {
 
   componentWillMount() {
     var _this = this;
-    if(this.token) {
+    /*if(this.token) {
       this.spotify.get('me/')
       .then(res => {
           firebase.auth().onAuthStateChanged(function(user) {
@@ -41,7 +41,26 @@ class CheckLoginStatus extends Component {
       });
     } else {
           _this.props.authError();
-    }
+    }*/
+
+    var token = localStorage.getItem('refresh_token');
+    axios.get(config.auth.URL +'?refresh=' + token)
+    .then(res => {
+        localStorage.setItem('access_expires', Date.now() + res.data.expires_in*1000);
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                const rootRef = firebase.database().ref('users/' + user.uid);
+                
+                rootRef.child('profile').set(res.data);
+                _this.props.authSuccess(res.data.access_token);
+            } else {
+                _this.props.authError();
+            }
+          });
+    })
+    .catch(err => {
+        console.log(err);
+    });
   }
 
   render() {

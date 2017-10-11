@@ -15,11 +15,13 @@ class PlaylistPicker extends Component {
             list: []
         }
 
-        var token = localStorage.getItem('access_token');
         this.spotify = axios.create({
-            baseURL: config.spotify.baseURL,
-            timeout: 2000,
-            headers: {'Authorization': 'Bearer ' + token}
+            baseURL: config.spotify.baseURL
+        });
+        let _this = this;
+        this.spotify.interceptors.request.use(function (config) {
+            config.headers['Authorization'] = 'Bearer ' + _this.props.token;
+            return config;
         });
 
         if (firebase.apps.length === 0) {

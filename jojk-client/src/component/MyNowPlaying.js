@@ -18,11 +18,13 @@ class MyNowPlaying extends Component {
             prev_track: undefined,
         };
 
-        var token = localStorage.getItem('access_token');
         this.spotify = axios.create({
-            baseURL: config.spotify.baseURL,
-            timeout: 900,
-            headers: {'Authorization': 'Bearer ' + token}
+            baseURL: config.spotify.baseURL
+        });
+        let _this = this;
+        this.spotify.interceptors.request.use(function (config) {
+            config.headers['Authorization'] = 'Bearer ' + _this.props.token;
+            return config;
         });
 
         if (firebase.apps.length === 0) {
@@ -66,6 +68,7 @@ class MyNowPlaying extends Component {
                 var timeToExpire = (localStorage.getItem('access_expires') - Date.now())/1000;
                 if (timeToExpire < 1300) {
                     _this.renewAuthToken();
+                    //_this.setState({token: undefined});
                 }
             }
         }).catch(err => {
@@ -102,11 +105,12 @@ class MyNowPlaying extends Component {
     }
 
     renewAuthToken() {
+        let _this = this;
         clearInterval(this.state.pollSpotify);
         var token = localStorage.getItem('refresh_token');
         axios.get(config.auth.URL +'?refresh=' + token)
         .then(res => {
-            localStorage.setItem('access_token', res.data.access_token);
+            _this.props.setToken(res.data.access_token);
             localStorage.setItem('access_expires', Date.now() + res.data.expires_in*1000);
 
             this.activateSpotifyInterval(config.spotify.refresh_rate);
@@ -140,7 +144,8 @@ class MyNowPlaying extends Component {
             var track = this.state.track;
             return (
                 <div className="MyNowPlaying">
-                    <PlayerControl 
+                    <PlayerControl
+                        token={this.props.token}
                         track={track} 
                         is_playing={this.state.is_playing} 
                         progress_ms={this.state.progress_ms}

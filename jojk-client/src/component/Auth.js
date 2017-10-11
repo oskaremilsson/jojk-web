@@ -15,6 +15,10 @@ class Auth extends Component {
         this.state= {
             status: 'Loading...'
         }
+
+        if (firebase.apps.length === 0) {
+            firebase.initializeApp(config.firebase);
+        }
     }
     componentWillMount() {
         this.getAuthToken();
@@ -30,13 +34,8 @@ class Auth extends Component {
         this.setState({status:'Connecting to Spotify'});
         axios.get(config.auth.URL + '?code=' + this.getCode())
         .then(res => {
-            localStorage.setItem('access_token', res.data.access_token);
             localStorage.setItem('refresh_token', res.data.refresh_token);
             localStorage.setItem('access_expires', Date.now() + res.data.expires_in*1000);
-            
-            if (firebase.apps.length === 0) {
-                firebase.initializeApp(config.firebase);
-            }
             
             _this.setState({status:'Connecting to JoJk.'});
             firebase.auth().signInWithCustomToken(res.data.firebase_token).catch(function(error) {
@@ -46,7 +45,8 @@ class Auth extends Component {
 
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    _this.props.authSuccess();
+
+                    _this.props.authSuccess(res.data.access_token);
                 }
             });
 

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
-//import * as firebase from "firebase";
 import config from './../../config.json';
 import axios from 'axios';
 import dateformat from 'dateformat';
@@ -28,11 +26,14 @@ class BillboardListItem extends Component {
             showPlaylistPicker: false
         }
 
-        var token = localStorage.getItem('access_token');
         this.spotify = axios.create({
             baseURL: config.spotify.baseURL,
-            timeout: 2000,
-            headers: {'Authorization': 'Bearer ' + token}
+            timeout: 2000
+        });
+        let _this = this;
+        this.spotify.interceptors.request.use(function (config) {
+            config.headers['Authorization'] = 'Bearer ' + _this.props.token;
+            return config;
         });
 
         this.toggleExpanded = this.toggleExpanded.bind(this);
@@ -149,7 +150,11 @@ class BillboardListItem extends Component {
                         <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
                         <div className="User">{user} <Headphones className="Icon"/></div>
                     </div>
-                {this.state.showPlaylistPicker ? <PlaylistPicker callback={this.addToPlaylist} close={this.togglePlaylistPicker}/> : null}
+                {this.state.showPlaylistPicker ? 
+                <PlaylistPicker 
+                    callback={this.addToPlaylist} 
+                    close={this.togglePlaylistPicker}
+                    token={this.props.token}/> : null}
                 </div>
                 : null}
             </li>

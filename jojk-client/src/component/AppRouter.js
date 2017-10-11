@@ -15,7 +15,8 @@ class AppRouter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        loggedIn: 'startup'
+        loggedIn: 'startup',
+        token: undefined
     }
 
     this.authSuccess = this.authSuccess.bind(this);
@@ -23,8 +24,8 @@ class AppRouter extends Component {
     this.loggedOut = this.loggedOut.bind(this);
   }
 
-  authSuccess() {
-    this.setState({loggedIn:true});
+  authSuccess(token) {
+    this.setState({loggedIn:true, token: token});
     if (this.props.history.location.pathname === '/auth') {
       this.props.history.replace('/');
     }
@@ -52,11 +53,12 @@ class AppRouter extends Component {
       </div>
       );
     }
-    if (this.state.loggedIn) {
+    if (this.state.loggedIn && this.state.token) {
+      //console.log(this.state.token);
       return (
           <div>
             <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
-            <Route path="/" component={App}  />
+            <Route path="/" render={(props) => (<App token={this.state.token} /> )} />
           </div>
       );
     }

@@ -9,11 +9,13 @@ class RepeatButton extends Component {
     constructor(props) {
         super(props);
 
-        var token = localStorage.getItem('access_token');
         this.spotify = axios.create({
-            baseURL: config.spotify.baseURL,
-            timeout: 2000,
-            headers: {'Authorization': 'Bearer ' + token}
+            baseURL: config.spotify.baseURL
+        });
+        let _this = this;
+        this.spotify.interceptors.request.use(function (config) {
+            config.headers['Authorization'] = 'Bearer ' + _this.props.token;
+            return config;
         });
 
         this.turnOffRepeat = this.turnOffRepeat.bind(this);
