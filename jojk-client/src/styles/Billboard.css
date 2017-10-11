@@ -4,6 +4,12 @@
     flex-direction: column;
 }
 
+.Billboard h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .Billboard ul {
     display: flex;
     justify-content: center;
@@ -11,8 +17,12 @@
     flex-direction: column;
 }
 
+.Billboard span {
+    display: flex;
+}
+
 .Billboard .Icon {
-    height: 30px;
-    width: 30px;
+    height: 27px;
+    width: 27px;
     cursor: pointer;
 }
