@@ -1,0 +1,59 @@
+.InfoPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.InfoPage .Background{
+    height: 100%;
+    width: 100%;
+    background-size: cover !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    filter: blur(10px);
+    opacity: 0.15;
+}
+
+.InfoPage .Info-wrapper{
+    z-index: 0;
+    padding: 25px;
+    width: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ArtistInfo .Info-wrapper .Artist-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    border: 5px solid #4b9a90;
+}
+.ArtistInfo .Info-wrapper .Genres {
+    color: #4b9a90;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row wrap;
+}
+.ArtistInfo .Info-wrapper .Genres > div{
+    padding: 5px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px #000000;
+    text-align: center;
+}
+.ArtistInfo .Info-wrapper .Top-tracks {
+    width: 100%;
+}
+.ArtistInfo .Info-wrapper .Top-tracks li {
+    padding: 10px;
+    background: rgba(0,0,0,0.3);
+}
+.ArtistInfo .Info-wrapper .Top-tracks li:nth-child(2n) {
+    background: rgba(0,0,0,0.25);
+}
+.ArtistInfo .Info-wrapper .Top-tracks li:hover {
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+}

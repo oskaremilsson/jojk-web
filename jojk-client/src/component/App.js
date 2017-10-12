@@ -7,6 +7,7 @@ import config from './../../config.json';
 import MyNowPlaying from './MyNowPlaying';
 import Menu from './Menu';
 import Billboard from './Billboard';
+import ArtistInfo from './ArtistInfo';
 import Popup from './Popup';
 
 import MenuIcon from 'mdi-react/MenuIcon';
@@ -177,8 +178,11 @@ class App extends Component {
                             <Route exact={true} path="/" render={(props) =>
                                 <Billboard token={this.state.token} userLocation={this.state.location} refreshLocation={this.getLocation}/>
                             } />
-                            <Route path="/:country/:city" render={(props) =>
+                            <Route path="/region/:country/:city" render={(props) =>
                                 <Billboard token={this.state.token} match={props.match}/>
+                            } />
+                            <Route path="/artist/:id" render={(props) =>
+                                <ArtistInfo token={this.state.token} match={props.match} location={this.state.location}/>
                             } />
                         </div>
                         )}

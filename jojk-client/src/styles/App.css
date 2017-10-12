@@ -10,6 +10,7 @@
 
 .App .Sidebar-drawer {
     box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.75);
+    z-index: 5 !important;
 }
 
 .App .Content {
@@ -66,7 +67,7 @@
         height: 40px;
         width: 40px;
         padding: 5px;
-        z-index: 1;
+        z-index: 2;
         fill: #f7d3c3;
         background: #201C1D;
         opacity: 0.8;

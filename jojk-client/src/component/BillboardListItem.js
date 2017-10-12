@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import config from './../../config.json';
 import axios from 'axios';
 import dateformat from 'dateformat';
+import { Link } from 'react-router-dom';
+
 import PlaylistPicker from './PlaylistPicker';
 
 import './../styles/BillboardListItem.css';
@@ -133,10 +135,12 @@ class BillboardListItem extends Component {
                             <Album />
                             <div>Album</div>
                         </div>
-                        <div className="Info-button Not-available">
-                            <Artist />
-                            <div>Artist</div>
-                        </div>
+                        <Link to={'/artist/' + track.artists[0].id}>
+                            <div className="Info-button">
+                                <Artist />
+                                <div>Artist</div>
+                            </div>
+                        </Link>
                         <div className="Info-button Not-available">
                             <Track />
                             <div>Track</div>

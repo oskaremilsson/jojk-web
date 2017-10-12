@@ -63,7 +63,7 @@ class Menu extends Component {
                             (this.state.expanded_country === country.key ? ' Expanded' : '')}/>
                     </li>
                     {Object.keys(country.cities).map(city => (
-                        <Link key={city} to={'/' + country.key + '/' + city}>
+                        <Link key={city} to={'/region/' + country.key + '/' + city}>
                             <li onClick={this.props.closeSidebar} className="City">{city}</li>
                         </Link>
                     ))}
