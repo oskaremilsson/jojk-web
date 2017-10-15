@@ -4,6 +4,7 @@ import axios from 'axios';
 import * as firebase from "firebase";
 
 import './../styles/PlaylistPicker.css';
+import Images from './../images/Images';
 
 import Close from 'mdi-react/CloseIcon';
 
@@ -61,7 +62,13 @@ class PlaylistPicker extends Component {
                     <ul>
                         {
                             this.state.list.map((item) => (
-                                <li user={item.owner.id} id={item.uri} key={item.id} onClick={this.chosen}>{item.name}</li>
+                                <li user={item.owner.id}
+                                    id={item.uri}
+                                    key={item.id}
+                                    onClick={this.chosen}>
+                                    <img src={item.images[0] ? item.images[0].url : Images.plImg} alt="pl-img"/>
+                                    {item.name}
+                                </li>
                             ))
                         }
                     </ul>
