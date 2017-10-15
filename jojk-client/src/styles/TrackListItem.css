@@ -1,0 +1,61 @@
+.TrackListItem {
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(75, 154, 144, 0.1);
+}
+
+.TrackListItem:nth-child(2n) {
+    background: rgba(0,0,0,0.25);
+}
+
+.TrackListItem img{
+    height: 40px;
+    width: 40px;
+}
+
+.TrackListItem .Basic-info {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.TrackListItem .Basic-info:hover {
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+}
+
+.TrackListItem .Basic-info .Track-number {
+    margin: 0 15px;
+}
+
+.TrackListItem .More-info {
+    height:0;
+    overflow: hidden;
+    padding: 8px;
+    opacity: 0;
+    transition: all 100ms linear;
+    user-select: none;
+    color: #241f20;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.48);
+    background: rgba(75, 154, 144, 0.1);
+}
+
+.TrackListItem .More-info.Active {
+    opacity: 1;
+    height: 100%;
+    padding-top: 8px;
+}
+
+.TrackListItem .Info-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    cursor: pointer;
+    fill: #f7d3c3;
+    color: #f7d3c3;
+    margin-right: 4px;
+}

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import config from './../../config.json';
 import axios from 'axios';
 
+import TrackListItem from './TrackListItem';
+
 import './../styles/ArtistInfo.css';
 
 class ArtistInfo extends Component {
@@ -11,7 +13,8 @@ class ArtistInfo extends Component {
         this.state = {
             id : this.props.match.params.id,
             info: undefined,
-            tracks: undefined
+            tracks: undefined,
+            topExpanded: false
         }
 
         this.spotify = axios.create({
@@ -22,6 +25,7 @@ class ArtistInfo extends Component {
             config.headers['Authorization'] = 'Bearer ' + _this.props.token;
             return config;
         });
+        this.toggleTopExpand = this.toggleTopExpand.bind(this);
     }
 
     fetchTopTracks(code) {
@@ -49,16 +53,32 @@ class ArtistInfo extends Component {
         this.fetchTopTracks(code);
     }
 
+    toggleTopExpand() {
+        this.setState({topExpanded: !this.state.topExpanded});
+    }
+
     getTopTracks() {
         let list;
-        if (this.state.tracks) {
+        let tracks = this.state.tracks;
+        let expandend = this.state.topExpanded;
+        if (tracks) {
+            if (!expandend) {
+                tracks = tracks.slice(0, 5);
+            }
             list = (
                 <ul className="Top-tracks">
                     {
-                        this.state.tracks.map(track => (
-                        (<li key={track.id}>{track.name}</li>)
+                        tracks.map((track, i) => (
+                        <TrackListItem 
+                            key={track.id}
+                            token={this.props.token}
+                            track={track}
+                            index={i}
+                        />
                         ))
                     }
+                    <div className="Expand-button"
+                        onClick={this.toggleTopExpand}>Show {expandend ? 'less' : 'more'}</div>
                 </ul>
             );
         } else {
@@ -72,10 +92,20 @@ class ArtistInfo extends Component {
         if (info) {
             return (
                 <div className="InfoPage ArtistInfo">
-                    <div className="Background" style={{background: `url(${info.images[0].url})`}}></div>
+                    <div className="Background" 
+                        style={{background: `url(${info.images[0].url})`}}>
+                    </div>
                     <div className="Info-wrapper">
-                        <img src={info.images[0].url} alt="artist-img" className="Artist-image"/>
+                        <div className="Artist-image" 
+                            style={{background: `url(${info.images[0].url})`}}>
+                        </div>
                         <h1>{info.name}</h1>
+
+                        <div className="Top-tracks-wrapper">
+                            <h3>Top tracks</h3>
+                            {this.getTopTracks()}
+                        </div>
+
                         <div className="Genres">
                             {
                                 info.genres.map(genre => (
@@ -83,9 +113,6 @@ class ArtistInfo extends Component {
                                 ))
                             }
                         </div>
-
-                        <h3>Top tracks</h3>
-                        {this.getTopTracks()}
                     </div>
                 </div>
             );

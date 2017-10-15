@@ -1,13 +1,13 @@
 .PlaylistPicker {
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 75px);
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0, 0.5);
-    z-index:100;
+    z-index:99;
     overflow: auto;
 }
 
@@ -65,10 +65,12 @@
 }
 
 @media screen and (max-width: 800px) {
-
+    .PlaylistPicker {
+        height: calc(100% - 120px);
+    }
     .PlaylistPicker .PlaylistPicker-inner {
-        width: calc(100% - 50px);
-        margin: 25px;
+        width: 100%;
+        margin: 0;
     }
 
 }

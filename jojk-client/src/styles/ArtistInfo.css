@@ -8,9 +8,10 @@
     height: 100%;
     width: 100%;
     background-size: cover !important;
+    background-position: center center !important;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 200px;
     filter: blur(10px);
     opacity: 0.15;
 }
@@ -27,10 +28,32 @@
 .ArtistInfo .Info-wrapper .Artist-image {
     height: 200px;
     width: 200px;
-    border-radius: 100px;
+    border-radius: 100%;
     border: 5px solid #4b9a90;
+    background-size: cover !important;
+    background-position: center center !important;
 }
+
+.ArtistInfo .Info-wrapper .Top-tracks-wrapper,
+.ArtistInfo .Info-wrapper .Top-tracks-wrapper .Top-tracks {
+    width: 100%;
+}
+
+.ArtistInfo .Info-wrapper .Top-tracks-wrapper .Expand-button {
+    cursor: pointer;
+    padding: 12px;
+    margin: 8px;
+    width: 100px;
+    border: 1px solid #4b9a90;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .ArtistInfo .Info-wrapper .Genres {
+    padding: 25px;
+    padding-bottom: 0;
     color: #4b9a90;
     display: flex;
     justify-content: space-around;
@@ -39,21 +62,24 @@
 }
 .ArtistInfo .Info-wrapper .Genres > div{
     padding: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
     text-transform: uppercase;
     text-shadow: 1px 1px #000000;
     text-align: center;
 }
-.ArtistInfo .Info-wrapper .Top-tracks {
-    width: 100%;
-}
-.ArtistInfo .Info-wrapper .Top-tracks li {
-    padding: 10px;
-    background: rgba(0,0,0,0.3);
-}
-.ArtistInfo .Info-wrapper .Top-tracks li:nth-child(2n) {
-    background: rgba(0,0,0,0.25);
-}
-.ArtistInfo .Info-wrapper .Top-tracks li:hover {
-    background: rgba(255,255,255,0.2);
-    cursor: pointer;
+
+@media screen and (max-width: 800px) {
+    .InfoPage .Info-wrapper{
+        padding: 25px 0;
+        width: 100%;
+        user-select: none;
+    }
+    .InfoPage .Background{
+        left: 0;
+    }
+
+    .ArtistInfo .Info-wrapper .Genres {
+        justify-content: space-between;
+    }
 }

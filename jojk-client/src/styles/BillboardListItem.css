@@ -52,6 +52,7 @@
 
 .BillboardListItem .Track-info .Artist {
     font-size: 12px;
+    color: #241f20;
 }
 
 .BillboardListItem .More-info {
@@ -62,6 +63,7 @@
     transition: all 100ms linear;
     box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.48);
     user-select: none;
+    color: #241f20;
 }
 
 .BillboardListItem .More-info.Active {
