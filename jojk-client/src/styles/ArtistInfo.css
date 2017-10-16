@@ -108,6 +108,14 @@
         left: 0;
     }
 
+    .ArtistInfo .Info-wrapper .Album-wrapper .Albums li{
+        width: 150px;
+    }
+
+    .ArtistInfo .Info-wrapper .Album-wrapper .Albums li img{
+        width: 150px;
+    }
+
     .ArtistInfo .Album-wrapper h3 {
         text-align: center;
     }
