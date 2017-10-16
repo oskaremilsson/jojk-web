@@ -14,7 +14,12 @@ class ArtistInfo extends Component {
             id : this.props.match.params.id,
             info: undefined,
             tracks: undefined,
-            topExpanded: false
+            albums: undefined,
+            singles: undefined,
+            topExpanded: false,
+            albumExpanded: false,
+            singleExpanded: false,
+            albumShowCount: 4
         }
 
         this.spotify = axios.create({
@@ -25,7 +30,9 @@ class ArtistInfo extends Component {
             config.headers['Authorization'] = 'Bearer ' + _this.props.token;
             return config;
         });
-        this.toggleTopExpand = this.toggleTopExpand.bind(this);
+        this.toggleTopExpanded = this.toggleTopExpanded.bind(this);
+        this.toggleAlbumExpanded = this.toggleAlbumExpanded.bind(this);
+        this.toggleSingleExpanded = this.toggleSingleExpanded.bind(this);
     }
 
     fetchTopTracks(code) {
@@ -37,10 +44,35 @@ class ArtistInfo extends Component {
         });
     }
 
+    fetchAlbums(code) {
+        let _this = this;
+        this.spotify.get(`/artists/${this.state.id}/albums?market=${code}&album_type=album`).then(albums => {
+            if (albums.data.items.length > 0) {
+                _this.setState({albums: albums.data.items});
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    fetchSingles(code) {
+        let _this = this;
+        this.spotify.get(`/artists/${this.state.id}/albums?market=${code}&album_type=single`).then(singles => {
+            console.log(singles);
+            if (singles.data.items.length > 0) {
+                _this.setState({singles: singles.data.items});
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
     componentWillReceiveProps(props) {
-        let code = props.location ? props.location.country_code : false;
+        let code = props.location && (!this.state.albums || !this.state.tracks) ? props.location.country_code : false;
         if (code) {
             this.fetchTopTracks(code);
+            this.fetchAlbums(code);
+            this.fetchSingles(code);
         }
     }
 
@@ -51,10 +83,20 @@ class ArtistInfo extends Component {
         });
         let code = this.props.location ? this.props.location.country_code : 'SE';
         this.fetchTopTracks(code);
+        this.fetchAlbums(code);
+        this.fetchSingles(code);
     }
 
-    toggleTopExpand() {
+    toggleTopExpanded() {
         this.setState({topExpanded: !this.state.topExpanded});
+    }
+
+    toggleAlbumExpanded() {
+        this.setState({albumExpanded: !this.state.albumExpanded});
+    }
+
+    toggleSingleExpanded() {
+        this.setState({singleExpanded: !this.state.singleExpanded});
     }
 
     getTopTracks() {
@@ -77,8 +119,14 @@ class ArtistInfo extends Component {
                         />
                         ))
                     }
-                    <div className="Expand-button"
-                        onClick={this.toggleTopExpand}>Show {expandend ? 'less' : 'more'}</div>
+                    {
+                        this.state.tracks.length > 5 ?
+                            <div className="Expand-button"
+                                onClick={this.toggleTopExpanded}>
+                                Show {expandend ? 'less' : 'more'}
+                            </div>
+                        : null
+                    }
                 </ul>
             );
         } else {
@@ -87,8 +135,58 @@ class ArtistInfo extends Component {
         return list;
     }
 
+    getAlbums() {
+        let list;
+        let albums = this.state.albums;
+        let expandend = this.state.albumExpanded;
+        if (!expandend) {
+            albums = albums.slice(0, this.state.albumShowCount);
+        }
+
+        list = (
+            <ul className="Albums">
+                {
+                    albums.map(album => (
+                        <li key={album.id} >
+                                <img src={album.images[1].url} alt="cover-img"/>
+                                <h3>{album.name}</h3>
+                        </li>
+                    ))
+                }
+            </ul>
+        );
+        
+        return list;
+    }
+
+    getSingles() {
+        let list;
+        let singles = this.state.singles;
+        let expandend = this.state.singleExpanded;
+        if (!expandend) {
+            singles = singles.slice(0, this.state.albumShowCount);
+        }
+        
+        list = (
+            <ul className="Albums">
+                {
+                    singles.map(single => (
+                        <li key={single.id}>
+                                <img src={single.images[1].url} alt="cover-img"/>
+                                <h3>{single.name}</h3>
+                        </li>
+                    ))
+                }
+            </ul>
+        );
+        
+        return list;
+    }
+
     render() {
         let info = this.state.info;
+        let albums = this.state.albums;
+        let singles = this.state.singles;
         if (info) {
             return (
                 <div className="InfoPage ArtistInfo">
@@ -102,9 +200,43 @@ class ArtistInfo extends Component {
                         <h1>{info.name}</h1>
 
                         <div className="Top-tracks-wrapper">
-                            <h3>Top tracks</h3>
+                            <h3>Popular tracks</h3>
                             {this.getTopTracks()}
                         </div>
+
+                        {
+                            albums ? 
+                                <div className="Album-wrapper">
+                                    <h3>Albums</h3>
+                                    {this.getAlbums()}
+                                    {
+                                        this.state.albums.length > this.state.albumShowCount ?
+                                            <div className="Expand-button"
+                                                onClick={this.toggleAlbumExpanded}>
+                                                Show {this.state.albumExpanded ? 'latest' : 'all'}
+                                            </div>
+                                        : null
+                                    }
+                                </div>
+                            : null 
+                        }
+
+                        {
+                            singles ? 
+                                <div className="Album-wrapper">
+                                    <h3>Singles</h3>
+                                    {this.getSingles()}
+                                    {
+                                        this.state.singles.length > this.state.albumShowCount ?
+                                            <div className="Expand-button"
+                                                onClick={this.toggleSingleExpanded}>
+                                                Show {this.state.singleExpanded ? 'latest' : 'all'}
+                                            </div>
+                                        : null
+                                    }
+                                </div>
+                            : null 
+                        }
 
                         <div className="Genres">
                             {

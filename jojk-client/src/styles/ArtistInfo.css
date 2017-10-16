@@ -35,11 +35,12 @@
 }
 
 .ArtistInfo .Info-wrapper .Top-tracks-wrapper,
-.ArtistInfo .Info-wrapper .Top-tracks-wrapper .Top-tracks {
+.ArtistInfo .Info-wrapper .Top-tracks-wrapper .Top-tracks,
+.ArtistInfo .Info-wrapper .Album-wrapper {
     width: 100%;
 }
 
-.ArtistInfo .Info-wrapper .Top-tracks-wrapper .Expand-button {
+.ArtistInfo .Info-wrapper .Expand-button {
     cursor: pointer;
     padding: 12px;
     margin: 8px;
@@ -49,6 +50,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.ArtistInfo .Info-wrapper .Album-wrapper .Albums {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+}
+
+.ArtistInfo .Info-wrapper .Album-wrapper .Albums li{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 25px;
+}
+
+.ArtistInfo .Info-wrapper .Album-wrapper .Albums li h3 {
+    position: absolute;
+    bottom: 25px;
+    width: calc(100% - 74px);
+    background: rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+.ArtistInfo .Info-wrapper .Album-wrapper .Albums li img {
+    width: 200px;
 }
 
 .ArtistInfo .Info-wrapper .Genres {
@@ -79,6 +109,10 @@
         left: 0;
     }
 
+    .ArtistInfo .Album-wrapper h3 {
+        text-align: center;
+    }
+    
     .ArtistInfo .Info-wrapper .Genres {
         justify-content: space-between;
     }
