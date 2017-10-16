@@ -3,12 +3,12 @@ import config from './../../config.json';
 import axios from 'axios';
 
 import PlaylistPicker from './PlaylistPicker';
-
 import './../styles/TrackListItem.css';
 
 import Play from 'mdi-react/PlayIcon';
 import Pause from 'mdi-react/PauseIcon';
 import PlaylistAdd from 'mdi-react/PlaylistPlusIcon';
+import Dots from 'mdi-react/DotsHorizontalIcon';
 
 class TrackListItem extends Component {
     constructor(props) {
@@ -79,11 +79,16 @@ class TrackListItem extends Component {
     render() {
         let track = this.props.track;
         return (
-            <li className="TrackListItem">
+            <li className={'TrackListItem' + (this.state.expanded ? ' Active' : '')}>
                 <div className="Basic-info" onClick={this.toggleExpanded}>
-                    <img src={track.album.images[track.album.images.length-1].url} alt="track-img"/>
-                    <span className="Track-number">{this.props.index + 1}</span>
-                    <span className="Track-name">{track.name}</span>
+                    <div>
+                        <img src={track.album.images[track.album.images.length-1].url} alt="track-img"/>
+                        <span className="Track-number">{this.props.index + 1}</span>
+                        <span className="Track-name">{track.name}</span>
+                    </div>
+                    <div className="More-icon">
+                        <Dots />
+                    </div>
                 </div>
                 { this.state.expanded ? 
                     <div className={'More-info' + (this.state.expanded ? ' Active' : '')}>
@@ -103,7 +108,6 @@ class TrackListItem extends Component {
                                 close={this.togglePlaylistPicker}
                                 token={this.props.token}/> : null}
                     </div>
-                    
                 : null}
             </li>
         );
