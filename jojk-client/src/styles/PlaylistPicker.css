@@ -7,7 +7,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0, 0.5);
-    z-index:99;
+    z-index:1;
     overflow: auto;
 }
 
@@ -26,8 +26,8 @@
 
 .PlaylistPicker .PlaylistPicker-inner h1 .Icon {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 8px;
+    top: 8px;
     padding: 8px;
 }
 

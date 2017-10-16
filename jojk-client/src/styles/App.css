@@ -55,6 +55,9 @@
     .App .Sidebar-drawer {
         height: 100%;
     }
+    .App .Sidebar-drawer {
+        z-index: 11 !important;
+    }
     .App .Content {
         height: calc(100% - 120px);
         left: 0 !important;

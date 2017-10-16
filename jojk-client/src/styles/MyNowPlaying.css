@@ -5,9 +5,3 @@
     left: 0;
     z-index: 10;
 }
-
-@media screen and (max-width: 800px) {
-    .MyNowPlaying {
-        z-index: 0;
-    }
-}
