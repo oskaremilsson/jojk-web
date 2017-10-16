@@ -55,7 +55,6 @@
 .ArtistInfo .Info-wrapper .Album-wrapper .Albums {
     width: 100%;
     display: flex;
-    justify-content: space-around;
     flex-flow: row wrap;
 }
 

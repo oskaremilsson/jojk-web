@@ -58,7 +58,6 @@ class ArtistInfo extends Component {
     fetchSingles(code) {
         let _this = this;
         this.spotify.get(`/artists/${this.state.id}/albums?market=${code}&album_type=single`).then(singles => {
-            console.log(singles);
             if (singles.data.items.length > 0) {
                 _this.setState({singles: singles.data.items});
             }
