@@ -74,7 +74,11 @@ class Menu extends Component {
     }
 
     toggleExpanded(event) {
-        var country = event.target.textContent;
+        let target = event.target;
+        while (target.tagName !== 'LI') {
+            target = target.parentElement;
+        }
+        var country = target.textContent;
         if (this.state.expanded_country === country) {
             this.setState({expanded_country: undefined});
         } else {
