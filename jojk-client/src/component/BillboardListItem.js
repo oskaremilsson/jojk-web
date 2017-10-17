@@ -131,10 +131,12 @@ class BillboardListItem extends Component {
                         </div>
                     </div>
                     <div className="Button-list">
-                        <div className="Info-button Not-available">
-                            <Album />
-                            <div>Album</div>
-                        </div>
+                        <Link to={'/album/' + track.album.id}>
+                            <div className="Info-button">
+                                <Album />
+                                <div>{track.album.album_type}</div>
+                            </div>
+                        </Link>
                         <Link to={'/artist/' + track.artists[0].id}>
                             <div className="Info-button">
                                 <Artist />

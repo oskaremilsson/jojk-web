@@ -1,0 +1,79 @@
+.AlbumInfo .Info-wrapper .Cover-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    border: 5px solid #4b9a90;
+    background-size: cover !important;
+    background-position: center center !important;
+}
+
+.AlbumInfo .Info-wrapper .Tracks-wrapper,
+.AlbumInfo .Info-wrapper .Tracks-wrapper .Tracks{
+    width: 100%;
+}
+
+.AlbumInfo .Info-wrapper .Artist-button {
+    cursor: pointer;
+    padding: 12px;
+    margin: 8px;
+    border: 1px solid #4b9a90;
+    color: #f7d3c3;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.AlbumInfo .Info-wrapper .Meta-data {
+    width: calc(100% - 18px);
+    padding-left: 18px;
+}
+
+.AlbumInfo .Info-wrapper .Meta-data .Copyrights {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.AlbumInfo .Info-wrapper .Meta-data .Released,
+.AlbumInfo .Info-wrapper .Type {
+    color: #4b9a90;
+    text-transform: uppercase;
+    text-shadow: 1px 1px #000000;
+}
+
+.AlbumInfo .Info-wrapper .Genres {
+    padding: 25px;
+    padding-bottom: 0;
+    color: #4b9a90;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row wrap;
+}
+.AlbumInfo .Info-wrapper .Genres > div{
+    padding: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px #000000;
+    text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+
+    /*.ArtistInfo .Info-wrapper .Album-wrapper .Albums li{
+        width: 150px;
+    }
+
+    .ArtistInfo .Info-wrapper .Album-wrapper .Albums li img{
+        width: 150px;
+    }
+
+    .ArtistInfo .Album-wrapper h3 {
+        text-align: center;
+    }*/
+    
+    .ArtistInfo .Info-wrapper .Genres {
+        justify-content: space-between;
+    }
+}

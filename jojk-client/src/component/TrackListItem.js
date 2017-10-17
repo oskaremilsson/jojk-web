@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import config from './../../config.json';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import PlaylistPicker from './PlaylistPicker';
 import './../styles/TrackListItem.css';
@@ -9,6 +10,7 @@ import Play from 'mdi-react/PlayIcon';
 import Pause from 'mdi-react/PauseIcon';
 import PlaylistAdd from 'mdi-react/PlaylistPlusIcon';
 import Dots from 'mdi-react/DotsHorizontalIcon';
+import Album from 'mdi-react/DiskIcon';
 
 class TrackListItem extends Component {
     constructor(props) {
@@ -82,7 +84,10 @@ class TrackListItem extends Component {
             <li className={'TrackListItem' + (this.state.expanded ? ' Active' : '')}>
                 <div className="Basic-info" onClick={this.toggleExpanded}>
                     <div>
-                        <img src={track.album.images[track.album.images.length-1].url} alt="track-img"/>
+                        { track.album ?
+                            <img src={track.album.images[2].url} alt="track-img"/>
+                            : null
+                        }
                         <span className="Track-number">{this.props.index + 1}</span>
                         <span className="Track-name">{track.name}</span>
                     </div>
@@ -98,6 +103,15 @@ class TrackListItem extends Component {
                                 <div>Preview</div>
                                 <audio ref={(audio) => { this.audio = audio; }}></audio>
                             </div>
+                            { track.album ?
+                                <Link to={'/album/' + track.album.id}>
+                                    <div className="Info-button">
+                                        <Album />
+                                        <div>{track.album.album_type}</div>
+                                    </div>
+                                </Link>
+                                :null
+                            }
                             <div className="Info-button" onClick={this.togglePlaylistPicker}>
                                 <PlaylistAdd />
                                 <div>Add to playlist</div>

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import config from './../../config.json';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
 
+import './../styles/InfoPage.css';
 import './../styles/ArtistInfo.css';
 
 class ArtistInfo extends Component {
@@ -146,10 +148,12 @@ class ArtistInfo extends Component {
             <ul className="Albums">
                 {
                     albums.map(album => (
-                        <li key={album.id} >
+                        <Link to={'/album/' + album.id} key={album.id}>
+                            <li>
                                 <img src={album.images[1].url} alt="cover-img"/>
                                 <h3>{album.name}</h3>
-                        </li>
+                            </li>
+                        </Link>
                     ))
                 }
             </ul>
@@ -170,10 +174,12 @@ class ArtistInfo extends Component {
             <ul className="Albums">
                 {
                     singles.map(single => (
-                        <li key={single.id}>
+                        <Link to={'/album/' + single.id} key={single.id}>
+                            <li>
                                 <img src={single.images[1].url} alt="cover-img"/>
                                 <h3>{single.name}</h3>
-                        </li>
+                            </li>
+                        </Link>
                     ))
                 }
             </ul>
@@ -194,7 +200,7 @@ class ArtistInfo extends Component {
                     </div>
                     <div className="Info-wrapper">
                         <div className="Artist-image" 
-                            style={{background: `url(${info.images[0].url})`}}>
+                            style={{background: `url(${info.images[1].url})`}}>
                         </div>
                         <h1>{info.name}</h1>
 

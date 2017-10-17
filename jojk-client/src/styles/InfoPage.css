@@ -1,0 +1,30 @@
+.InfoPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.InfoPage .Background{
+    height: 100%;
+    width: 100%;
+    background-size: cover !important;
+    background-position: center center !important;
+    position: fixed;
+    top: 0;
+    left: 200px;
+    filter: blur(10px);
+    opacity: 0.15;
+}
+
+.InfoPage .Info-wrapper{
+    z-index: 0;
+    padding: 25px;
+    width: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.InfoPage .Info-wrapper h1{
+    font-size: 21px;
+}

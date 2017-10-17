@@ -8,6 +8,7 @@ import MyNowPlaying from './MyNowPlaying';
 import Menu from './Menu';
 import Billboard from './Billboard';
 import ArtistInfo from './ArtistInfo';
+import AlbumInfo from './AlbumInfo';
 import Popup from './Popup';
 
 import MenuIcon from 'mdi-react/MenuIcon';
@@ -183,6 +184,9 @@ class App extends Component {
                             } />
                             <Route path="/artist/:id" render={(props) =>
                                 <ArtistInfo token={this.state.token} match={props.match} location={this.state.location}/>
+                            } />
+                            <Route path="/album/:id" render={(props) =>
+                                <AlbumInfo token={this.state.token} match={props.match} location={this.state.location}/>
                             } />
                         </div>
                         )}
