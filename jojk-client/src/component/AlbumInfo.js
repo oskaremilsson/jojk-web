@@ -47,7 +47,7 @@ class AlbumInfo extends Component {
                             key={track.id}
                             token={this.props.token}
                             track={track}
-                            index={i}
+                            index={i + 1}
                         />
                         ))
                     }

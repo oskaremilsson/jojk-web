@@ -88,7 +88,7 @@ class TrackListItem extends Component {
                             <img src={track.album.images[2].url} alt="track-img"/>
                             : null
                         }
-                        <span className="Track-number">{this.props.index + 1}</span>
+                        <span className="Track-number">{this.props.index ? this.props.index : null}</span>
                         <span className="Track-name">{track.name}</span>
                     </div>
                     <div className="More-icon">

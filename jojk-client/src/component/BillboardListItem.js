@@ -101,9 +101,19 @@ class BillboardListItem extends Component {
     }
 
     render() {
-        var track = this.props.jojk.track;
-        var user = this.props.jojk.user;
-        //var context = this.props.jojk.context;
+        let track = this.props.jojk.track;
+        let user = this.props.jojk.user;
+        let context = this.props.jojk.context;
+        if (context) {
+                if (context.type === 'playlist') {
+                context = context.uri.split(':');
+                context = {
+                    user: context[2],
+                    id: context[4]
+                };
+            }
+        }
+        console.log(context);
         return(
             <li className="BillboardListItem">
                 <div className="Basic-info" onClick={this.toggleExpanded}>
@@ -147,10 +157,16 @@ class BillboardListItem extends Component {
                             <Track />
                             <div>Track</div>
                         </div>
-                        <div className="Info-button Not-available">
-                            <PlaylistPlay />
-                            <div>Playlist</div>
-                        </div>
+                        {
+                            context ?
+                            <Link to={'/playlist/' + context.user + '/' + context.id}>
+                                <div className="Info-button">
+                                    <PlaylistPlay />
+                                    <div>Playlist</div>
+                                </div>
+                            </Link>
+                            : null
+                        }
                     </div>
                     <div className="Jojk-meta">
                         <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
