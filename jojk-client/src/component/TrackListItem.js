@@ -109,10 +109,12 @@ class TrackListItem extends Component {
                             : null
                         }
                         <span className="Track-number">{this.props.index ? this.props.index : null}</span>
-                        { this.props.show_artist ?
-                            <span className="Track-artist">{artists}</span>
-                        : null}
-                        <span className="Track-name">{track.name}</span>
+                        <div className="Track-title">
+                            { this.props.show_artist ?
+                                <span className="Track-artist">{artists}</span>
+                            : null}
+                            <span className="Track-name">{track.name}</span>
+                        </div>
                     </div>
                     <div className="More-icon">
                         <Dots />

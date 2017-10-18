@@ -148,7 +148,6 @@ class BillboardListItem extends Component {
                             <div>Add to playlist</div>
                         </div>
                     </div>
-                    <h3>Explore</h3>
                     <div className="Button-list">
                         <Link to={'/album/' + track.album.id}>
                             <div className="Info-button">

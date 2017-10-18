@@ -93,7 +93,7 @@ class PlaylistInfo extends Component {
                             style={{background: `url(${info.images[0].url})`}}>
                         </div>
                         <h1>{info.name}</h1>
-                        <h3>{info.description}</h3>
+                        <h3>{info.description ? '"' + info.description + '"' : null}</h3>
                         <div className="Tracks-wrapper">
                             <h3>Tracks</h3>
                             {this.getTracks()}

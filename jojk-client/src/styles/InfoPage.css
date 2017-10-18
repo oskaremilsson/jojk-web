@@ -28,3 +28,12 @@
 .InfoPage .Info-wrapper h1{
     font-size: 21px;
 }
+
+@media screen and (max-width: 800px) {
+    .InfoPage .Background{
+        width: 100%;
+    }
+    .PlaylistInfo .Info-wrapper .Genres {
+        justify-content: space-between;
+    }
+}

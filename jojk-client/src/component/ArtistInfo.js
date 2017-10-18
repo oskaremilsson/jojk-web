@@ -218,7 +218,7 @@ class ArtistInfo extends Component {
                                         this.state.albums.length > this.state.albumShowCount ?
                                             <div className="Expand-button"
                                                 onClick={this.toggleAlbumExpanded}>
-                                                Show {this.state.albumExpanded ? 'latest' : 'all'}
+                                                Show {this.state.albumExpanded ? 'less' : 'all'}
                                             </div>
                                         : null
                                     }
@@ -235,7 +235,7 @@ class ArtistInfo extends Component {
                                         this.state.singles.length > this.state.albumShowCount ?
                                             <div className="Expand-button"
                                                 onClick={this.toggleSingleExpanded}>
-                                                Show {this.state.singleExpanded ? 'latest' : 'all'}
+                                                Show {this.state.singleExpanded ? 'less' : 'all'}
                                             </div>
                                         : null
                                     }

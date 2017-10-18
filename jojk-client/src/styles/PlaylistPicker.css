@@ -12,7 +12,7 @@
 }
 
 .PlaylistPicker .PlaylistPicker-inner {
-    background: #4b9a90;
+    background: #3d3839;
     color: #f7d3c3;
     width: 75%;
     margin: 25px auto;
@@ -44,7 +44,7 @@
 }
 
 .PlaylistPicker .PlaylistPicker-inner ul li:nth-child(2n) {
-    background: #348075;
+    background: #251f20;
 }
 
 .PlaylistPicker .PlaylistPicker-inner ul li:hover {

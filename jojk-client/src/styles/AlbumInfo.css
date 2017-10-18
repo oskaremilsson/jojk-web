@@ -2,7 +2,6 @@
     height: 200px;
     width: 200px;
     border-radius: 100%;
-    border: 5px solid #4b9a90;
     background-size: cover !important;
     background-position: center center !important;
 }
@@ -59,20 +58,7 @@
     text-align: center;
 }
 
-@media screen and (max-width: 800px) {
-
-    /*.ArtistInfo .Info-wrapper .Album-wrapper .Albums li{
-        width: 150px;
-    }
-
-    .ArtistInfo .Info-wrapper .Album-wrapper .Albums li img{
-        width: 150px;
-    }
-
-    .ArtistInfo .Album-wrapper h3 {
-        text-align: center;
-    }*/
-    
+@media screen and (max-width: 800px) {    
     .ArtistInfo .Info-wrapper .Genres {
         justify-content: space-between;
     }
