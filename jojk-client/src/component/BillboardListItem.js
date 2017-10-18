@@ -10,7 +10,7 @@ import './../styles/BillboardListItem.css';
 
 import Play from 'mdi-react/PlayIcon';
 import Pause from 'mdi-react/PauseIcon';
-import Album from 'mdi-react/DiskIcon';
+import Album from 'mdi-react/AlbumIcon';
 import Artist from 'mdi-react/AccountMultipleIcon';
 import Track from 'mdi-react/MusicNoteIcon';
 import PlaylistPlay from 'mdi-react/PlaylistPlayIcon';

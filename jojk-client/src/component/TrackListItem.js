@@ -11,7 +11,7 @@ import Play from 'mdi-react/PlayIcon';
 import Pause from 'mdi-react/PauseIcon';
 import PlaylistAdd from 'mdi-react/PlaylistPlusIcon';
 import Dots from 'mdi-react/DotsHorizontalIcon';
-import Album from 'mdi-react/DiskIcon';
+import Album from 'mdi-react/AlbumIcon';
 import Artist from 'mdi-react/AccountMultipleIcon';
 
 class TrackListItem extends Component {

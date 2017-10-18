@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
+import Images from './../images/Images';
 
 import './../styles/InfoPage.css';
 import './../styles/ArtistInfo.css';
@@ -150,7 +151,7 @@ class ArtistInfo extends Component {
                     albums.map(album => (
                         <Link to={'/album/' + album.id} key={album.id}>
                             <li>
-                                <img src={album.images[1].url} alt="cover-img"/>
+                                <img src={album.images.length > 0 ? album.images[1].url : Images.cover} alt="cover-img"/>
                                 <h3>{album.name}</h3>
                             </li>
                         </Link>
@@ -176,7 +177,7 @@ class ArtistInfo extends Component {
                     singles.map(single => (
                         <Link to={'/album/' + single.id} key={single.id}>
                             <li>
-                                <img src={single.images[1].url} alt="cover-img"/>
+                                <img src={single.images.length > 0 ? single.images[1].url : Images.cover}  alt="cover-img"/>
                                 <h3>{single.name}</h3>
                             </li>
                         </Link>
