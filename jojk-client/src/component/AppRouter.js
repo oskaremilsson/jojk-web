@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import * as firebase from "firebase";
+import axios from 'axios';
+import config from './../../config.json';
 
 import './../styles/AppRouter.css';
 
@@ -16,7 +19,12 @@ class AppRouter extends Component {
     super(props);
     this.state = {
         loggedIn: 'startup',
-        token: undefined
+        token: undefined,
+        user: undefined
+    }
+
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp(config.firebase);
     }
 
     this.authSuccess = this.authSuccess.bind(this);
@@ -24,11 +32,36 @@ class AppRouter extends Component {
     this.loggedOut = this.loggedOut.bind(this);
   }
 
-  authSuccess(token) {
-    this.setState({loggedIn:true, token: token});
-    if (this.props.history.location.pathname === '/auth') {
-      this.props.history.replace('/');
-    }
+  authSuccess(user, token) {
+    let _this = this;
+    // Get profile-information from spotify api and store in firebase
+    let spotify = axios.create({
+      baseURL: config.spotify.baseURL
+    });
+    spotify.interceptors.request.use(function (config) {
+        config.headers['Authorization'] = 'Bearer ' + token;
+        return config;
+    });
+
+    const rootRef = firebase.database().ref('users/' + user.uid);
+    Promise.all([spotify.get('me'), 
+                spotify.get('me/top/artists?limit=5&time_range=short_term'), 
+                spotify.get('me/top/tracks?limit=5&time_range=short_term')]).then(res => {
+      let me = res[0].data;
+        rootRef.child('profile').set(me);
+        rootRef.child('profile/top_artists').set(res[1].data.items);
+        rootRef.child('profile/top_tracks').set(res[2].data.items);
+
+        _this.setState({
+          loggedIn:true, 
+          token: token,
+          user: me.id
+        });
+
+        if (this.props.history.location.pathname === '/auth') {
+          this.props.history.replace('/');
+        }
+    });
   }
 
   authError() {
@@ -54,11 +87,10 @@ class AppRouter extends Component {
       );
     }
     if (this.state.loggedIn && this.state.token) {
-      //console.log(this.state.token);
       return (
           <div>
             <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
-            <Route path="/" render={(props) => (<App token={this.state.token} /> )} />
+            <Route path="/" render={(props) => (<App token={this.state.token} user={this.state.user}/> )} />
           </div>
       );
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Sidebar from 'react-sidebar';
 import axios from 'axios';
 import config from './../../config.json';
@@ -10,6 +10,7 @@ import Billboard from './Billboard';
 import ArtistInfo from './ArtistInfo';
 import AlbumInfo from './AlbumInfo';
 import PlaylistInfo from './PlaylistInfo';
+import ProfileInfo from './ProfileInfo';
 import Popup from './Popup';
 
 import MenuIcon from 'mdi-react/MenuIcon';
@@ -177,21 +178,29 @@ class App extends Component {
                     children={(
                         <div>
                             <MenuIcon onClick={this.toggleSidebar} className="Menu-icon" />
-                            <Route exact={true} path="/" render={(props) =>
-                                <Billboard token={this.state.token} userLocation={this.state.location} refreshLocation={this.getLocation}/>
-                            } />
-                            <Route path="/region/:country/:city" render={(props) =>
-                                <Billboard token={this.state.token} match={props.match}/>
-                            } />
-                            <Route path="/artist/:id" render={(props) =>
-                                <ArtistInfo token={this.state.token} match={props.match} location={this.state.location}/>
-                            } />
-                            <Route path="/album/:id" render={(props) =>
-                                <AlbumInfo token={this.state.token} match={props.match} location={this.state.location}/>
-                            } />
-                            <Route path="/playlist/:user/:id" render={(props) =>
-                                <PlaylistInfo token={this.state.token} match={props.match} location={this.state.location}/>
-                            } />
+                            <Switch>
+                                <Route path="/region/:country/:city" render={(props) =>
+                                    <Billboard token={this.state.token} match={props.match}/>
+                                } />
+                                <Route path="/artist/:id" render={(props) =>
+                                    <ArtistInfo token={this.state.token} match={props.match} location={this.state.location}/>
+                                } />
+                                <Route path="/album/:id" render={(props) =>
+                                    <AlbumInfo token={this.state.token} match={props.match} location={this.state.location}/>
+                                } />
+                                <Route path="/playlist/:user/:id" render={(props) =>
+                                    <PlaylistInfo token={this.state.token} match={props.match} location={this.state.location}/>
+                                } />
+                                <Route path="/profile/:user" render={(props) =>
+                                    <ProfileInfo token={this.state.token} match={props.match}/>
+                                } />
+                                <Route exact={true} path="/profile" render={(props) =>
+                                    <ProfileInfo token={this.state.token} user={this.props.user}/>
+                                } />
+                                <Route path="/" render={(props) =>
+                                    <Billboard token={this.state.token} userLocation={this.state.location} refreshLocation={this.getLocation}/>
+                                } />
+                            </Switch>
                         </div>
                         )}
                     open={this.state.sidebarOpen}

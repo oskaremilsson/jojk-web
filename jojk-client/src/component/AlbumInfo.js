@@ -37,7 +37,7 @@ class AlbumInfo extends Component {
     }
 
     getTracks() {
-        let list = (<ul></ul>);;
+        let list = (<ul></ul>);
         let tracks = this.state.info.tracks.items;
         if (tracks) {
             list = (

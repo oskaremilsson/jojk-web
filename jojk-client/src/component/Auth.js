@@ -45,8 +45,7 @@ class Auth extends Component {
 
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-
-                    _this.props.authSuccess(res.data.access_token);
+                    _this.props.authSuccess(user, res.data.access_token);
                 }
             });
 

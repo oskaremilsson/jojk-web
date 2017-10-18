@@ -1,0 +1,38 @@
+.ProfileInfo .Info-wrapper .Profile-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    background-size: cover !important;
+    background-position: center center !important;
+}
+
+.ProfileInfo .Info-wrapper .Tracks-wrapper,
+.ProfileInfo .Info-wrapper .Tracks-wrapper .Tracks{
+    width: 100%;
+}
+
+.ProfileInfo .Info-wrapper .Artist-button {
+    cursor: pointer;
+    padding: 12px;
+    margin: 8px;
+    border: 1px solid #4b9a90;
+    color: #f7d3c3;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ProfileInfo .Info-wrapper .Meta-data {
+    width: calc(100% - 18px);
+    padding-left: 18px;
+}
+
+.ProfileInfo .Info-wrapper .Type {
+    color: #4b9a90;
+    text-transform: uppercase;
+    text-shadow: 1px 1px #000000;
+}
+
+@media screen and (max-width: 800px) {
+}
