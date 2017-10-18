@@ -6,7 +6,7 @@
 
 .InfoPage .Background{
     height: 100%;
-    width: 100%;
+    width: calc(100% - 200px);
     background-size: cover !important;
     background-position: center center !important;
     position: fixed;

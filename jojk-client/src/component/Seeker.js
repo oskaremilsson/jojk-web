@@ -3,7 +3,7 @@ import Slider from 'react-rangeslider'
 import config from './../../config.json';
 import axios from 'axios';
 
-import 'react-rangeslider/lib/index.css'
+import 'react-rangeslider/lib/index.css';
 import './../styles/Seeker.css';
 
 class Seeker extends Component {
@@ -14,11 +14,13 @@ class Seeker extends Component {
             seeker: this.props.progress_ms
         };
 
-        var token = localStorage.getItem('access_token');
         this.spotify = axios.create({
-            baseURL: config.spotify.baseURL,
-            timeout: 2000,
-            headers: {'Authorization': 'Bearer ' + token}
+            baseURL: config.spotify.baseURL
+        });
+        let _this = this;
+        this.spotify.interceptors.request.use(function (config) {
+            config.headers['Authorization'] = 'Bearer ' + _this.props.token;
+            return config;
         });
 
         this.slideSeeker = this.slideSeeker.bind(this);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import config from './../../config.json';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
 
@@ -63,12 +63,13 @@ class PlaylistInfo extends Component {
             list = (
                 <ul className="Tracks">
                     {
-                        items.map(item => (
+                        items.map((item, i)=> (
                             !item.is_local ?
                                 <TrackListItem 
-                                    key={item.track.id}
+                                    key={item.track.id + '_' + i}
                                     token={this.props.token}
                                     track={item.track}
+                                    show_artist={true}
                                 />
                             :null
                         ))

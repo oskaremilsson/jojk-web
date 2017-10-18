@@ -41,6 +41,11 @@
     margin: 0 15px;
 }
 
+.TrackListItem .Basic-info .Track-artist:after {
+    content: " - ";
+    margin: 0 8px;
+}
+
 .TrackListItem .More-info {
     height:0;
     overflow: hidden;
@@ -83,4 +88,5 @@
     opacity: 0.2;
     cursor: initial;
     pointer-events: none;
+    display: none;
 }

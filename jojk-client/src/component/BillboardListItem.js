@@ -5,7 +5,7 @@ import dateformat from 'dateformat';
 import { Link } from 'react-router-dom';
 
 import PlaylistPicker from './PlaylistPicker';
-
+import Images from './../images/Images';
 import './../styles/BillboardListItem.css';
 
 import Play from 'mdi-react/PlayIcon';
@@ -105,20 +105,28 @@ class BillboardListItem extends Component {
         let user = this.props.jojk.user;
         let context = this.props.jojk.context;
         if (context) {
-                if (context.type === 'playlist') {
+            if (context.type === 'playlist') {
                 context = context.uri.split(':');
                 context = {
                     user: context[2],
                     id: context[4]
                 };
+            } else {
+                context = {
+                    id: undefined
+                }
+            }
+        } else {
+            context = {
+                id: undefined
             }
         }
-        console.log(context);
+        let coverImg = track.album.images ? track.album.images[1].url : Images.cover;
         return(
             <li className="BillboardListItem">
                 <div className="Basic-info" onClick={this.toggleExpanded}>
                     <div className="Album-cover">
-                        <img src={track.album.images[1].url} alt="album-cover" />
+                        <img src={coverImg} alt="album-cover" />
                     </div>
                     <div className="Track-info">
                         <div>{track.name}</div>
@@ -140,6 +148,7 @@ class BillboardListItem extends Component {
                             <div>Add to playlist</div>
                         </div>
                     </div>
+                    <h3>Explore</h3>
                     <div className="Button-list">
                         <Link to={'/album/' + track.album.id}>
                             <div className="Info-button">
@@ -158,7 +167,7 @@ class BillboardListItem extends Component {
                             <div>Track</div>
                         </div>
                         {
-                            context ?
+                            context.id ?
                             <Link to={'/playlist/' + context.user + '/' + context.id}>
                                 <div className="Info-button">
                                     <PlaylistPlay />

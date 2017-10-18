@@ -156,7 +156,13 @@ class MyNowPlaying extends Component {
                 </div>
             );
         } else {
-            return (<div></div>);
+            return (
+                <div className="MyNowPlaying">
+                <PlayerControl
+                    token={this.props.token}
+                    />
+                </div>
+            );
         }
     }
 }

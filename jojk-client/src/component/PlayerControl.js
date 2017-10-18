@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 
 import './../styles/PlayerControl.css';
 
+import Images from './../images/Images.js'
 import Seeker from './Seeker'
 import RepeatButton from './RepeatButton'
 
@@ -92,7 +93,9 @@ class PlayerControl extends Component {
                 <div className="PlayerControl">
                     <div className="Playing-info">
                         <div className="Album-cover">
-                            <img src={track.album.images[1].url} alt="cover-art"/>
+                            { track.album.images.length > 0 ?
+                                <img src={track.album.images[2].url} alt="cover-art"/>
+                            : null}
                         </div>
                         <div className="Track-info">
                             <p className="Name">{track.name}</p>
@@ -125,13 +128,51 @@ class PlayerControl extends Component {
                         progress_ms={this.props.progress_ms} 
                         duration_ms={track.duration_ms}
                         is_restricted={this.props.is_restricted}
+                        token={this.props.token}
                         />
                     <ReactTooltip 
                         delayShow={100}/>
                 </div>
             );
         } else {
-            return (<div>wat</div>);
+            return (
+                <div className="PlayerControl">
+                <div className="Playing-info">
+                    <div className="Album-cover">
+                            <img src={Images.cover} alt="cover-art"/>
+                    </div>
+                    <div className="Track-info">
+                        <p className="Name">Unknown</p>
+                        <p className="Artist">Various</p>
+                    </div>
+                </div>
+                <div className="Controller">
+                    <div className="Buttons" 
+                            data-tip={'Could not get now playing'}
+                            data-type='error'>
+                    <ShuffleVariant
+                        className='ShuffleRepeat Restricted'
+                        />
+                    <SkipPrevious
+                        className='Skip-button Restricted'
+                        />
+                    <PlayCirleOutline className='Play-button Restricted'/>
+                    <SkipNext
+                        className='Skip-button Restricted'
+                        />
+                    <RepeatButton token={this.props.token} repeat_state={false} is_restricted={true} />
+                    </div>
+                </div>
+                <Seeker 
+                    progress_ms={0} 
+                    duration_ms={100}
+                    is_restricted={true}
+                    token={this.props.token}
+                    />
+                <ReactTooltip 
+                    delayShow={100}/>
+            </div>
+            );
         }
     }
 }

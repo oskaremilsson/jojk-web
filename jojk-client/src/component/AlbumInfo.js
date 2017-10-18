@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
+import Images from './../images/Images';
 
 import './../styles/InfoPage.css';
 import './../styles/AlbumInfo.css';
@@ -60,15 +61,15 @@ class AlbumInfo extends Component {
     render() {
         let info = this.state.info;
         if (info) {
-            console.log(info);
+            let coverImg = info.images.length > 0 ? info.images[0].url : Images.cover;
             return (
                 <div className="InfoPage AlbumInfo">
                     <div className="Background" 
-                        style={{background: `url(${info.images[0].url})`}}>
+                        style={{background: `url(${coverImg})`}}>
                     </div>
                     <div className="Info-wrapper">
                         <div className="Cover-image" 
-                            style={{background: `url(${info.images[1].url})`}}>
+                            style={{background: `url(${coverImg})`}}>
                         </div>
                         <h3 className="Type">{info.album_type}</h3>
                         <h1>{info.name}</h1>

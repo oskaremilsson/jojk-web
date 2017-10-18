@@ -44,6 +44,7 @@
 .BillboardListItem .Album-cover img {
     width: 80px;
     height: 80px;
+    display: block;
 }
 
 .BillboardListItem .Track-info {
@@ -70,6 +71,12 @@
     opacity: 1;
     height: 100%;
     padding: 8px;
+}
+
+.BillboardListItem .More-info h3 {
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 1px 1px #000000;
 }
 
 .BillboardListItem .Button-list {
@@ -100,6 +107,7 @@
     opacity: 0.2;
     cursor: initial;
     pointer-events: none;
+    display: none;
 }
 
 .BillboardListItem .Info-button.Not-available .mdi-icon{
