@@ -23,9 +23,13 @@ class ProfileInfo extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        this.getProfile(this.state.user);
+    }
+
+    getProfile(user) {
         let _this = this;
-        const rootRef = firebase.database().ref('users/' + this.state.user);
+        const rootRef = firebase.database().ref('users/' + user);
 
         rootRef.child('profile').once('value').then(profile => {
             if (profile.val()) {
@@ -55,6 +59,15 @@ class ProfileInfo extends Component {
             );
         }
         return list;
+    }
+
+    componentDidUpdate() {
+        if (this.props.user) {
+            if (this.props.user !== this.state.user) {
+                this.setState({user: this.props.user});
+                this.getProfile(this.props.user);
+            }
+        }
     }
 
     render() {
