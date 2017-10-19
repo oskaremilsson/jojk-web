@@ -61,6 +61,9 @@ class AppRouter extends Component {
         if (this.props.history.location.pathname === '/auth') {
           this.props.history.replace('/');
         }
+    }).catch(err => {
+      localStorage.removeItem('refresh_token');
+      this.setState({loggedIn:false});
     });
   }
 

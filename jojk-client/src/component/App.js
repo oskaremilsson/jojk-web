@@ -191,11 +191,11 @@ class App extends Component {
                                 <Route path="/playlist/:user/:id" render={(props) =>
                                     <PlaylistInfo token={this.state.token} match={props.match} location={this.state.location}/>
                                 } />
-                                <Route path="/profile/:user" render={(props) =>
-                                    <ProfileInfo token={this.state.token} match={props.match}/>
-                                } />
                                 <Route exact={true} path="/profile" render={(props) =>
                                     <ProfileInfo token={this.state.token} user={this.props.user}/>
+                                } />
+                                <Route path="/profile/:user" render={(props) =>
+                                    <ProfileInfo token={this.state.token} match={props.match}/>
                                 } />
                                 <Route path="/" render={(props) =>
                                     <Billboard token={this.state.token} userLocation={this.state.location} refreshLocation={this.getLocation}/>

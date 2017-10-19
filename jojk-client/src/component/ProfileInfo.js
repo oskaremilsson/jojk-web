@@ -70,7 +70,7 @@ class ProfileInfo extends Component {
                         <div className="Profile-image" 
                             style={{background: `url(${profileImg})`}}>
                         </div>
-                        <h3 className="Type">{info.display_name}</h3>
+                        <h3 className="Type">{info.display_name ? info.display_name : info.id}</h3>
 
                         <div className="Tracks-wrapper">
                             <h3>Top tracks right now</h3>
