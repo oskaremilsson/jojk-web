@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import config from './../../config.json';
 import axios from 'axios';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
 
@@ -93,7 +93,11 @@ class PlaylistInfo extends Component {
                             style={{background: `url(${info.images[0].url})`}}>
                         </div>
                         <h1>{info.name}</h1>
-                        <h3>{info.description ? '"' + info.description + '"' : null}</h3>
+                        <h3 className="Description">{info.description ? '"' + info.description + '"' : null}</h3>
+                        <Link to={'/profile/' + info.owner.id}
+                                    className="User-button">
+                                        {info.owner.display_name || info.owner.id}
+                        </Link>
                         <div className="Tracks-wrapper">
                             <h3>Tracks</h3>
                             {this.getTracks()}
