@@ -17,6 +17,8 @@ import PlaylistPlay from 'mdi-react/PlaylistPlayIcon';
 import PlaylistAdd from 'mdi-react/PlaylistPlusIcon';
 import Headphones from 'mdi-react/HeadphonesIcon';
 import DownArrow from 'mdi-react/MenuDownIcon';
+import Jojker from 'mdi-react/AccountIcon';
+import Spotify from 'mdi-react/SpotifyIcon';
 
 class BillboardListItem extends Component {
     constructor(props) {
@@ -142,18 +144,6 @@ class BillboardListItem extends Component {
                 { this.state.expanded ? 
                 <div className={'More-info' + (this.state.expanded ? ' Active' : '')}>
                     <div className="Button-list">
-                        <div className={'Info-button' + (!track.preview_url ? ' Not-available' : '')}
-                            onClick={this.togglePlay}>
-                            {this.state.playing ? <Pause /> : <Play />}
-                            <div>Preview</div>
-                            <audio ref={(audio) => { this.audio = audio; }}></audio>
-                        </div>
-                        <div className="Info-button" onClick={this.togglePlaylistPicker}>
-                            <PlaylistAdd />
-                            <div>Add to playlist</div>
-                        </div>
-                    </div>
-                    <div className="Button-list">
                         <Link to={'/album/' + track.album.id}>
                             <div className="Info-button">
                                 <Album />
@@ -180,6 +170,30 @@ class BillboardListItem extends Component {
                             </Link>
                             : null
                         }
+                    </div>
+                    <div className="Button-list">
+                        <div className={'Info-button' + (!track.preview_url ? ' Not-available' : '')}
+                            onClick={this.togglePlay}>
+                            {this.state.playing ? <Pause /> : <Play />}
+                            <div>Preview</div>
+                            <audio ref={(audio) => { this.audio = audio; }}></audio>
+                        </div>
+                        <div className="Info-button" onClick={this.togglePlaylistPicker}>
+                            <PlaylistAdd />
+                            <div>Add to playlist</div>
+                        </div>
+                        <Link to={'/profile/' + user}>
+                            <div className="Info-button">
+                                <Jojker />
+                                <div>Jojker</div>
+                            </div>
+                        </Link>
+                        <a href={track.external_urls.spotify} target='_blank'>
+                            <div className="Info-button">
+                                <Spotify />
+                                <div>Open in Spotify</div>
+                            </div>
+                        </a>
                     </div>
                     <div className="Jojk-meta">
                         <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
