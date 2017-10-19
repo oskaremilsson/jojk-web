@@ -31,8 +31,8 @@
 }
 
 .ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists li{
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,7 +63,7 @@
 }
 
 .ProfileInfo .Info-wrapper .Meta-data {
-    width: 100%;
+    width: calc(100% - 36px);
     padding: 18px;
 }
 
@@ -74,4 +74,13 @@
 }
 
 @media screen and (max-width: 800px) {
+    .ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists li{
+        width: 150px;
+        height: 150px;
+    }
+
+    .ProfileInfo .Album-wrapper h3 {
+        text-align: center;
+    }
+    
 }

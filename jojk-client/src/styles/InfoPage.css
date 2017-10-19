@@ -30,7 +30,13 @@
 }
 
 @media screen and (max-width: 800px) {
+    .InfoPage .Info-wrapper{
+        padding: 25px 0;
+        width: 100%;
+        user-select: none;
+    }
     .InfoPage .Background{
+        left: 0;
         width: 100%;
     }
     .PlaylistInfo .Info-wrapper .Genres {
