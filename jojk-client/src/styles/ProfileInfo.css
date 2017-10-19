@@ -40,13 +40,14 @@
     position: relative;
     background-size: cover !important;
     background-position: center center !important;
+    font-size: 13px;
 }
 
 .ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists li h3 {
     position: absolute;
     bottom: 0;
     width: calc(100% - 24px);
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.75);
     text-align: center;
 }
 
