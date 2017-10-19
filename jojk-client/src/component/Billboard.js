@@ -15,7 +15,8 @@ class Billboard extends Component {
             listening: false,
             jojks: [],
             jojksRef: undefined,
-            city: 'Unknown'
+            city: 'Unknown',
+            loaded: false
         }
 
         if (firebase.apps.length === 0) {
@@ -42,6 +43,7 @@ class Billboard extends Component {
                 this.state.jojksRef.off();
                 this.setState({
                     listening: false,
+                    loaded: false,
                     jojks: []
                     });
             }
@@ -68,6 +70,13 @@ class Billboard extends Component {
             jojksRef.on('child_added', function(data) {
                 _this.setState({jojks: [...[{key: data.key,jojk:data.val()}], ..._this.state.jojks]});
              });
+
+             let checkRef = firebase.database().ref('jojks/' + location.country + '/' + location.city).limitToLast(1);
+             checkRef.once('value').then(data => {
+                 if (!data.val()) {
+                    _this.setState({loaded: true});
+                 }
+             });
         }
     }
 
@@ -90,12 +99,15 @@ class Billboard extends Component {
                     }
                     {this.state.city} 
                 </h1>
-                { this.state.jojks.length < 1 ?
+                { this.state.jojks.length < 1 && !this.state.loaded ?
                     <Loading />
                     :null
                 }
+                
                 <ul>
-                    {
+                    { this.state.jojks.length < 1 && this.state.loaded ?
+                        <div>Nothing to show, listen to a track to share it with your region.</div>
+                        :
                         this.state.jojks.map((item) => (
                             <BillboardListItem key={item.key} jojk={item.jojk} token={this.props.token} />
                         ))
