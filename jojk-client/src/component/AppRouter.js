@@ -47,7 +47,7 @@ class AppRouter extends Component {
     Promise.all([spotify.get('me'), 
                 spotify.get('me/top/artists?limit=5&time_range=short_term'), 
                 spotify.get('me/top/tracks?limit=5&time_range=short_term')]).then(res => {
-      let me = res[0].data;
+        let me = res[0].data;
         rootRef.child('profile').set(me);
         rootRef.child('profile/top_artists').set(res[1].data.items);
         rootRef.child('profile/top_tracks').set(res[2].data.items);

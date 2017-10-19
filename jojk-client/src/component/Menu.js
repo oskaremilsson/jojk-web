@@ -98,13 +98,13 @@ class Menu extends Component {
                 </div>
                 <ul>
                     <Link to="/profile" onClick={this.props.closeSidebar}>
-                        <li>Profile</li>
+                        <li>My Profile</li>
                     </Link>
                     <Link to="/" onClick={this.props.closeSidebar}>
                         <li>My Region</li>
                     </Link>
                     <li onClick={this.expandCities}>
-                        Regions
+                        All Regions
                         <DownArrow className={'ExpandableIcon' + 
                             (this.state.expanded_regions ? ' Expanded' : '')}/>
                     </li>

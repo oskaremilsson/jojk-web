@@ -140,7 +140,7 @@ class TrackListItem extends Component {
                             <Link to={'/album/' + track.album.id}>
                                 <div className="Info-button">
                                     <Album />
-                                    <div>{track.album.album_type}</div>
+                                    <div>{track.album.album_type.toLowerCase()}</div>
                                 </div>
                             </Link>
                             :null

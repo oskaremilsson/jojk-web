@@ -4,6 +4,7 @@
     min-height: 100%;
     color: #f7d3c3;
     font-size: 14px;
+    overflow-x: hidden;
 }
 
 .Menu li {

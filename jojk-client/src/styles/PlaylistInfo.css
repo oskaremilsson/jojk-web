@@ -5,6 +5,10 @@
     background-position: center center !important;
 }
 
+.PlaylistInfo .Info-wrapper h3 {
+    text-align: center;
+}
+
 .PlaylistInfo .Info-wrapper .Tracks-wrapper,
 .PlaylistInfo .Info-wrapper .Tracks-wrapper .Tracks{
     width: 100%;
