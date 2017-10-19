@@ -25,7 +25,8 @@ class BillboardListItem extends Component {
         this.state = {
             expanded: false,
             playing: false,
-            showPlaylistPicker: false
+            showPlaylistPicker: false,
+            context: undefined
         }
 
         this.spotify = axios.create({
@@ -42,6 +43,25 @@ class BillboardListItem extends Component {
         this.togglePlay = this.togglePlay.bind(this);
         this.togglePlaylistPicker = this.togglePlaylistPicker.bind(this);
         this.addToPlaylist = this.addToPlaylist.bind(this);
+    }
+
+    checkContext() {
+        let _this = this;
+        let context = this.props.jojk.context;
+        if (context) {
+            if (context.type === 'playlist') {
+                context = context.uri.split(':');
+                context = {
+                    user: context[2],
+                    id: context[4]
+                };
+                this.spotify.get('users/' + context.user + '/playlists/' + context.id + '?fields=public').then(res => {
+                    if (res.data.public) {
+                        this.setState({context: context});
+                    }
+                });
+            }
+        }
     }
 
     toggleExpanded() {
@@ -98,29 +118,14 @@ class BillboardListItem extends Component {
             this.audio.src = this.props.jojk.track.preview_url;
             this.audio.load();
         }
+        if (this.state.expanded && !this.state.context) {
+            this.checkContext();
+        }
     }
 
     render() {
         let track = this.props.jojk.track;
         let user = this.props.jojk.user;
-        let context = this.props.jojk.context;
-        if (context) {
-            if (context.type === 'playlist') {
-                context = context.uri.split(':');
-                context = {
-                    user: context[2],
-                    id: context[4]
-                };
-            } else {
-                context = {
-                    id: undefined
-                }
-            }
-        } else {
-            context = {
-                id: undefined
-            }
-        }
         let coverImg = track.album.images ? track.album.images[1].url : Images.cover;
         return(
             <li className="BillboardListItem">
@@ -166,8 +171,8 @@ class BillboardListItem extends Component {
                             <div>Track</div>
                         </div>
                         {
-                            context.id ?
-                            <Link to={'/playlist/' + context.user + '/' + context.id}>
+                            this.state.context ?
+                            <Link to={'/playlist/' + this.state.context.user + '/' + this.state.context.id}>
                                 <div className="Info-button">
                                     <PlaylistPlay />
                                     <div>Playlist</div>
