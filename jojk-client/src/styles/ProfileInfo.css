@@ -7,8 +7,47 @@
 }
 
 .ProfileInfo .Info-wrapper .Tracks-wrapper,
-.ProfileInfo .Info-wrapper .Tracks-wrapper .Tracks{
+.ProfileInfo .Info-wrapper .Tracks-wrapper .Top-tracks,
+.ProfileInfo .Info-wrapper .Artists-wrapper{
     width: 100%;
+}
+
+.ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists-title {
+    padding-bottom: 0;
+}
+
+.ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists a {
+    margin: 25px;
+}
+
+.ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists a:hover {
+    opacity: 0.7;
+}
+
+.ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists li{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-size: cover !important;
+    background-position: center center !important;
+}
+
+.ProfileInfo .Info-wrapper .Artists-wrapper .Top-artists li h3 {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 24px);
+    background: rgba(0,0,0,0.6);
+    text-align: center;
 }
 
 .ProfileInfo .Info-wrapper .Artist-button {
@@ -24,8 +63,8 @@
 }
 
 .ProfileInfo .Info-wrapper .Meta-data {
-    width: calc(100% - 18px);
-    padding-left: 18px;
+    width: 100%;
+    padding: 18px;
 }
 
 .ProfileInfo .Info-wrapper .Type {
