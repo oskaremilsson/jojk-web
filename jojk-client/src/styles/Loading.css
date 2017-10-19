@@ -1,0 +1,27 @@
+.Billboard .Loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Billboard .Loading .Icon {
+    height: 100px;
+    width: 100px;
+    animation: loading-spin 500ms linear infinite;
+}
+
+@keyframes loading-spin {
+    0% { 
+        transform: rotate(0deg);
+        fill: #201c1e;
+    }
+    50% { 
+        transform: rotate(180deg);
+        fill: #4b9a90;
+    }
+    100% {
+        transform: rotate(360deg);
+        fill: #201c1e;
+    }
+}

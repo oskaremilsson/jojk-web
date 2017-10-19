@@ -4,6 +4,7 @@ import config from './../../config.json';
 import './../styles/Billboard.css';
 
 import BillboardListItem from './BillboardListItem';
+import Loading from './Loading';
 import LocationIcon from 'mdi-react/MapMarkerIcon';
 
 class Billboard extends Component {
@@ -55,7 +56,7 @@ class Billboard extends Component {
     listenForJojks(location) {
         var _this = this;
         if (location.city && !this.state.listening) {
-             var jojksRef = firebase.database().ref('jojks/' + location.country + '/' + location.city).orderByChild('when').limitToLast(50);
+             var jojksRef = firebase.database().ref('jojks/' + location.country + '/' + location.city).orderByChild('when').limitToLast(100);
 
              this.setState(
                  {
@@ -89,6 +90,10 @@ class Billboard extends Component {
                     }
                     {this.state.city} 
                 </h1>
+                { this.state.jojks.length < 1 ?
+                    <Loading />
+                    :null
+                }
                 <ul>
                     {
                         this.state.jojks.map((item) => (

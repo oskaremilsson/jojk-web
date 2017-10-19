@@ -21,7 +21,7 @@
     display: flex;
 }
 
-.Billboard .Icon {
+.Billboard h1 .Icon {
     height: 27px;
     width: 27px;
     cursor: pointer;
