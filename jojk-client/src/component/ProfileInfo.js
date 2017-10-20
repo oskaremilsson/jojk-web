@@ -96,7 +96,7 @@ class ProfileInfo extends Component {
     render() {
         let info = this.state.profile;
         if (info) {
-            let profileImg = info.images ? info.images[0].url : Images.cover;
+            let profileImg = info.images ? info.images[0].url : Images.profile;
             return (
                 <div className="InfoPage ProfileInfo">
                     <div className="Background" 
