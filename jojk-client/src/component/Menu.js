@@ -91,13 +91,14 @@ class Menu extends Component {
     }
 
     render() {
+        console.log();
         return(
             <div className="Menu">
                 <div className="Quick-buttons">
                     <Link to="/logout"><LogoutIcon className="Icon"/></Link>
                 </div>
                 <ul>
-                    <Link to="/profile" onClick={this.props.closeSidebar}>
+                    <Link to={'/profile/' + this.props.user} onClick={this.props.closeSidebar}>
                         <li>My Profile</li>
                     </Link>
                     <Link to="/" onClick={this.props.closeSidebar}>

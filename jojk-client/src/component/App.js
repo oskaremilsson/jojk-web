@@ -174,7 +174,7 @@ class App extends Component {
                     />
                     : null
                 }
-                <Sidebar sidebar={<Menu closeSidebar={this.closeSidebar} />}
+                <Sidebar sidebar={<Menu closeSidebar={this.closeSidebar} user={this.props.user} />}
                     children={(
                         <div>
                             <MenuIcon onClick={this.toggleSidebar} className="Menu-icon" />

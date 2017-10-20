@@ -85,10 +85,10 @@ class ProfileInfo extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.user) {
-            if (this.props.user !== this.state.user) {
-                this.setState({user: this.props.user});
-                this.getProfile(this.props.user);
+        if (this.props.match) {
+            if (this.props.match.params.user !== this.state.user) {
+                this.setState({user: this.props.match.params.user});
+                this.getProfile(this.props.match.params.user);
             }
         }
     }
