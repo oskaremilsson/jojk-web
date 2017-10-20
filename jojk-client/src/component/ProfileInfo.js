@@ -30,8 +30,9 @@ class ProfileInfo extends Component {
 
     getProfile(user) {
         let _this = this;
-        const rootRef = firebase.database().ref('users/' + user);
 
+        const rootRef = firebase.database().ref('users/' + btoa(user));
+        
         rootRef.child('profile').once('value').then(profile => {
             if (profile.val()) {
                 _this.setState({profile: profile.val()});

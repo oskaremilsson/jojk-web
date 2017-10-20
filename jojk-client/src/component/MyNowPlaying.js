@@ -51,7 +51,7 @@ class MyNowPlaying extends Component {
                 var user = firebase.auth().currentUser;
                 if (user) {
                     var username = user.uid;
-                    const rootRef = firebase.database().ref('users/' + username);
+                    const rootRef = firebase.database().ref('users/' + btoa(username));
 
                     rootRef.child('nowplaying/is_playing').set(res.data.is_playing);
                     rootRef.child('nowplaying/progress_ms').set(res.data.progress_ms);
@@ -80,7 +80,7 @@ class MyNowPlaying extends Component {
         var user = firebase.auth().currentUser;
         if (user) {
             var username = user.uid;
-            const prevRef = firebase.database().ref('users/' + username + '/prev_track');
+            const prevRef = firebase.database().ref('users/' + btoa(username) + '/prev_track');
 
             prevRef.once('value').then(prev_track => {
                 if (prev_track.val() !== track.id && progress_ms > track.duration_ms/3) {
@@ -92,7 +92,7 @@ class MyNowPlaying extends Component {
                         context: context,
                         user: username, 
                         when: Date.now()};
-                    jojksRef.child(username + dateformat(Date.now(), 'yymdHH') + track.id).set(jojkInfo);
+                    jojksRef.child(btoa(username) + dateformat(Date.now(), 'yymdHH') + track.id).set(jojkInfo);
                     prevRef.set(track.id);
 
                     const citiesRef = firebase.database().ref('cities/' + this.props.location.country);

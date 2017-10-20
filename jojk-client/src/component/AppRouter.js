@@ -43,7 +43,7 @@ class AppRouter extends Component {
         return config;
     });
 
-    const rootRef = firebase.database().ref('users/' + user.uid);
+    const rootRef = firebase.database().ref('users/' + btoa(user.uid));
     Promise.all([spotify.get('me'), 
                 spotify.get('me/top/artists?limit=5&time_range=short_term'), 
                 spotify.get('me/top/tracks?limit=5&time_range=short_term')]).then(res => {

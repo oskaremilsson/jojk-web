@@ -67,7 +67,9 @@ class Server(BaseHTTPRequestHandler):
             user = self.getUsername(data['access_token'])
 
             data['refresh_token'] = encoded
-            data['firebase_token'] = auth.create_custom_token(user['id'])
+
+            additional = {'b64': base64.b64encode(user['id'])}
+            data['firebase_token'] = auth.create_custom_token(user['id'], additional)
 
             return json.dumps(data)
         except Exception, e:
