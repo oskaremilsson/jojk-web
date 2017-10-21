@@ -6,6 +6,7 @@ import dateformat from 'dateformat';
 
 import TrackListItem from './TrackListItem';
 import Images from './../images/Images';
+import Loading from './Loading';
 
 import './../styles/InfoPage.css';
 import './../styles/ProfileInfo.css';
@@ -16,7 +17,8 @@ class ProfileInfo extends Component {
 
         this.state = {
             user : this.props.match ? this.props.match.params.user : this.props.user,
-            profile: undefined
+            profile: undefined,
+            loading: true
         }
 
         if (firebase.apps.length === 0) {
@@ -36,6 +38,8 @@ class ProfileInfo extends Component {
         rootRef.child('profile').once('value').then(profile => {
             if (profile.val()) {
                 _this.setState({profile: profile.val()});
+            } else {
+                _this.setState({loading: false});
             }
         });
     }
@@ -133,7 +137,12 @@ class ProfileInfo extends Component {
         }
         else {
             return (<div className="InfoPage ProfileInfo">
-                <h3 className="Type">Profile not found</h3>
+                {
+                    this.state.loading ?
+                        <Loading text="Loading profile"/>
+                    :
+                    <h3 className="Type">Profile not found</h3>
+                }
             </div>);
         }
     }

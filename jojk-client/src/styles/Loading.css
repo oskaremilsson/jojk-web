@@ -1,11 +1,11 @@
-.Billboard .Loading {
+.Loading {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
-.Billboard .Loading .Icon {
+.Loading .Icon {
     height: 100px;
     width: 100px;
     animation: loading-spin 500ms linear infinite;

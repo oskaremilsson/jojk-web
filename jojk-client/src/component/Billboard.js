@@ -100,7 +100,7 @@ class Billboard extends Component {
                     {this.state.city} 
                 </h1>
                 { this.state.jojks.length < 1 && !this.state.loaded ?
-                    <Loading />
+                    <Loading text="Loading tracks"/>
                     :null
                 }
                 
