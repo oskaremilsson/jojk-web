@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
 import InfoButton from './InfoButton';
+import SpotifyIcon from 'mdi-react/SpotifyIcon';
 import Images from './../images/Images';
 
 import './../styles/InfoPage.css';
@@ -74,6 +75,7 @@ class AlbumInfo extends Component {
                         </div>
                         <h3 className="Type">{info.album_type}</h3>
                         <h1>{info.name}</h1>
+                        <div className="Button-list">
                         {
                             info.artists.map(artist => (
                                 (<Link to={'/artist/' + artist.id}
@@ -82,6 +84,10 @@ class AlbumInfo extends Component {
                                 </Link>)
                                 ))
                         }
+                        <a href={info.external_urls.spotify} target="_blank">
+                            <InfoButton text="Open in Spotify" icon={<SpotifyIcon />} />
+                        </a>
+                        </div>
 
                         <div className="Tracks-wrapper">
                             <h3>Tracks</h3>

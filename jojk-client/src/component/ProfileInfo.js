@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import dateformat from 'dateformat';
 
 import TrackListItem from './TrackListItem';
+import InfoButton from './InfoButton';
+import SpotifyIcon from 'mdi-react/SpotifyIcon';
 import Images from './../images/Images';
 import Loading from './Loading';
 
@@ -111,6 +113,9 @@ class ProfileInfo extends Component {
                             style={{background: `url(${profileImg})`}}>
                         </div>
                         <h3 className="Type">{info.display_name ? info.display_name : info.id}</h3>
+                        <a href={info.external_urls.spotify} target="_blank">
+                            <InfoButton text="Open in Spotify" icon={<SpotifyIcon />} />
+                        </a>
 
                         {this.state.profile.top_tracks ? 
                             <div className="Tracks-wrapper">
@@ -141,7 +146,12 @@ class ProfileInfo extends Component {
                     this.state.loading ?
                         <Loading text="Loading profile"/>
                     :
-                    <h3 className="Type">Profile not found</h3>
+                    <div className="Not-found">
+                        <h3 className="Type">Profile not found in JoJk :(</h3>
+                        <a href={'https://open.spotify.com/user/' + this.state.user} target="_blank">
+                            <InfoButton text="Check on Spotify" icon={<SpotifyIcon />} />
+                        </a>
+                    </div>
                 }
             </div>);
         }

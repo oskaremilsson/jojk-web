@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import TrackListItem from './TrackListItem';
 import InfoButton from './InfoButton';
 import Images from './../images/Images';
+import SpotifyIcon from 'mdi-react/SpotifyIcon';
 
 import './../styles/InfoPage.css';
 import './../styles/ArtistInfo.css';
@@ -206,6 +207,11 @@ class ArtistInfo extends Component {
                             style={{background: `url(${info.images[1].url})`}}>
                         </div>
                         <h1>{info.name}</h1>
+                        <a href={info.external_urls.spotify}
+                                    className="User-button"
+                                    target="_blank">
+                                        <InfoButton text="Open in Spotify" icon={<SpotifyIcon />}/>
+                        </a>
 
                         <div className="Top-tracks-wrapper">
                             <h3>Popular tracks</h3>

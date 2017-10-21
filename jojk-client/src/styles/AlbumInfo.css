@@ -11,6 +11,10 @@
     width: 100%;
 }
 
+.AlbumInfo .Info-wrapper .Button-list {
+    display: flex;
+}
+
 .AlbumInfo .Info-wrapper .Meta-data {
     width: calc(100% - 18px);
     padding-left: 18px;
