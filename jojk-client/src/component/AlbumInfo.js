@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
+import InfoButton from './InfoButton';
 import Images from './../images/Images';
 
 import './../styles/InfoPage.css';
@@ -75,10 +76,9 @@ class AlbumInfo extends Component {
                         <h1>{info.name}</h1>
                         {
                             info.artists.map(artist => (
-                                (<Link to={'/artist/' + artist.id} 
-                                    className="Artist-button"
+                                (<Link to={'/artist/' + artist.id}
                                     key={artist.id}>
-                                        {artist.name}
+                                        <InfoButton text={artist.name} />
                                 </Link>)
                                 ))
                         }

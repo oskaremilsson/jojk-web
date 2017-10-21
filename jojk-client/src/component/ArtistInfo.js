@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
+import InfoButton from './InfoButton';
 import Images from './../images/Images';
 
 import './../styles/InfoPage.css';
@@ -123,9 +124,10 @@ class ArtistInfo extends Component {
                     }
                     {
                         this.state.tracks.length > 5 ?
-                            <div className="Expand-button"
-                                onClick={this.toggleTopExpanded}>
-                                Show {expandend ? 'less' : 'more'}
+                            <div className="Expand-button">
+                                <InfoButton
+                                    onClick={this.toggleTopExpanded}
+                                    text={'Show ' + (expandend ? 'less' : 'more')} />
                             </div>
                         : null
                     }
@@ -217,9 +219,10 @@ class ArtistInfo extends Component {
                                     {this.getAlbums()}
                                     {
                                         this.state.albums.length > this.state.albumShowCount ?
-                                            <div className="Expand-button"
-                                                onClick={this.toggleAlbumExpanded}>
-                                                Show {this.state.albumExpanded ? 'less' : 'all'}
+                                            <div className="Expand-button">
+                                                <InfoButton
+                                                    onClick={this.toggleAlbumExpanded}
+                                                    text={'Show ' + (this.state.albumExpanded ? 'less' : 'all')} />
                                             </div>
                                         : null
                                     }
@@ -234,9 +237,10 @@ class ArtistInfo extends Component {
                                     {this.getSingles()}
                                     {
                                         this.state.singles.length > this.state.albumShowCount ?
-                                            <div className="Expand-button"
-                                                onClick={this.toggleSingleExpanded}>
-                                                Show {this.state.singleExpanded ? 'less' : 'all'}
+                                            <div className="Expand-button">
+                                                <InfoButton
+                                                    onClick={this.toggleSingleExpanded}
+                                                    text={'Show ' + (this.state.singleExpanded ? 'less' : 'all')} />
                                             </div>
                                         : null
                                     }

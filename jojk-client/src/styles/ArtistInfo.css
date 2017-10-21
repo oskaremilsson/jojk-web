@@ -13,15 +13,7 @@
 }
 
 .ArtistInfo .Info-wrapper .Expand-button {
-    cursor: pointer;
-    padding: 12px;
-    margin: 8px;
-    width: 100px;
-    border: 1px solid #4b9a90;
-    border-radius: 25px;
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .ArtistInfo .Info-wrapper .Album-wrapper .Albums {

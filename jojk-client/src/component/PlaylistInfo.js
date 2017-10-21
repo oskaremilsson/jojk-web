@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import TrackListItem from './TrackListItem';
+import InfoButton from './InfoButton';
+import SpotifyIcon from 'mdi-react/SpotifyIcon';
 
 import './../styles/InfoPage.css';
 import './../styles/PlaylistInfo.css';
@@ -94,10 +96,17 @@ class PlaylistInfo extends Component {
                         </div>
                         <h1>{info.name}</h1>
                         <h3 className="Description">{info.description ? '"' + info.description + '"' : null}</h3>
+                        <div className="Button-list">
                         <Link to={'/profile/' + info.owner.id}
                                     className="User-button">
-                                        {info.owner.display_name || info.owner.id}
+                                        <InfoButton text={info.owner.display_name || info.owner.id} />
                         </Link>
+                        <a href={info.external_urls.spotify}
+                                    className="User-button"
+                                    target="_blank">
+                                        <InfoButton text="Open in Spotify" icon={<SpotifyIcon />}/>
+                        </a>
+                        </div>
                         <div className="Tracks-wrapper">
                             <h3>Tracks</h3>
                             {this.getTracks()}
