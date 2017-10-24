@@ -20,7 +20,7 @@ class Auth extends Component {
             firebase.initializeApp(config.firebase);
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getAuthToken();
     }
 

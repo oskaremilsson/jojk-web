@@ -29,6 +29,10 @@
     font-size: 21px;
 }
 
+.InfoPage .Info-wrapper .Expand-button{
+    display: flex;
+}
+
 @media screen and (max-width: 800px) {
     .InfoPage .Info-wrapper{
         padding: 25px 0;

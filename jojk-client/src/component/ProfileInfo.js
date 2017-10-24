@@ -20,12 +20,25 @@ class ProfileInfo extends Component {
         this.state = {
             user : this.props.match ? this.props.match.params.user : this.props.user,
             profile: undefined,
-            loading: true
+            loading: true,
+            topTracksExpanded: false,
+            topArtistsExpanded: false,
         }
 
         if (firebase.apps.length === 0) {
             firebase.initializeApp(config.firebase);
         }
+
+        this.toggleTopArtistsExpanded = this.toggleTopArtistsExpanded.bind(this);
+        this.toggleTopTracksExpanded = this.toggleTopTracksExpanded.bind(this);
+    }
+
+    toggleTopTracksExpanded() {
+        this.setState({topTracksExpanded: !this.state.topTracksExpanded});
+    }
+
+    toggleTopArtistsExpanded() {
+        this.setState({topArtistsExpanded: !this.state.topArtistsExpanded});
     }
 
     componentDidMount() {
@@ -49,7 +62,11 @@ class ProfileInfo extends Component {
     getTopTracks() {
         let list = (<ul></ul>);
         let tracks = this.state.profile.top_tracks;
+        let expandend = this.state.topTracksExpanded;
         if (tracks) {
+            if (!expandend) {
+                tracks = tracks.slice(0, 5);
+            }
             list = (
                 <ul className="Top-tracks">
                     {
@@ -72,7 +89,11 @@ class ProfileInfo extends Component {
     getTopArtists() {
         let list = (<ul></ul>);
         let artists = this.state.profile.top_artists;
+        let expandend = this.state.topArtistsExpanded;
         if (artists) {
+            if (!expandend) {
+                artists = artists.slice(0, 5);
+            }
             list = (
                 <ul className="Top-artists">
                     {
@@ -121,6 +142,15 @@ class ProfileInfo extends Component {
                             <div className="Tracks-wrapper">
                                 <h3>Top tracks</h3>
                                 {this.getTopTracks()}
+                                {
+                                    this.state.profile.top_tracks.length > 5 ?
+                                        <div className="Expand-button">
+                                            <InfoButton
+                                                onClick={this.toggleTopTracksExpanded}
+                                                text={'Show ' + (this.state.topTracksExpanded ? 'less' : 'more')} />
+                                        </div>
+                                    : null
+                                }
                             </div>
                         :null}
 
@@ -128,6 +158,15 @@ class ProfileInfo extends Component {
                             <div className="Artists-wrapper">
                                 <h3 className="Top-artists-title">Top artists</h3>
                                 {this.getTopArtists()}
+                                {
+                                    this.state.profile.top_artists.length > 5 ?
+                                        <div className="Expand-button">
+                                            <InfoButton
+                                                onClick={this.toggleTopArtistsExpanded}
+                                                text={'Show ' + (this.state.topArtistsExpanded ? 'less' : 'more')} />
+                                        </div>
+                                    : null
+                                }
                             </div>
                         :null}
 

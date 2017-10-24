@@ -45,8 +45,8 @@ class AppRouter extends Component {
 
     const rootRef = firebase.database().ref('users/' + btoa(user.uid));
     Promise.all([spotify.get('me'), 
-                spotify.get('me/top/artists?limit=5&time_range=short_term'), 
-                spotify.get('me/top/tracks?limit=5&time_range=short_term')]).then(res => {
+                spotify.get('me/top/artists?limit=10&time_range=short_term'), 
+                spotify.get('me/top/tracks?limit=10&time_range=short_term')]).then(res => {
         let me = res[0].data;
         me.when = Date.now();
         rootRef.child('profile').set(me);
