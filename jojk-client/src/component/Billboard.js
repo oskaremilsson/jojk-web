@@ -119,10 +119,13 @@ class Billboard extends Component {
                     <Loading text="Loading tracks"/>
                     :null
                 }
-                
+                { !this.props.noLocation && this.state.city === 'Unknown'?
+                    <Loading text="Checking location"/>
+                    :null
+                }
                 <ul>
                     {
-                        this.state.city === 'Unknown' ?
+                        this.state.city === 'Unknown' && this.props.noLocation ?
                         <div>Couldn't get your position :(</div>
                         : null
                     }

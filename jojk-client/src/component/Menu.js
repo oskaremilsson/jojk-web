@@ -91,7 +91,6 @@ class Menu extends Component {
     }
 
     render() {
-        console.log();
         return(
             <div className="Menu">
                 <div className="Quick-buttons">

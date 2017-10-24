@@ -33,7 +33,8 @@ class App extends Component {
             popupText: undefined,
             popupType: undefined,
             popupButtonText: undefined,
-            token: this.props.token
+            token: this.props.token,
+            noLocation: false
         }
 
         this.sidebarStyle = {
@@ -142,16 +143,32 @@ class App extends Component {
                         popupTitle: 'Location permission',
                         popupText: 'To share your tracks, please allow Location',
                         popupType: 'Info',
-                        popupButtonText: 'Ok, got it'
+                        popupButtonText: 'Ok, got it',
+                        showPopup: true,
+                        noLocation: true
                     })
                 } else if (error.code === 2) {
                     /* geolocation IS NOT available */
-                    console.log('no location available');
+                    _this.setState({
+                        popupTitle: 'No location found',
+                        popupText: 'Couln\'t get location, you can still browse other regions' ,
+                        popupType: 'Info',
+                        popupButtonText: 'Ok, got it',
+                        showPopup: true,
+                        noLocation: true
+                    });
                 }
             });
         } else {
             /* geolocation IS NOT available */
-            console.log('no location available');
+            _this.setState({
+                popupTitle: 'No location found',
+                popupText: 'Couln\'t get location, you can still browse other regions' ,
+                popupType: 'Info',
+                popupButtonText: 'Ok, got it',
+                showPopup: true,
+                noLocation: true
+            });
         }
     }
 
@@ -198,7 +215,7 @@ class App extends Component {
                                     <ProfileInfo token={this.state.token} match={props.match}/>
                                 } />
                                 <Route path="/" render={(props) =>
-                                    <Billboard token={this.state.token} userLocation={this.state.location} refreshLocation={this.getLocation}/>
+                                    <Billboard token={this.state.token} noLocation={this.state.noLocation} userLocation={this.state.location} refreshLocation={this.getLocation}/>
                                 } />
                             </Switch>
                         </div>
