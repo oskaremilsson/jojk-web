@@ -59,4 +59,4 @@ Note that images may not be up to date with features noted above.
 #### Mockup desktop version
 ![imac](https://oskaremilsson.se/files/images/jojk/imac.jpg)
 
-Project stated: ~ 18 September 2017
+Project started: ~ 18 September 2017
