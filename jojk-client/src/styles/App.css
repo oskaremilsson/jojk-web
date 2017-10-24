@@ -11,6 +11,7 @@
 .App .Sidebar-drawer {
     box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.75);
     z-index: 5 !important;
+    overflow-x: hidden;
 }
 
 .App .Content {

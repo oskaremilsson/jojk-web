@@ -38,16 +38,27 @@ class Billboard extends Component {
 
     componentDidUpdate() {
         let location = this.getLocation();
-        if (this.state.city !== location.city) {
-            if(this.state.jojksRef) {
-                this.state.jojksRef.off();
-                this.setState({
-                    listening: false,
-                    loaded: false,
-                    jojks: []
-                    });
+        if (location.city) {
+            if (this.state.city !== location.city) {
+                if(this.state.jojksRef) {
+                    this.state.jojksRef.off();
+                    this.setState({
+                        listening: false,
+                        loaded: false,
+                        jojks: []
+                        });
+                }
+                this.listenForJojks(location);
             }
-            this.listenForJojks(location);
+        } else {
+            if (this.state.city !== 'Unknown') {
+                this.setState({
+                    city: 'Unknown',
+                    listening: false,
+                    loaded: true,
+                    jojks: []
+                });
+            }
         }
     }
     componentWillMount() {
@@ -97,15 +108,25 @@ class Billboard extends Component {
                             : null
                         : null
                     }
+                    {
+                        this.state.city === 'Unknown'?
+                            <span onClick={this.props.refreshLocation}><LocationIcon className="Icon"/></span>
+                        : null
+                    }
                     {this.state.city} 
                 </h1>
-                { this.state.jojks.length < 1 && !this.state.loaded ?
+                { this.state.jojks.length < 1 && !this.state.loaded && this.state.city !== 'Unknown'?
                     <Loading text="Loading tracks"/>
                     :null
                 }
                 
                 <ul>
-                    { this.state.jojks.length < 1 && this.state.loaded ?
+                    {
+                        this.state.city === 'Unknown' ?
+                        <div>Couldn't get your position :(</div>
+                        : null
+                    }
+                    { this.state.jojks.length < 1 && this.state.loaded && this.state.city !== 'Unknown' ?
                         <div>Nothing to show, listen to a track to share it with your region.</div>
                         :
                         this.state.jojks.map((item) => (

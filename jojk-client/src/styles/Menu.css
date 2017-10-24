@@ -27,7 +27,7 @@
 
 .Menu .ExpandableIcon {
     position: absolute;
-    right: 4px;
+    right: 8px;
     top: 8px;
     fill: #f7d3c3;
     transition: transform 200ms linear;
