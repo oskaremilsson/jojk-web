@@ -28,7 +28,7 @@ class NewJojkHighlight extends Component {
 
     componentDidMount() {
         let _this = this;
-        const ref = firebase.database().ref('jojks/' + this.props.country + '/' + this.props.city);
+        const ref = firebase.database().ref('jojks/' + this.props.country + '/' + this.props.city).orderByChild('when').limitToLast(1);
         ref.once('value').then(data => {
             _this.setState({loaded:true});
         });
