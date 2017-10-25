@@ -1,6 +1,7 @@
 .Billboard {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -15,6 +16,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.Billboard .Load-more {
+    display: flex;
+    padding: 16px;
 }
 
 .Billboard span {
