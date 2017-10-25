@@ -13,6 +13,7 @@ import Login from './Login';
 import Logout from './Logout';
 import Auth from './Auth';
 import App from './App';
+import Admin from './Admin';
 
 class AppRouter extends Component {
   constructor(props) {
@@ -93,8 +94,11 @@ class AppRouter extends Component {
     if (this.state.loggedIn && this.state.token) {
       return (
           <div>
-            <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
-            <Route path="/" render={(props) => (<App token={this.state.token} user={this.state.user}/> )} />
+            <Switch>
+              <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
+              <Route exact={true} path="/admin" render={(props) => ( <Admin history={this.props.history}/> )} />
+              <Route path="/" render={(props) => (<App token={this.state.token} user={this.state.user}/> )} />
+            </Switch>
           </div>
       );
     }

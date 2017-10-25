@@ -11,8 +11,13 @@
   filter: blur(15px);
 }
 
+.Login .Logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .Login .App-logo {
-  /*animation: App-logo-spin infinite 20s linear;*/
   height: 40vh;
 }
 
@@ -22,11 +27,21 @@
   left: 0;
   height: 100%;
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.Login h1, .Login h3 {
+  color: #241f20;
+  text-shadow: 1px 1px rgba(36,31,31,0.5);
+}
+
+.Login .Number {
+  color: #db4a3a;
+  text-shadow: 1px 1px rgba(36,31,31,0.7);
+  font-size: 25px;
 }
 
 .Login a {
