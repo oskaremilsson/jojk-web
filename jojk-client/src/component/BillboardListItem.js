@@ -140,6 +140,10 @@ class BillboardListItem extends Component {
                         <div className="Artist">{this.makeArtistDom(track)}</div>
                     </div>
                     <DownArrow className={'Expand-icon' + (this.state.expanded ? ' Active' : '')} />
+                    <div className="Jojk-meta">
+                        <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
+                        <div className="User">{user} <Headphones className="Icon"/></div>
+                    </div>
                 </div>
                 { this.state.expanded ? 
                 <div className={'More-info' + (this.state.expanded ? ' Active' : '')}>
@@ -194,10 +198,6 @@ class BillboardListItem extends Component {
                                 <div>Open in Spotify</div>
                             </div>
                         </a>
-                    </div>
-                    <div className="Jojk-meta">
-                        <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
-                        <div className="User">{user} <Headphones className="Icon"/></div>
                     </div>
                 {this.state.showPlaylistPicker ? 
                 <PlaylistPicker 
