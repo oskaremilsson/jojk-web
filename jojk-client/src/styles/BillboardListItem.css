@@ -24,7 +24,6 @@
 .BillboardListItem .Jojk-info{
     display: flex;
     align-items: center;
-    /*position: relative;*/
 }
 
 .BillboardListItem .Basic-info:hover > .Jojk-meta .Expand-icon {
@@ -54,9 +53,6 @@
 }
 
 .BillboardListItem .Jojk-meta .Expand-icon {
-    /*position: absolute;
-    left: calc(50% - 12px);
-    bottom: 0;*/
     transition: transform 200ms linear;
     fill: #f7d3c3;
     box-shadow: outline 0px 6px 5px 0px rgba(0,0,0,0.48);
