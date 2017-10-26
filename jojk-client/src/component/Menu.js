@@ -98,7 +98,7 @@ class Menu extends Component {
         return(
             <div className="Menu">
                 <div className="Quick-buttons">
-                    <Link to="/logout"><LogoutIcon className="Icon"/></Link>
+                    <Link to="/logout" title="logout"><LogoutIcon className="Icon"/></Link>
                 </div>
                 <ul>
                     <Link to={'/profile/' + this.props.user} onClick={this.props.closeSidebar}>
