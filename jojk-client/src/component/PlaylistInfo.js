@@ -99,7 +99,7 @@ class PlaylistInfo extends Component {
                         <div className="Button-list">
                         <Link to={'/profile/' + info.owner.id}
                                     className="User-button">
-                                        <InfoButton text={info.owner.display_name || info.owner.id} />
+                                        <InfoButton text='Owner profile' />
                         </Link>
                         <a href={info.external_urls.spotify}
                                     className="User-button"
