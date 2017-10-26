@@ -132,14 +132,20 @@ class BillboardListItem extends Component {
         return(
             <li className="BillboardListItem">
                 <div className="Basic-info" onClick={this.toggleExpanded}>
-                    <div className="Album-cover">
-                        <img src={coverImg} alt="album-cover" />
+                    <div className="Jojk-info">
+                        <div className="Album-cover">
+                            <img src={coverImg} alt="album-cover" />
+                        </div>
+                        <div className="Track-info">
+                            <div>{track.name}</div>
+                            <div className="Artist">{this.makeArtistDom(track)}</div>
+                        </div>
                     </div>
-                    <div className="Track-info">
-                        <div>{track.name}</div>
-                        <div className="Artist">{this.makeArtistDom(track)}</div>
+                    <div className="Jojk-meta">
+                        <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
+                        <DownArrow className={'Expand-icon' + (this.state.expanded ? ' Active' : '')} />
+                        <div className="User">{user} <Headphones className="Icon"/></div>
                     </div>
-                    <DownArrow className={'Expand-icon' + (this.state.expanded ? ' Active' : '')} />
                 </div>
                 { this.state.expanded ? 
                 <div className={'More-info' + (this.state.expanded ? ' Active' : '')}>
@@ -195,17 +201,16 @@ class BillboardListItem extends Component {
                             </div>
                         </a>
                     </div>
-                    <div className="Jojk-meta">
-                        <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
-                        <div className="User">{user} <Headphones className="Icon"/></div>
-                    </div>
                 {this.state.showPlaylistPicker ? 
                 <PlaylistPicker 
                     callback={this.addToPlaylist} 
                     close={this.togglePlaylistPicker}
                     token={this.props.token}/> : null}
                 </div>
-                : null}
+                : 
+                    <div className='More-info'>
+                    </div>
+                }
             </li>
         );
     }
