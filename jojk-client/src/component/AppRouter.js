@@ -50,14 +50,18 @@ class AppRouter extends Component {
                 spotify.get('me/top/tracks?limit=10&time_range=short_term')]).then(res => {
         let me = res[0].data;
         me.when = Date.now();
-        rootRef.child('profile').set(me);
-        rootRef.child('profile/top_artists').set(res[1].data.items);
-        rootRef.child('profile/top_tracks').set(res[2].data.items);
-
-        _this.setState({
-          loggedIn:true, 
-          token: token,
-          user: me.id
+        rootRef.child('profile').set(me).then(_ => {
+          rootRef.child('profile/top_artists').set(res[1].data.items);
+          rootRef.child('profile/top_tracks').set(res[2].data.items);
+  
+          _this.setState({
+            loggedIn:true, 
+            token: token,
+            user: me.id
+          });
+        }).catch(err => {
+          localStorage.removeItem('refresh_token');
+          _this.setState({loggedIn:false});
         });
 
         if (this.props.history.location.pathname === '/auth') {
