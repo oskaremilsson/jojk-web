@@ -126,8 +126,16 @@
     display: flex;
     align-items: center;
     flex-flow: row-reverse;
+    position: absolute;
+    bottom: 2px;
+    left: 95px;
 }
 
+.BillboardListItem .Jojk-meta .Timestamp{
+    position: absolute;
+    bottom: 2px;
+    right: 16px;
+}
 .BillboardListItem .Jojk-meta .User .Icon {
     fill: #241f20;
     width: 12px;
