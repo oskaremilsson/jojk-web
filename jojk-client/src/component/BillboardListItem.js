@@ -199,10 +199,6 @@ class BillboardListItem extends Component {
                             </div>
                         </a>
                     </div>
-                    <div className="Jojk-meta">
-                        <div className="Timestamp">{dateformat(this.props.jojk.when, 'yyyy-mm-dd HH:MM')}</div>
-                        <div className="User">{user} <Headphones className="Icon"/></div>
-                    </div>
                 {this.state.showPlaylistPicker ? 
                 <PlaylistPicker 
                     callback={this.addToPlaylist} 
