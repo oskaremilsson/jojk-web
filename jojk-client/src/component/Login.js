@@ -23,13 +23,15 @@ class Login extends Component {
         let _this = this;
         const statsRef = firebase.database().ref('stats/counts');
         statsRef.once('value').then(res => {
-            //console.log();
             _this.setState({stats: res.val()});
         });
     }
 
     render() {
         const spotify = 'https://accounts.spotify.com/authorize?response_type=code&client_id='+config.spotify.client_id+'&scope=user-read-recently-played%20user-read-currently-playing%20user-read-playback-state%20user-modify-playback-state%20playlist-read-collaborative%20playlist-read-private%20playlist-modify-private%20playlist-modify-public%20user-top-read&redirect_uri=' + config.spotify.redirectURL;
+        let users = this.state.stats ? this.state.stats.users : undefined;
+        let regions = this.state.stats ? this.state.stats.regions : undefined;
+        let tracks = this.state.stats ? this.state.stats.tracks : undefined;
         return (
             <div className="Login">
                 <div className="Background"></div>
@@ -39,11 +41,12 @@ class Login extends Component {
                         <h1>Discover what's playing</h1>
                     </div>
 
-                    { this.state.stats ?
-                        <div className="Stats">
-                            <h3><span className="Number">{this.state.stats.tracks}</span> tracks shared in <span className="Number">{this.state.stats.regions}</span> regions</h3>
-                        </div>
-                    : null}
+                    <div className="Stats">
+                            <h3><span className='Number'>{users || '?'}</span> JoJkers
+                                in <span className='Number'>{regions || '?'}</span> regions
+                                has shared more than <span className='Number'>{tracks || '?'}</span> tracks.
+                            </h3>
+                    </div>
 
                     <a href={ spotify }>
                         <div className="Button">

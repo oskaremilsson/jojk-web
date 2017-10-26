@@ -33,9 +33,10 @@
   flex-direction: column;
 }
 
-.Login h1, .Login h3 {
+.Login h1, .Login h2, .Login h3 {
   color: #241f20;
   text-shadow: 1px 1px rgba(36,31,31,0.5);
+  text-align: center;
 }
 
 .Login .Number {
@@ -45,7 +46,7 @@
 }
 
 .Login a {
-  margin-top: 15vh;
+  margin: 16px;
   text-decoration: none;
 }
 
