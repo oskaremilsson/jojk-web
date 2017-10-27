@@ -63,7 +63,7 @@ class MyNowPlaying extends Component {
                     rootRef.child('nowplaying/track').set(res.data.item);
                 }
 
-                if (_this.props.location) {
+                if (_this.props.location && res.data.is_playing) {
                     _this.jojkTrack(res.data.item, res.data.context, res.data.progress_ms);
                 }
             }
