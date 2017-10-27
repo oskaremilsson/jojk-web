@@ -26,6 +26,14 @@ class MyNowPlaying extends Component {
             config.headers['Authorization'] = 'Bearer ' + _this.props.token;
             return config;
         });
+        this.spotify.interceptors.response.use((response) => {
+            return response;
+        }, function (error) {
+            /*if (error.response.status === 401) {
+                _this.renewAuthToken();
+            }*/
+            return Promise.reject(error.response);
+        });
 
         if (firebase.apps.length === 0) {
             firebase.initializeApp(config.firebase);
@@ -68,11 +76,12 @@ class MyNowPlaying extends Component {
                 var timeToExpire = (localStorage.getItem('access_expires') - Date.now())/1000;
                 if (timeToExpire < 1300) {
                     _this.renewAuthToken();
-                    //_this.setState({token: undefined});
                 }
             }
         }).catch(err => {
-            //console.log(err);
+            if (err.status === 401) {
+                _this.renewAuthToken();
+            }
         });
     }
 
