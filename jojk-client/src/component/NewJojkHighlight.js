@@ -40,7 +40,7 @@ class NewJojkHighlight extends Component {
 
                 _this.setState({
                     newJojk:true,
-                    timeout: setTimeout(_this.turnOff, 10000)
+                    timeout: setTimeout(_this.turnOff, 60000)
                 });
                 
             }

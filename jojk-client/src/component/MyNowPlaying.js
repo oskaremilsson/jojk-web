@@ -29,9 +29,6 @@ class MyNowPlaying extends Component {
         this.spotify.interceptors.response.use((response) => {
             return response;
         }, function (error) {
-            /*if (error.response.status === 401) {
-                _this.renewAuthToken();
-            }*/
             return Promise.reject(error.response);
         });
 
