@@ -13,6 +13,7 @@ import Login from './Login';
 import Logout from './Logout';
 import Auth from './Auth';
 import App from './App';
+import Admin from './Admin';
 
 class AppRouter extends Component {
   constructor(props) {
@@ -43,25 +44,29 @@ class AppRouter extends Component {
         return config;
     });
 
-    const rootRef = firebase.database().ref('users/' + user.uid);
+    const rootRef = firebase.database().ref('users/' + btoa(user.uid));
     Promise.all([spotify.get('me'), 
-                spotify.get('me/top/artists?limit=5&time_range=short_term'), 
-                spotify.get('me/top/tracks?limit=5&time_range=short_term')]).then(res => {
+                spotify.get('me/top/artists?limit=10&time_range=short_term'), 
+                spotify.get('me/top/tracks?limit=10&time_range=short_term')]).then(res => {
         let me = res[0].data;
         me.when = Date.now();
-        rootRef.child('profile').set(me);
-        rootRef.child('profile/top_artists').set(res[1].data.items);
-        rootRef.child('profile/top_tracks').set(res[2].data.items);
+        rootRef.child('profile').set(me).then(_ => {
+          rootRef.child('profile/top_artists').set(res[1].data.items);
+          rootRef.child('profile/top_tracks').set(res[2].data.items);
+  
+          _this.setState({
+            loggedIn:true, 
+            token: token,
+            user: me.id
+          });
 
-        _this.setState({
-          loggedIn:true, 
-          token: token,
-          user: me.id
+          if (this.props.history.location.pathname === '/auth') {
+            this.props.history.replace('/');
+          }
+        }).catch(err => {
+          localStorage.removeItem('refresh_token');
+          _this.setState({loggedIn:false});
         });
-
-        if (this.props.history.location.pathname === '/auth') {
-          this.props.history.replace('/');
-        }
     }).catch(err => {
       localStorage.removeItem('refresh_token');
       this.setState({loggedIn:false});
@@ -93,8 +98,11 @@ class AppRouter extends Component {
     if (this.state.loggedIn && this.state.token) {
       return (
           <div>
-            <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
-            <Route path="/" render={(props) => (<App token={this.state.token} user={this.state.user}/> )} />
+            <Switch>
+              <Route exact={true} path="/logout" render={(props) => ( <Logout loggedOut={this.loggedOut} /> )} />
+              <Route exact={true} path="/admin" render={(props) => ( <Admin history={this.props.history}/> )} />
+              <Route path="/" render={(props) => (<App token={this.state.token} user={this.state.user}/> )} />
+            </Switch>
           </div>
       );
     }

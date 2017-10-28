@@ -8,14 +8,15 @@
     bottom: 0;
     background-color: rgba(0,0,0, 0.5);
     z-index:1;
-    overflow: auto;
 }
 
 .PlaylistPicker .PlaylistPicker-inner {
     background: #3d3839;
     color: #f7d3c3;
     width: 75%;
-    margin: 25px auto;
+    height: 100%;
+    margin: 0 auto;
+    overflow: auto;
 }
 
 .PlaylistPicker .PlaylistPicker-inner h1 {

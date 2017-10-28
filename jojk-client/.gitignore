@@ -15,4 +15,4 @@ yarn-debug.log*
 yarn-error.log*
 config.json
 config_live.json
-
+build_and_release.sh

@@ -105,7 +105,9 @@ class TrackListItem extends Component {
                 <div className="Basic-info" onClick={this.toggleExpanded}>
                     <div>
                         { track.album ?
-                            <img src={coverImg} alt="track-img"/>
+                            <div className="Cover-img">
+                                <img src={coverImg} alt="track-img"/>
+                            </div>
                             : null
                         }
                         <span className="Track-number">{this.props.index ? this.props.index : null}</span>

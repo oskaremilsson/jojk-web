@@ -9,15 +9,6 @@
     margin-top: 0;
 }
 
-.BillboardListItem .Expand-icon {
-    position: absolute;
-    left: calc(50% - 12px);
-    bottom: 0;
-    transition: transform 200ms linear;
-    fill: #f7d3c3;
-    box-shadow: outline 0px 6px 5px 0px rgba(0,0,0,0.48);
-}
-
 .BillboardListItem .Expand-icon.Active {
     transform: rotate(180deg);
 }
@@ -26,15 +17,45 @@
     background: #348075;
 }
 
-.BillboardListItem .Basic-info{
-    display: flex;
-    align-items: center;
-    position: relative;
+.BillboardListItem .Basic-info {
     cursor: pointer;
 }
 
-.BillboardListItem .Basic-info:hover .Expand-icon {
+.BillboardListItem .Jojk-info{
+    display: flex;
+    align-items: center;
+}
+
+.BillboardListItem .Basic-info:hover > .Jojk-meta .Expand-icon {
     fill: #241f20;
+}
+
+.BillboardListItem .Jojk-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    margin-top: 4px;
+    padding: 0 8px;
+    color: #241f20;
+}
+
+.BillboardListItem .Jojk-meta .User{
+    display: flex;
+    align-items: center;
+    flex-flow: row-reverse;
+}
+
+.BillboardListItem .Jojk-meta .User .Icon {
+    fill: #241f20;
+    width: 12px;
+    height: 12px;
+}
+
+.BillboardListItem .Jojk-meta .Expand-icon {
+    transition: transform 200ms linear;
+    fill: #f7d3c3;
+    box-shadow: outline 0px 6px 5px 0px rgba(0,0,0,0.48);
 }
 
 .BillboardListItem .Album-cover {
@@ -61,7 +82,7 @@
     overflow: hidden;
     padding: 0;
     opacity: 0;
-    transition: all 100ms linear;
+    transition: all 200ms linear;
     box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.48);
     user-select: none;
     color: #241f20;
@@ -71,6 +92,7 @@
     opacity: 1;
     height: 100%;
     padding: 8px;
+    padding-top: 16px;
 }
 
 .BillboardListItem .More-info h3 {
@@ -114,28 +136,10 @@
     fill: #e4442d;
 }
 
-.BillboardListItem .Jojk-meta {
-    display: flex;
-    justify-content: space-around;
-    font-size: 12px;
-    margin-top: 4px;
-    color: #241f20;
-}
-
-.BillboardListItem .Jojk-meta .User{
-    display: flex;
-    align-items: center;
-    flex-flow: row-reverse;
-}
-
-.BillboardListItem .Jojk-meta .User .Icon {
-    fill: #241f20;
-    width: 12px;
-    height: 12px;
-}
-
 @media screen and (max-width: 800px) {
     .BillboardListItem {
-        width: calc(100vw - 8px);
+        width: 100vw;
+        margin-left: 0;
+        margin-right: 0;
     }
 }

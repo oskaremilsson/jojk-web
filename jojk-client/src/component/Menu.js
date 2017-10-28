@@ -5,6 +5,7 @@ import config from './../../config.json';
 
 import LogoutIcon from 'mdi-react/LogoutIcon';
 import DownArrow from 'mdi-react/MenuDownIcon';
+import NewJojkHighlight from './NewJojkHighlight';
 
 import './../styles/Menu.css';
 
@@ -64,7 +65,10 @@ class Menu extends Component {
                     </li>
                     {Object.keys(country.cities).map(city => (
                         <Link key={city} to={'/region/' + country.key + '/' + city}>
-                            <li onClick={this.props.closeSidebar} className="City">{city}</li>
+                            <li onClick={this.props.closeSidebar} className="City">
+                                {city}
+                                <NewJojkHighlight country={country.key} city={city}/>
+                            </li>
                         </Link>
                     ))}
                 </ul>
@@ -94,10 +98,10 @@ class Menu extends Component {
         return(
             <div className="Menu">
                 <div className="Quick-buttons">
-                    <Link to="/logout"><LogoutIcon className="Icon"/></Link>
+                    <Link to="/logout" title="logout"><LogoutIcon className="Icon"/></Link>
                 </div>
                 <ul>
-                    <Link to="/profile" onClick={this.props.closeSidebar}>
+                    <Link to={'/profile/' + this.props.user} onClick={this.props.closeSidebar}>
                         <li>My Profile</li>
                     </Link>
                     <Link to="/" onClick={this.props.closeSidebar}>

@@ -1,0 +1,30 @@
+.InfoButton {
+    cursor: pointer;
+    padding: 12px;
+    margin: 8px;
+    border: 1px solid #4b9a90;
+    color: #f7d3c3;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.InfoButton:hover {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.InfoButton:hover .Icon{
+    fill: #5cac57;
+}
+
+.InfoButton .Icon {
+    margin-right: 8px;
+    height: 19px;
+    width: 19px;
+}
+
+.InfoButton .Icon svg {
+    height: 19px;
+    width: 19px;
+}

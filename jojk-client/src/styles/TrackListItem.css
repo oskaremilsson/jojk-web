@@ -11,15 +11,20 @@
     border: none;
 }
 
-.TrackListItem img{
-    height: 40px;
-    width: 40px;
-}
-
 .TrackListItem .Basic-info {
     display: flex;
     padding: 10px;
     justify-content: space-between;
+}
+
+.TrackListItem .Basic-info .Cover-img {
+    display: block;
+    margin-right: 8px;
+}
+
+.TrackListItem .Basic-info .Cover-img img{
+    height: 40px;
+    width: 40px;
 }
 
 .TrackListItem .Basic-info > div {
@@ -37,8 +42,8 @@
     cursor: pointer;
 }
 
-.TrackListItem .Basic-info .Track-number {
-    margin: 0 15px;
+.TrackListItem .Basic-info .Track-title {
+    margin-left: 8px;
 }
 
 .TrackListItem .Basic-info .Track-artist {

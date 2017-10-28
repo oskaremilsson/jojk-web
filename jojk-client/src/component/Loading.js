@@ -9,7 +9,7 @@ class Loading extends Component {
         return (
             <div className="Loading">
                 <LoadingIcon className="Icon"/>
-                Loading
+                {this.props.text}
             </div>
         );
     }
