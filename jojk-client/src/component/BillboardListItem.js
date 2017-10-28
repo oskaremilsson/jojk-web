@@ -23,7 +23,7 @@ import Spotify from 'mdi-react/SpotifyIcon';
 class BillboardListItem extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             expanded: false,
             playing: false,
@@ -80,7 +80,7 @@ class BillboardListItem extends Component {
         } else {
             let _this = this;
             this.audio.play();
-            this.audio.addEventListener('ended', function() { 
+            this.audio.addEventListener('ended', function() {
                 _this.setState({playing:false});
              }, false);
         }
@@ -128,6 +128,9 @@ class BillboardListItem extends Component {
     render() {
         let track = this.props.jojk.track;
         let user = this.props.jojk.user;
+        if (user === "lemmingboy") {
+          user = "Hampus"
+        }
         let coverImg = track.album.images ? track.album.images[1].url : Images.cover;
         return(
             <li className="BillboardListItem">
@@ -147,7 +150,7 @@ class BillboardListItem extends Component {
                         <div className="User">{user} <Headphones className="Icon"/></div>
                     </div>
                 </div>
-                { this.state.expanded ? 
+                { this.state.expanded ?
                 <div className={'More-info' + (this.state.expanded ? ' Active' : '')}>
                     <div className="Button-list">
                         <Link to={'/album/' + track.album.id}>
@@ -201,13 +204,13 @@ class BillboardListItem extends Component {
                             </div>
                         </a>
                     </div>
-                {this.state.showPlaylistPicker ? 
-                <PlaylistPicker 
-                    callback={this.addToPlaylist} 
+                {this.state.showPlaylistPicker ?
+                <PlaylistPicker
+                    callback={this.addToPlaylist}
                     close={this.togglePlaylistPicker}
                     token={this.props.token}/> : null}
                 </div>
-                : 
+                :
                     <div className='More-info'>
                     </div>
                 }
