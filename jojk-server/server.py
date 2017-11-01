@@ -34,10 +34,10 @@ class Server(BaseHTTPRequestHandler):
         for item in qstr.split("&"):
             final_dict[item.split("=")[0]] = item.split("=")[1]
         return final_dict
-    
+
     @staticmethod
     def getUsername(accessToken):
-        try: 
+        try:
             headers = {'Authorization': 'Bearer %s' % (accessToken)}
             res = requests.get('https://api.spotify.com/v1/me', headers=headers)
             return json.loads(res.text)
@@ -59,11 +59,11 @@ class Server(BaseHTTPRequestHandler):
                         }
             headers = {}
             res = requests.post(url, data=payload, headers=headers)
-            
+
             data = json.loads(res.text)
             refresh_token = data.get('refresh_token')
             encoded = jwt.encode({'refresh_token': refresh_token}, CONFIG['spotify_secret'], algorithm='HS256')
-            
+
             user = self.getUsername(data['access_token'])
 
             data['refresh_token'] = encoded
@@ -113,7 +113,7 @@ class Server(BaseHTTPRequestHandler):
         else:
             self._set_headers('text/plain')
             self.wfile.write('Not a valid request')
-        
+
 def run(server_class=HTTPServer, handler_class=Server):
     global CONFIG
 
@@ -123,7 +123,7 @@ def run(server_class=HTTPServer, handler_class=Server):
 
     with open('%sconfig.json' % (path), 'r') as f:
         CONFIG = json.load(f)
-    
+
     cred = credentials.Certificate('%s%s' % (path, CONFIG['firebase_cred_file']))
     firebase = firebase_admin.initialize_app(cred)
 
