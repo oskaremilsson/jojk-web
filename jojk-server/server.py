@@ -5,6 +5,7 @@ import json
 import base64
 import os
 import ssl
+import sys
 import requests
 import jwt
 import firebase_admin
@@ -121,18 +122,30 @@ def run(server_class=HTTPServer, handler_class=Server):
     file_name = os.path.basename(__file__)
     path = path.replace(file_name, "")
 
-    with open('%sconfig.json' % (path), 'r') as config_file:
-        CONFIG = json.load(config_file)
+    try:
+        with open('%sconfig.json' % (path), 'r') as config_file:
+            CONFIG = json.load(config_file)
+    except EnvironmentError:
+        print 'Could not open %sconfig.json' % (path)
+        sys.exit(1)
+    except ValueError:
+        print 'Could not parse %sconfig.json' % (path)
+        sys.exit(2)
 
-    cred = credentials.Certificate('%s%s' % (path, CONFIG['firebase_cred_file']))
-    firebase_admin.initialize_app(cred)
+    try:
+        cred = credentials.Certificate('%s%s' % (path, CONFIG['firebase_cred_file']))
+        firebase_admin.initialize_app(cred)
 
-    server_address = (CONFIG['host'], CONFIG['port'])
-    httpd = server_class(server_address, handler_class)
+        server_address = (CONFIG['host'], CONFIG['port'])
+        httpd = server_class(server_address, handler_class)
 
-    if CONFIG['use_ssl']:
-        httpd.socket = ssl.wrap_socket(httpd.socket, \
-            certfile='%s%s' % (path, CONFIG['pem_file']), server_side=True)
+        if CONFIG['use_ssl']:
+            httpd.socket = ssl.wrap_socket(httpd.socket, \
+                certfile='%s%s' % (path, CONFIG['pem_file']), server_side=True)
+    except KeyError:
+        print 'Missing config options. Tell Kitty to implement a real parser'
+        sys.exit(3)
+
     print 'Starting httpd...'
 
     httpd.serve_forever()
