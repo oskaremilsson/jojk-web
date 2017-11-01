@@ -35,9 +35,9 @@ class Server(BaseHTTPRequestHandler):
         return final_dict
 
     @staticmethod
-    def getUsername(accessToken):
+    def get_username(access_token):
         try:
-            headers = {'Authorization': 'Bearer %s' % (accessToken)}
+            headers = {'Authorization': 'Bearer %s' % (access_token)}
             res = requests.get('https://api.spotify.com/v1/me', headers=headers)
             return json.loads(res.text)
         except Exception:
@@ -49,21 +49,22 @@ class Server(BaseHTTPRequestHandler):
         """
         try:
             global CONFIG
-            url     = 'https://accounts.spotify.com/api/token'
-            payload = { 'grant_type' : 'authorization_code',
-                        'code' : code,
-                        'redirect_uri' : CONFIG['spotify_redirectURL'],
-                        'client_id' : CONFIG['spotify_client'],
-                        'client_secret' : CONFIG['spotify_secret']
-                        }
+            url = 'https://accounts.spotify.com/api/token'
+            payload = {'grant_type' : 'authorization_code',
+                       'code' : code,
+                       'redirect_uri' : CONFIG['spotify_redirectURL'],
+                       'client_id' : CONFIG['spotify_client'],
+                       'client_secret' : CONFIG['spotify_secret']
+                      }
             headers = {}
             res = requests.post(url, data=payload, headers=headers)
 
             data = json.loads(res.text)
             refresh_token = data.get('refresh_token')
-            encoded = jwt.encode({'refresh_token': refresh_token}, CONFIG['spotify_secret'], algorithm='HS256')
+            encoded = jwt.encode({'refresh_token': refresh_token}, \
+                CONFIG['spotify_secret'], algorithm='HS256')
 
-            user = self.getUsername(data['access_token'])
+            user = self.get_username(data['access_token'])
 
             data['refresh_token'] = encoded
 
@@ -71,8 +72,8 @@ class Server(BaseHTTPRequestHandler):
             data['firebase_token'] = auth.create_custom_token(user['id'], additional)
 
             return json.dumps(data)
-        except Exception, e:
-            print e
+        except Exception, exception:
+            print exception
             return 'Failed'
     def refresh_token(self, token):
         """
@@ -83,19 +84,19 @@ class Server(BaseHTTPRequestHandler):
 
             decoded = jwt.decode(token[0], CONFIG['spotify_secret'], algorithms=['HS256'])
             token = decoded.get('refresh_token')
-            url     = 'https://accounts.spotify.com/api/token'
-            payload = { 'grant_type' : 'refresh_token',
-                        'refresh_token' : token,
-                        'client_id' : CONFIG['spotify_client'],
-                        'client_secret' : CONFIG['spotify_secret']
-                        }
+            url = 'https://accounts.spotify.com/api/token'
+            payload = {'grant_type' : 'refresh_token',
+                       'refresh_token' : token,
+                       'client_id' : CONFIG['spotify_client'],
+                       'client_secret' : CONFIG['spotify_secret']
+                      }
             headers = {}
             res = requests.post(url, data=payload, headers=headers)
             data = json.loads(res.text)
 
             return json.dumps(data)
-        except Exception, e:
-            print e
+        except Exception, exception:
+            print exception
             return 'Failed'
 
     def do_GET(self):
@@ -120,17 +121,18 @@ def run(server_class=HTTPServer, handler_class=Server):
     file_name = os.path.basename(__file__)
     path = path.replace(file_name, "")
 
-    with open('%sconfig.json' % (path), 'r') as f:
-        CONFIG = json.load(f)
+    with open('%sconfig.json' % (path), 'r') as config_file:
+        CONFIG = json.load(config_file)
 
     cred = credentials.Certificate('%s%s' % (path, CONFIG['firebase_cred_file']))
-    firebase = firebase_admin.initialize_app(cred)
+    firebase_admin.initialize_app(cred)
 
     server_address = (CONFIG['host'], CONFIG['port'])
     httpd = server_class(server_address, handler_class)
 
-    if (CONFIG['use_ssl']):
-        httpd.socket = ssl.wrap_socket (httpd.socket, certfile='%s%s'  % (path, CONFIG['pem_file']), server_side=True)
+    if CONFIG['use_ssl']:
+        httpd.socket = ssl.wrap_socket(httpd.socket, \
+            certfile='%s%s' % (path, CONFIG['pem_file']), server_side=True)
     print 'Starting httpd...'
 
     httpd.serve_forever()
