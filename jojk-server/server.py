@@ -1,16 +1,15 @@
 #!/usr/bin/env python2
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from urlparse import urlparse, parse_qs
-import re
-import urllib
 import json
 import base64
+import os
+import ssl
 import requests
 import jwt
-import os
 import firebase_admin
 from firebase_admin import credentials, auth
-import ssl
+
 
 CONFIG = {}
 
